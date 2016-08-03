@@ -1,0 +1,11 @@
+#################
+## Data files to ignore
+#################
+
+*.csv
+*.xls
+*.dta
+Moodys_1909_Bond_Ratings.xlsx
+Moodys_1909_Stock_Ratings.xlsx
+
+*/RawData/*
