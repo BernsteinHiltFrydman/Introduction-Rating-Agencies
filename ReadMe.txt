@@ -1,7 +1,7 @@
 ***************
 ** How to set-up GitHub and Use files
 **
-** Updated: 8/3/2016
+** Updated: 8/23/2016
 ***************
 
 ***************
