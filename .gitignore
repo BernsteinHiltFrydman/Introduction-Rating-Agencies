@@ -4,7 +4,7 @@
 
 *.csv
 *.xls
-*.dta
+#*.dta
 Moodys_1909_Bond_Ratings.xlsx
 Moodys_1909_Stock_Ratings.xlsx
 
@@ -40,6 +40,19 @@ Poor's1911-pt2.pdf
 */InputData/**/HoldingsData_Final_wIndustry/*
 */InputData/**/*.pdf
 
+Bid_Ask_1908_1909_Combined.csv
+Firm_Ratings_v2.dta
+HoldingsData_Final_wIndustry.dta
+intraday_data_cleaned_v1.dta
+MonthlyNYSEStockPriceData.dta
+Moodys_1909_Bond_Ratings.xlsx
+Moodys_1909_Stock_Ratings.xlsx
+Security_Characteristics_HP_20140211.xls
+weekly_data_cleaned_v1.dta
+
+Holdings_Data_IssuerClean.dta
+Holdings_Investor_PreClean.dta
+Holdings_Investor_StateClean.dta
 
 #*\InputData*
 #!HowInvestorStatesWereCleaned_OriginalFileName-Poor_s_Handbook_of_Investors_Holdings_AllData_20141031_v1_StateClean.xlsm
