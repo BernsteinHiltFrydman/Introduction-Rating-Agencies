@@ -8,12 +8,38 @@
 Moodys_1909_Bond_Ratings.xlsx
 Moodys_1909_Stock_Ratings.xlsx
 
-*/RawData*
-!HowInvestorStatesWereCleaned_OriginalFileName-Poor_s_Handbook_of_Investors_Holdings_AllData_20141031_v1_StateClean.xlsm
-
 #################
 ## Prevents issues with Macs
 #################
 
 Icon
 .dropbox
+
+
+##################
+## Ignore really large files
+##################
+
+HoldingsData_Final_wIndustry.dta
+All_Images_1908-09.pdf
+Poor's1911-pt1.pdf
+Poor's1911-pt2.pdf
+1913_RR_NoRatingsManual_Full.pdf
+1913_IndUtil_MoodysManual_Full.pdf
+1913_RR_MoodysManual_Full.pdf
+1909_Ind_NoRatingsManual_Full.pdf
+
+*/InputData/**/Bid_Ask_1908_1909_Combined/*
+*/InputData/**/Firm_Ratings_v2/**
+*/InputData/**/intraday_data_cleaned_v1/*
+*/InputData/**/MonthlyNYSEStockPriceData/*
+*/InputData/**/Moodys_1909_Bond_Ratings/*
+*/InputData/**/Moodys_1909_Stock_Ratings/*
+*/InputData/**/Security_Characteristics_HP_20140211/*
+*/InputData/**/weekly_data_cleaned_v1/*
+*/InputData/**/HoldingsData_Final_wIndustry/*
+*/InputData/**/*.pdf
+
+
+#*\InputData*
+#!HowInvestorStatesWereCleaned_OriginalFileName-Poor_s_Handbook_of_Investors_Holdings_AllData_20141031_v1_StateClean.xlsm
