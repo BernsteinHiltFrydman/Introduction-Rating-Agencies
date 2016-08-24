@@ -4,7 +4,7 @@
 
 *.csv
 *.xls
-#*.dta
+*.dta
 Moodys_1909_Bond_Ratings.xlsx
 Moodys_1909_Stock_Ratings.xlsx
 
