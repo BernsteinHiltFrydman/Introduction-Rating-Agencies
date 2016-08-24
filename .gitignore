@@ -8,4 +8,12 @@
 Moodys_1909_Bond_Ratings.xlsx
 Moodys_1909_Stock_Ratings.xlsx
 
-*/RawData/*
+*/RawData*
+!HowInvestorStatesWereCleaned_OriginalFileName-Poor_s_Handbook_of_Investors_Holdings_AllData_20141031_v1_StateClean.xlsm
+
+#################
+## Prevents issues with Macs
+#################
+
+Icon
+.dropbox
