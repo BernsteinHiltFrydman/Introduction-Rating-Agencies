@@ -12,9 +12,10 @@ replace $x="scranton" if $x=="rcranton"
 replace $x="scranton" if $x=="scran ton"
 replace $x="scranton" if $x=="scranto"
 replace $x="scranton" if $x=="seranton"
-replace $x="philadelphia" if $x=="phdadelphia"
-replace $x="philadelphia" if $x=="phi ladelphia"
+replace $x="philadelphia" if $x=="phila"
 replace $x="philadelphia" if $x=="phialdelphia"
+replace $x="philadelphia" if $x=="phialdelphia"
+replace $x="philadelphia" if $x=="philladelph"
 replace $x="philadelphia" if $x=="philaadelphia"
 replace $x="philadelphia" if $x=="philadel phia"
 replace $x="philadelphia" if $x=="philadelpha"
@@ -1405,6 +1406,28 @@ replace investor_city_1="wilkes barre" if invname_hold_orig=="people's bank of w
 replace investor_city_1="buffalo" if invname_hold_orig=="Buffalo Loan" & book_year_hold==1908 & cname_hold_temp=="cataract power and conduit"
 replace investor_city_1="philadelphia" if invname_hold_orig=="Spring lake and sea girt company Stock" & book_year_hold==1911 & cname_hold_temp=="springfield water (pennsylvania)"
 replace investor_city_1="wilkes barre" if invname_hold_orig=="people's bank of wilkes barre" &cname_hold_temp=="missouri pacific"
+
+replace $x=strtrim($x)
+replace $x=stritrim($x)
+
+replace $x="philadelphia" if $x=="phdadelphia"
+replace $x="philadelphia" if $x=="phi ladelphia"
+replace $x="philadelphia" if $x=="philadephia"
+replace $x="philadelphia" if $x=="pa"
+replace $x="new york" if $x=="newyork" 
+replace $x="philadelphia" if $x=="phila"
+replace $x="new york city" if $x=="n y city"
+replace $x="new york city" if $x=="n y c"
+replace $x="new york city" if $x=="nyc"
+replace $x="new york" if $x=="n ew york"
+replace $x="new york" if $x=="ew york"
+replace $x="new york" if $x=="newy york"
+replace $x="new york city" if $x=="ny city"
+replace $x="new york city" if $x=="nycity"
+replace $x="new york" if $x=="n y"
+replace $x="new york" if $x=="new yoerk"
+replace $x="new york city" if $x=="nyc"
+replace $x="montreal" if $x=="motreal"
 
 replace $x=strtrim($x)
 replace $x=stritrim($x)
