@@ -161,8 +161,14 @@ replace investor_city_temp="st petersburg/new york" if investor_city_temp=="st p
 replace investor_city_temp="st petersburg/new york" if investor_city_temp=="st petersburg/nycity"
 replace investor_city_temp="" if investor_city_temp=="stettin/new york & chicago"
 replace investor_city_temp="stockholm/new york" if investor_city_temp=="stockholm/ny city"
+replace investor_city_temp="london/toronto" if investor_city_temp=="eng/toronto"
+replace investor_city_temp=regexr(investor_city_temp,"^/","")
+replace investor_city_temp="munich/new york" if investor_city_temp=="new york/munich"
+replace investor_city_temp="edinburgh/montreal" if investor_city_temp=="edin/montreal"
+replace investor_city_temp="gothenburg/new york" if investor_city_temp=="new york/gothenburg"
+replace investor_city_temp="edinburgh/new york" if investor_city_temp=="new york/edinburgh"
 
-
+*Check for multiple regions
 cap drop investor_city_1 investor_city_2
 cap drop investor_city_3
 split investor_city_temp, parse("/") gen(investor_city_)
@@ -178,5 +184,12 @@ cap drop _merge
 *merge m:n investor_city_1 using citystate_2010
 *drop if _merge==2
 
-browse investor_city_1 investor_state_temp investor_city_temp book_year_hold invname_hold_orig cname_hold_temp industry coupon_hold book_year_hold if (dummy_investor_city_2~=2&dummy_investor_city_2~=23|investor_city_temp=="") &investor_city_2~="" & industry~="Government"
-
+*browse investor_city_1 investor_state_temp investor_city_temp book_year_hold invname_hold_orig cname_hold_temp industry coupon_hold book_year_hold if (dummy_investor_city_2~=2&dummy_investor_city_2~=23|investor_city_temp=="") &investor_city_2~="" & industry~="Government"
+label var investor_city_temp "Cleaned investor city, county or township"
+label var investor_state_temp "Cleaned investor US state or foreign country"
+label var investor_city_1 "Primary investor city, US or Foreign city"
+label var investor_city_2 "Secondary investor city, US or Canada branch"
+label var dummy_investor_city_1 "Primary city type: domestic or foreign"
+label var dummy_investor_city_2 "Secondary city type: domestic or foreign"
+cap drop state
+cap drop var3

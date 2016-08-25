@@ -1,5 +1,6 @@
-global root_data "D:\Dropbox\Introduction-Rating-Agencies\Data\IntermediateData"
-global root_do "D:\Dropbox\Introduction-Rating-Agencies\Code\DataSetupCleaning\investor_loc"
+global root_dropbox "D:\Dropbox"
+global root_data "$root_dropbox\Bond Rating\Code and Data\dta"
+global root_do "$root_dropbox\Bond Rating\Code and Data\do_investor_loc"
 
 set more off
 cd "$root_data"
@@ -1440,14 +1441,17 @@ replace investor_state_temp2=subinstr(investor_state_temp2,"hawaii","illinois",.
 replace investor_state_temp2=subinstr(investor_state_temp2,"hawaii","illinois",.) if investor_city_temp=="providence"
 replace investor_state_temp2="pennsylvania" if invname_hold_temp=="delaware county trust safe deposit and title insurance"
 replace investor_state_temp2="canada" if invname_hold_temp=="sun life assurance of canada" & investor_state_temp2==""
+replace investor_state_temp2="new hampshire" if investor_state_temp2=="n ii"
+replace investor_state_temp2="new hampshire" if investor_state_temp2=="nii"
 
-cap drop investor_state_1 investor_state_2 investor_state_3
+cap drop investor_state_1 investor_state_2 
+cap drop investor_state_3
 cap drop dummy_* _merge dummy
 cap drop tag
 
 split investor_state_temp2, p("/") gen(investor_state_)
 cap gen dummy=""
-foreach i in "1" "2" "3"{
+foreach i in "1" "2"{
 global x="investor_state_`i'"
 replace $x=strtrim($x)
 replace $x=stritrim($x)
@@ -1474,6 +1478,7 @@ cap drop investor_state_temp
 rename investor_state_temp2 investor_state_temp
 cap drop temp_d temp_d*
 cap drop var3 idu _merge
+cap drop investor_state_3
 
 cd "$root_do"
 do City_Clean.do
