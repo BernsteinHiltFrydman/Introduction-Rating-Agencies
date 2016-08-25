@@ -39,6 +39,7 @@ Poor's1911-pt2.pdf
 */InputData/**/weekly_data_cleaned_v1/*
 */InputData/**/HoldingsData_Final_wIndustry/*
 */InputData/**/*.pdf
+**/Data
 
 Bid_Ask_1908_1909_Combined.csv
 Firm_Ratings_v2.dta
