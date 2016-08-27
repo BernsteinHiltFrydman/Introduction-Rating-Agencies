@@ -124,13 +124,13 @@ replace investor_city_temp=strtrim(investor_city_temp)
 
 split investor_city_temp, p("/") gen(investor_city_)
 
-save temp_bfmerge.dta, replace
+*save temp_bfmerge.dta, replace
 
 *use temp_bfmerge.dta, clear
 
-sort investor_city_1
-merge m:n investor_city_1 using citystate_2010.dta
-drop if _merge==2
+*sort investor_city_1
+*merge m:n investor_city_1 using citystate_2010.dta
+*drop if _merge==2
 /*
 duplicates drop investor_state_temp investor_city_temp, force
 sort investor_state_temp investor_city_temp
