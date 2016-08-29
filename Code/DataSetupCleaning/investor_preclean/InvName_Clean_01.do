@@ -164,7 +164,7 @@ replace invname_hold_temp=subinword(invname_hold_temp,"`w'","savings",.)
 }
 
 foreach w in "comany" "comapany" "comapny" "comoanv" "compaiw" "comoany" "compaay" "compahy" "compan"/*
-*/ "companr" "compapy" "compaq" "compay" "compnay" "compnny" "compony" "compuny" "comrany" "com" "comp" "companly" "companvy" "comiwny" "comjwny"{
+*/ "companr" "compapy" "compaq" "compay" "compnay" "compnny" "compony" "compuny" "comrany" "com" "comp" "companly" "companvy" "comiwny" "comjwny" "conipauy" "com pa ny"{
 replace invname_hold_temp=subinword(invname_hold_temp,"`w'","company",.)
 }
 
