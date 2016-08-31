@@ -163,8 +163,8 @@ foreach w in "savings" "saviugs" "savlngb" "savine" "savines" "havings" "savihgs
 replace invname_hold_temp=subinword(invname_hold_temp,"`w'","savings",.)
 }
 
-foreach w in "comany" "comapany" "comapny" "comoanv" "compaiw" "comoany" "compaay" "compahy" "compan"/*
-*/ "companr" "compapy" "compaq" "compay" "compnay" "compnny" "compony" "compuny" "comrany" "com" "comp" "companly" "companvy" "comiwny" "comjwny" "conipauy" "com pa ny"{
+foreach w in "comany" "comapany" "comapny" "comoanv" "compaiw" "comoany" "compaay" "compahy" "compan" "companys" "conipanv"/*
+*/ "companr" "compapy" "compaq" "compay" "compnay" "compnny" "compony" "compuny" "comrany" "com" "comp" "companly" "companvy" "comiwny" "comjwny" "conipauy" "com pa ny" "com pany"{
 replace invname_hold_temp=subinword(invname_hold_temp,"`w'","company",.)
 }
 
