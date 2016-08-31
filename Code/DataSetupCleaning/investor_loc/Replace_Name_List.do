@@ -2617,3 +2617,7 @@ replace invname_hold_temp="farmers mutual life insurance" if strpos(invname_hold
 replace invname_hold_temp="windsor locks savings bank" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="windsor locks"
 replace invname_hold_temp="barnstable county mutual fire insurance" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="yarmouthport"
 replace invname_hold_temp="switzerland general insurance" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="zurich"
+
+*Some further revision
+replace invname_hold_temp=subinword(invname_hold_temp,"federal","general",.) if regexm(invname_hold_orig,"Genera(l)?") & !strpos(invname_hold_orig,"Federal")
+replace invname_hold_temp=subinword(invname_hold_temp,"germania","german",.) if regexm(invname_hold_orig,"German") & !strpos(invname_hold_orig,"Germania")
