@@ -1,5 +1,8 @@
 *This file creates group id for investor name: conditional on city
+set more off
 cd "$root_data"
+gen id=_n
+sort id
 save tempc_1, replace
 
 cd "$root_do"
@@ -82,6 +85,7 @@ replace $x=subinword($x,"and its vicinity","vicinity",.)
 replace $x=subinword($x,"its vicinity","vicinity",.)
 replace $x=subinword($x,"vicin","vicinity",.)
 replace $x=subinword($x,"vic","vicinity",.)
+replace $x=subinword($x,"assurance","insurance",.)
 replace $x=subinword($x,"of the united states of america","",.)
 replace $x=subinword($x,"indiana the county lycoming","",.)
 replace $x=subinword($x,"indiana the town","",.)
@@ -180,24 +184,136 @@ replace $x=subinword($x,"league","",.)
 replace $x=subinword($x,"insuring","",.)
 replace $x=subinword($x,"house","",.)
 replace $x=subinword($x,"houses","",.)
+replace $x=subinword($x,"surety","",.)
+replace $x=subinword($x,"casualty","",.)
+replace $x=subinword($x,"from","",.)
+replace $x=subinword($x,"the","",.)
+replace $x=subinword($x,"insurance","",.)
+replace $x=subinword($x,"loss","",.)
+replace $x=subinword($x,"assurance","association",.)
+replace $x=subinword($x,"canadian","canada",.)
+replace $x=subinword($x,"california","canada",.)
+replace $x=subinword($x,"commerce","commercial",.)
+replace $x=subinword($x,"germania","german",.)
+replace $x=subinword($x,"insurance","institution",.)
+replace $x=subinword($x,"assurance","insurance",.)
+replace $x=subinword($x,"merchant","mercantile",.)
+replace $x=subinword($x,"mechanic","mercantile",.)
+replace $x=subinword($x,"no","north",.)
+replace $x=subinword($x,"provident","providence",.)
+replace $x=subinword($x,"insurance","",.)
+replace $x=subinword($x,"trust","",.)
+replace $x=subinword($x,"fund","",.)
+replace $x=subinword($x,"bank","",.)
+replace $x=subinword($x,"savings ","",.)
+replace $x=subinword($x,"life","",.)
+replace $x=subinword($x,"indemnity","",.)
+replace $x=subinword($x,"accident","",.)
+replace $x=subinword($x,"loss","",.)
+replace $x=subinword($x,"house","",.)
+replace $x=subinword($x,"title","",.)
+replace $x=subinword($x,"surety","",.)
+replace $x=subinword($x,"liability","",.)
+replace $x=subinword($x,"home","",.)
+replace $x=subinword($x,"annuity","",.)
+replace $x=subinword($x,"fire","",.)
+replace $x=subinword($x,"guaranty","",.)
+replace $x=subinword($x,"loss","",.)
+replace $x=subinword($x,"casualty","",.)
+replace $x=subinword($x,"mutual","",.)
+replace $x=subinword($x,"marine","",.)
+replace $x=subinword($x,"deposit","",.)
+replace $x=subinword($x,"discount","",.)
+replace $x=subinword($x,"safe","",.)
+replace $x=subinword($x,"commercial","",.)
+replace $x=subinword($x,"limited","",.)
+replace $x=subinword($x,"security","",.)
+replace $x=subinword($x,"indiana the county lycoming","",.)
+replace $x=subinword($x,"of the united states of america","",.)
+replace $x=subinword($x,"of united states","",.)
+replace $x=subinword($x,"united states$","",.)
+replace $x=subinword($x,"united states","",.)
+replace $x=subinword($x,"america","",.)
+replace $x=subinword($x,"the","",.)
+replace $x=subinword($x,"in","",.)
+replace $x=subinword($x,"city","",.)
+replace $x=subinword($x,"and","",.)
+replace $x=subinword($x,"at","",.)
+replace $x=subinword($x,"of","",.)
+replace $x=subinword($x,"for","",.)
+replace $x=subinword($x,"indiana","",.)
+replace $x=subinword($x,"its","",.)
+replace $x=subinword($x,"institution","",.)
+replace $x=subinword($x,"by","",.)
+replace $x=subinword($x,"on","",.)
+replace $x=subinword($x,"it","",.)
+replace $x=subinword($x,"us","",.)
+replace $x=subinword($x,"st","",.)
+replace $x=subinword($x,"with","",.)
+replace $x=subinword($x,"on","",.)
+replace $x=subinword($x,"department","",.)
+replace $x=subinword($x,"association","",.)
+replace $x=subinword($x,"legion","",.)
+replace $x=subinword($x,"union","",.)
+replace $x=subinword($x,"league","",.)
+replace $x=subinword($x,"national","",.)
+replace $x=subinword($x,"county","",.)
+replace $x=subinword($x,"city","",.)
+replace $x=subinword($x,"town","",.)
+replace $x=subinword($x,"supreme council","",.)
+replace $x=subinword($x,"indiana","",.)
+replace $x=subinword($x,"vicinity","",.)
+replace $x=subinword($x,"society","",.)
+replace $x=subinword($x,"location","",.)
+replace $x=subinword($x,"county","",.)
+replace $x=subinword($x,"vicin","",.)
+replace $x=subinword($x,"state","",.)
+replace $x=subinword($x,"township","",.)
+replace $x=subinword($x,"union","",.)
+replace $x=subinword($x,"exchange","",.)
+replace $x=subinword($x,"secured","",.)
+replace $x=subinword($x,"upper lower sancon","",.)
+replace $x=subinword($x,"office","",.)
+replace $x=strtrim($x)
+replace $x=stritrim($x)
 
-bysort invname_city_temp: strgroup $x, gen(group_dummy) thresh(1) norm(none) force
-sort id
+gen investor_city_use=cond(investor_city_2!="",investor_city_2,investor_city_1)
+bysort investor_city_use: strgroup $x, gen(group_dummy) thresh(1) norm(none) force
+drop investor_city_use
+
 cd "$root_data"
 save tempc_2,replace
 
 use tempc_1, clear
 merge m:n id using tempc_2, gen(merge_dummy)
+sort investor_city_temp group_dummy
 
-duplicates drop cname_hold_temp,force
+/*
+duplicates drop invname_hold_temp, force
+duplicates tag group_dummy, gen(count_dummy)
+gsort -count_dummy investor_city_temp group_dummy
+browse invname_hold_temp group_dummy count_dummy investor_city_temp invname_hold_orig
+
+duplicates drop invname_hold_temp,force
 duplicates tag group_dummy, gen(count_dummy)
 replace count_dummy=0 if count_dummy>1000
 replace count_dummy=0 if group_dummy==.
 gsort -count_dummy group_dummy
 count if count_dummy>0 & count_par==0 & count_par2==0
 *browse cname_hold_temp count_geo2 group_geo2 //if count_par==0 & count_par2==0
-
-erase tempc_1 tempc_2
+*/
+erase tempc_1.dta
+erase tempc_2.dta
+label var group_dummy "Group id for investor name"
+rename group_dummy group_investor
+cap drop id
+cap drop merge_dummy
+/*
 cd "$root_data"
-saveold Holdings_Data_InvestorClean.dta, replace
+use Holdings_Data_InvestorClean.dta, clear
+sort investor_city_temp invname_hold_temp
+keep if industry~="Government"
+browse investor_city_temp invname_hold_temp group_dummy invname_hold_orig
 
+duplicates drop investor_city_temp investor_state_temp, force
+browse investor_city_temp investor_state_temp if (strpos(investor_city_temp,"/") & !strpos(investor_state_temp,"/"))|(!strpos(investor_city_temp,"/") & strpos(investor_state_temp,"/"))
