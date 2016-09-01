@@ -1,21 +1,87 @@
 replace investor_city_hold=proper(investor_city_hold)
 
-*1st Part
+*Basic cleaning
 replace invname_hold_temp=subinword(invname_hold_temp,"ltd","limited",.)
 replace invname_hold_temp=subinword(invname_hold_temp,"liab","liability",.)
 replace invname_hold_temp=subinword(invname_hold_temp,"ins","insurance",.)
 replace invname_hold_temp=subinword(invname_hold_temp,"company","",.)
 replace invname_hold_temp=subinword(invname_hold_temp,"ft","and",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"fc","and",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"jc","and",.)
 replace invname_hold_temp=subinword(invname_hold_temp,"and","",.)
 replace invname_hold_temp=subinword(invname_hold_temp,"erie insurance","fire insurance",.)
 replace invname_hold_temp=subinword(invname_hold_temp,"accid","accident",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"soc","society",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"acc","accident",.)
 replace invname_hold_temp=subinword(invname_hold_temp,"guar","guaranty",.)
 replace invname_hold_temp=subinword(invname_hold_temp,"american samoa","assurance",.)
 replace invname_hold_temp=subinword(invname_hold_temp,"assur","assurance",.)
 replace invname_hold_temp=subinword(invname_hold_temp,"asso","association",.)
-replace invname_hold_temp=subinword(invname_hold_temp,"assn","assurance",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"assn","association",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"assocn","association",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"assoc","association",.)
 replace invname_hold_temp=subinword(invname_hold_temp,"br","branch",.)
 replace invname_hold_temp=subinword(invname_hold_temp,"branch","",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"ave","avenue",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"cann","canada",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"cann","canada",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"cent","cents",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"connecticut ty","county",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"dep$","deposit",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"l ire","fire",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"erie insurance","fire insurance",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"guar ","guaranty",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"guarantee","guaranty",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"illinois inois","illinois",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"indiana the town","in the towns",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"indiana the town","in the town",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"inst","institution",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"titution","institution",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"ins","insurance",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"insur","insurance",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"liab","liability",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"ltd","limited",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"manufacturing","manufacturers",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"mfgrs","manufacturers",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"mfgr","manufacturers",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"mfrs","manufacturers",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"manufacturer","manufacturers",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"mer","mercantile",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"mort","mortgage",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"mut","mutual",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"nat","national",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"pittsburg","pittsburgh",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"re insurance","reinsurance",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"sav","savings",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"savng","savings",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"savngs","savings",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"savins","savings",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"savin","savings",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"saving","savings",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"securities","security",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"soc","society",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"sup court","supreme court",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"trust title","title trust",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"trading","traders",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"tr","trust",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"trut","trust",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"trustees","trust",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"trustee","trust",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"u s a","us",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"u s","us",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"us a","us",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"usa","us",.)
+replace invname_hold_temp=regexr(invname_hold_temp,"of us$","")
+replace invname_hold_temp=regexr(invname_hold_temp,"us$","")
+replace invname_hold_temp=subinword(invname_hold_temp,"us","united states",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"and its vicinity","vicinity",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"its vicinity","vicinity",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"vicin","vicinity",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"vic","vicinity",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"inc","",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"company","",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"institute","institution",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"massachusetts r ine","marine",.)
 replace invname_hold_temp=subinword(invname_hold_temp,"guar ","guaranty",.)
 replace invname_hold_temp=subinword(invname_hold_temp,"u s a","us",.)
 replace invname_hold_temp=subinword(invname_hold_temp,"us","us",.)
@@ -49,9 +115,9 @@ replace invname_hold_temp=subinword(invname_hold_temp,"manufacturing","manufactu
 replace invname_hold_temp=subinword(invname_hold_temp,"assn","association",.)
 replace invname_hold_temp=subinword(invname_hold_temp,"illinois inois","illinois",.)
 replace invname_hold_temp=subinword(invname_hold_temp,"american samoa","association",.)
-replace invname_hold_temp=subinword(invname_hold_temp,"at","",.)
-replace invname_hold_temp=subinword(invname_hold_temp,"of","",.)
-replace invname_hold_temp=subinword(invname_hold_temp,"for","",.)
+*replace invname_hold_temp=subinword(invname_hold_temp,"at","",.)
+*replace invname_hold_temp=subinword(invname_hold_temp,"of","",.)
+*replace invname_hold_temp=subinword(invname_hold_temp,"for","",.)
 replace invname_hold_temp=subinword(invname_hold_temp,"indiana town","",.)
 replace invname_hold_temp=subinword(invname_hold_temp,"indiana the town","",.)
 replace invname_hold_temp=subinword(invname_hold_temp,"cent","cents",.)
@@ -67,11 +133,34 @@ replace invname_hold_temp=subinword(invname_hold_temp,"manufacturing","manufactu
 replace invname_hold_temp=subinword(invname_hold_temp,"mfrs","manufacturers",.)
 replace invname_hold_temp=subinword(invname_hold_temp,"titution","institution",.)
 replace invname_hold_temp=subinword(invname_hold_temp,"indiana the towns","",.)
-replace invname_hold_temp=subinword(invname_hold_temp,"provident","providence",.)
 replace invname_hold_temp=subinword(invname_hold_temp,"illinois inois","illinois",.)
-replace invname_hold_temp=subinword(invname_hold_temp,"american samoa","assurance",.)
-replace invname_hold_temp=regexr(invname_hold_temp,"of us$","")
-replace invname_hold_temp=regexr(invname_hold_temp,"us$","")
+replace invname_hold_temp=subinword(invname_hold_temp,"venue","avenue",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"phila","philadelphia",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"indiana the county lycoming","",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"houses","house",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"housing","house",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"phila","philadelphia",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"institute","institution",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"massachusetts r ine","marine",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"trading","traders",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"insuring","insurance",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"townships","township",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"towns","town",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"securities","security",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"mechanics","mechanic",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"so vines","savings",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"ins","insurance",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"unassurco","union assurance",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"lia","liability",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"mer","mercantile",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"merc","mercantile",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"more","mercantile",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"mercantiles","mercantile",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"merchants","merchant",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"acc","accident",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"guarantee","guaranty",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"off","office",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"facinc","pacific",.)
 
 
 *1st part
@@ -2466,158 +2555,381 @@ replace invname_hold_temp="deposit savings bank" if strpos(invname_hold_orig,"De
 replace invname_hold_temp="concord mutual fire insurance" if invname_hold_orig=="Concord Mutual Fire Insurance Company. Concord N. H#**7" & investor_city_temp=="concord"
 replace invname_hold_temp="new hampshire savings bank" if invname_hold_orig=="New Hampsnire Savings Bank" & investor_city_temp=="concord"
 replace invname_hold_temp="exeter banking" if invname_hold_orig=="Exeter Banking Company. Exeter. N. H" & investor_city_temp=="exeter"
-replace invname_hold_temp="united order the golden cross the world" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="knoxville"
-replace invname_hold_temp="lake wood trust" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="lakewood"
-replace invname_hold_temp="lawrence savings bank" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="lawrence"
-replace invname_hold_temp="lebanon county trust" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="lebanon"
-replace invname_hold_temp="lee savings bank" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="lee"
-replace invname_hold_temp="lewisburg trust safe deposit" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="lewisburg"
-replace invname_hold_temp="people savings bank" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="lewiston"
-replace invname_hold_temp="standard marine insurance" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="liverpool"
-replace invname_hold_temp="state assurance" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="liverpool/hartford"
-replace invname_hold_temp="lock haven trust safe deposit" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="lock haven"
-replace invname_hold_temp="atlas assurance" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="london"
-replace invname_hold_temp="london guaranty accident" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="london"
-replace invname_hold_temp="london lancashire life general assurance association" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="london"
-replace invname_hold_temp="ocean accident guaranty" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="london"
-replace invname_hold_temp="london lancashire life federal assurance association limited" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="london/montreal"
-replace invname_hold_temp="star life assurance society" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="london/toronto"
-replace invname_hold_temp="pacific mutual life insurance" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="los angeles"
-replace invname_hold_temp="traders mechanic mutual fire insurance" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="lowell"
-replace invname_hold_temp="madison insurance" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="madison"
-replace invname_hold_temp="union phoenix espanol insurance" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="madrid/new york"
-replace invname_hold_temp="new hampshire fire insurance" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="manchester"
-replace invname_hold_temp="new hampshire insurance" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="manchester"
-replace invname_hold_temp="manheim insurance" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="mannheim"
-replace invname_hold_temp="marlborough savings bank" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="marlborough"
-replace invname_hold_temp="decker jewett bank" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="marysville"
-replace invname_hold_temp="northern california bank savings bank" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="marysville"
-replace invname_hold_temp="middleborough savings bank" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="middleborough"
-replace invname_hold_temp="farmers bank mifflinburgh" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="mifflinburg"
-replace invname_hold_temp="mifflinburg bank" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="mifflinburg"
-replace invname_hold_temp="millbury savings bank" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="millbury"
-replace invname_hold_temp="milwaukee mechanic insurance" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="milwaukee"
-replace invname_hold_temp="northwestern mutual life insurance" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="milwaukee"
-replace invname_hold_temp="old line life insurance" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="milwaukee"
-replace invname_hold_temp="nassau county trust" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="mineola"
-replace invname_hold_temp="monson savings bank" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="monson"
-replace invname_hold_temp="montclair trust" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="montclair"
-replace invname_hold_temp="london lancashire life insurance" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="montreal"
-replace invname_hold_temp="sun life assurance" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="montreal"
-replace invname_hold_temp="moodus savings bank" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="moodus"
-replace invname_hold_temp="burlington county safe deposit trust" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="moorestown"
-replace invname_hold_temp="bucks county coutributionship" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="morrisville"
-replace invname_hold_temp="bucks county coutributionship insurance houses other buildings from loss by fire" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="morrisville"
-replace invname_hold_temp="mount holly safe deposit trust" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="mount holly"
-replace invname_hold_temp="mount vernon trust" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="mount vernon"
-replace invname_hold_temp="bank of mountain view" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="mountain view"
-replace invname_hold_temp="citizens savings trust" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="mt pleasant"
-replace invname_hold_temp="goodman bank james h" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="napa"
-replace invname_hold_temp="city guaranty savings bank" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="nashua"
-replace invname_hold_temp="natick five cents savings bank" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="natick"
-replace invname_hold_temp="naugatuck savings bank" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="naugatuck"
-replace invname_hold_temp="nevada county bank agency" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="nevada city"
-replace invname_hold_temp="new bedford institution savings" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="new bedford"
-replace invname_hold_temp="burritt savings bank" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="new britain"
-replace invname_hold_temp="ancient order united workmen" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="new haven"
-replace invname_hold_temp="mechanic trading insurance" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="new orleans"
-replace invname_hold_temp="prudential insurance america" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="newark"
-replace invname_hold_temp="newtown savings bank" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="newtown"
-replace invname_hold_temp="north easton savings bank" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="north easton"
-replace invname_hold_temp="fairfield county savings bank" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="norwalk"
-replace invname_hold_temp="bank rideout smith" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="oroville"
-replace invname_hold_temp="general fire assurance" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="paris/new york"
-replace invname_hold_temp="urbaine fire insurance" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="paris/new york"
-replace invname_hold_temp="abeille fire insurance" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="paris/providence"
-replace invname_hold_temp="crown city savings bank" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="pasadena"
-replace invname_hold_temp="passaic trust safe deposit" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="passaic"
-replace invname_hold_temp="paterson safe deposit trust" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="paterson"
-replace invname_hold_temp="paterson savings bank" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="paterson"
-replace invname_hold_temp="paterson savings institution" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="paterson"
-replace invname_hold_temp="pawling savings bank" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="pawling"
-replace invname_hold_temp="pawtucket institution savings bank" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="pawtucket"
-replace invname_hold_temp="slater trust" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="pawtucket"
-replace invname_hold_temp="warren five cents savings bank" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="peabody"
-replace invname_hold_temp="perth amboy savings institution" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="perth amboy"
-replace invname_hold_temp="general accident fire life assurance" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="perth/philadelphia"
-replace invname_hold_temp="general accident fire life assurance limited" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="perth/philadelphia"
-replace invname_hold_temp="rossia insurance" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="petersburg/new york"
-replace invname_hold_temp="berkshire life insurance" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="pittsfield"
-replace invname_hold_temp="berkshire mutual life insurance" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="pittsfield"
-replace invname_hold_temp="palinfield trust" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="plainfield"
-replace invname_hold_temp="mutual trust westchester county" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="port chester"
-replace invname_hold_temp="piscataqua savings bank" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="portsmouth"
-replace invname_hold_temp="piscataqua fire insurance" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="portsmouth"
-replace invname_hold_temp="portsmouth trust guaranty" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="portsmouth"
-replace invname_hold_temp="safe deposit bank" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="pottsville"
-replace invname_hold_temp="william pennsylvania fire insurance" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="pottsville"
-replace invname_hold_temp="polishkeepsie trust" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="poughkeepsie"
-replace invname_hold_temp="poughkeepsie savings bank" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="poughkeepsie"
-replace invname_hold_temp="providence institution savings bank" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="providence"
-replace invname_hold_temp="providence mutual fire insurance" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="providence"
-replace invname_hold_temp="providence washington insurance" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="providence"
-replace invname_hold_temp="putnam savings bank" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="putnam"
-replace invname_hold_temp="rhinebeck savings bank" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="rhinebeck"
-replace invname_hold_temp="virginia fire marine insurance" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="richmond"
-replace invname_hold_temp="louisiana campagnie dassur contre ilncendie delaware" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="rimouski"
-replace invname_hold_temp="roslyn savings bank" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="roslyn"
-replace invname_hold_temp="saco birddeford savings institution" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="saco"
-replace invname_hold_temp="sag harbor savings bank" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="sag harbor"
-replace invname_hold_temp="holyoke mutual fire insurance" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="salem"
-replace invname_hold_temp="holyoke mutual insurance" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="salem"
-replace invname_hold_temp="holyoke mutual life insurance" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="salem"
-replace invname_hold_temp="rollingsford savings bank" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="salmon falls"
-replace invname_hold_temp="anglo california bank" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="san francisco"
-replace invname_hold_temp="pacific coast casualty" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="san francisco"
-replace invname_hold_temp="commercial bank" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="san luis obispo"
-replace invname_hold_temp="marin county bank" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="san rafael"
-replace invname_hold_temp="mutual fire insurance montgomery county" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="sandy spring"
-replace invname_hold_temp="santa cruz county national bank" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="santa cruz"
-replace invname_hold_temp="shelbourne falls savings bank" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="shelburne falls"
-replace invname_hold_temp="shelton savings bank" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="shelton"
-replace invname_hold_temp="skowhegan savings bank" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="skowhegan"
-replace invname_hold_temp="hamilton bank trust" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="smethport"
-replace invname_hold_temp="somersworth savings bank" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="somersworth"
-replace invname_hold_temp="e p wilbur trust" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="south bethlehem"
-replace invname_hold_temp="sooth paris savings bank" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="south paris"
-replace invname_hold_temp="southport savings bank" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="southport"
-replace invname_hold_temp="mutual fire association" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="springfield"
-replace invname_hold_temp="minnesota mutual life insurance" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="st paul"
-replace invname_hold_temp="salamandra insurance" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="st petersburg"
-replace invname_hold_temp="hardware dealers mutual fire insurance" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="stevens point"
-replace invname_hold_temp="sunbury trust safe deposit" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="sunbury"
-replace invname_hold_temp="people mutual fire insurance association league" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="syracuse"
-replace invname_hold_temp="trust deposit onondaza" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="syracuse"
-replace invname_hold_temp="independent order foresters" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="toronto"
-replace invname_hold_temp="london lancashire guaranty accident" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="toronto"
-replace invname_hold_temp="north american life assurance" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="toronto"
-replace invname_hold_temp="standard life insurance" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="toronto"
-replace invname_hold_temp="subsidiary high court ancient order foresters" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="toronto"
-replace invname_hold_temp="western assurance" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="toronto"
-replace invname_hold_temp="british america assurance" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="toronto/new york"
-replace invname_hold_temp="vandergrift savings trust" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="vandergrift"
-replace invname_hold_temp="william collins sons" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="ventura"
-replace invname_hold_temp="vineland trust" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="vineland"
-replace invname_hold_temp="first national fire insurance" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="washington"
-replace invname_hold_temp="mutual fire insurance london county" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="waterford"
-replace invname_hold_temp="national protective legion" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="waverly"
-replace invname_hold_temp="wayne title fire trust" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="wayne"
-replace invname_hold_temp="tioga county savings trust" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="wellsboro"
-replace invname_hold_temp="chester county trust" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="west chester"
-replace invname_hold_temp="highland trust" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="west hoboken"
-replace invname_hold_temp="hudson trust" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="west hoboken"
-replace invname_hold_temp="westborougn savings bank" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="westborough"
-replace invname_hold_temp="westchester bronx title mortgage guaranty" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="white plains"
-replace invname_hold_temp="white river savings bank" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="white river junction"
-replace invname_hold_temp="bank newberry" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="williamsport"
-replace invname_hold_temp="savings institution" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="williamsport"
-replace invname_hold_temp="wiiliamstown savings bank" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="williamstown"
-replace invname_hold_temp="farmers mutual fire insurance" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="wilmington"
-replace invname_hold_temp="farmers mutual life insurance" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="wilmington"
-replace invname_hold_temp="windsor locks savings bank" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="windsor locks"
-replace invname_hold_temp="barnstable county mutual fire insurance" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="yarmouthport"
-replace invname_hold_temp="switzerland general insurance" if strpos(invname_hold_orig,"Deposit - and -.Savings BniJc ") & investor_city_temp=="zurich"
+replace invname_hold_temp="united order the golden cross the world" if invname_hold_orig=="Order of the Golden Cross of the World (United)" & investor_city_temp=="knoxville"
+replace invname_hold_temp="lake wood trust" if invname_hold_orig=="Tjokewo.od T-ust. Company" & investor_city_temp=="lakewood"
+replace invname_hold_temp="lawrence savings bank" if invname_hold_orig=="I^awrenee Savings Bank" & investor_city_temp=="lawrence"
+replace invname_hold_temp="lebanon county trust" if invname_hold_orig=="Lebanon County Trust Ca." & investor_city_temp=="lebanon"
+replace invname_hold_temp="lebanon county trust" if invname_hold_orig=="Letanon County Trust Company" & investor_city_temp=="lebanon"
+replace invname_hold_temp="lee savings bank" if invname_hold_orig=="Lee Savings Bank, Lee, Mass" & investor_city_temp=="lee"
+replace invname_hold_temp="lewisburg trust safe deposit" if invname_hold_orig=="Lewisburg Trust & Safe Deposit Company. Lewisburg. Pa...................*9" & investor_city_temp=="lewisburg"
+replace invname_hold_temp="people savings bank" if invname_hold_orig=="People" & investor_city_temp=="lewiston"
+replace invname_hold_temp="standard marine insurance" if invname_hold_orig=="Standard Marino Ins. Co. Ltd." & investor_city_temp=="liverpool"
+replace invname_hold_temp="state assurance" if invname_hold_orig=="State &ssur. Co." & investor_city_temp=="liverpool/hartford"
+replace invname_hold_temp="lock haven trust safe deposit" if invname_hold_orig=="Lock Haven Trust aSafe Deposit Co." & investor_city_temp=="lock haven"
+replace invname_hold_temp="lock haven trust safe deposit" if invname_hold_orig=="Lock-.Haver Trust 1 Safe Deposit Cornvacy" & investor_city_temp=="lock haven"
+replace invname_hold_temp="atlas assurance" if invname_hold_orig=="Atlas Insurance Company" & investor_city_temp=="london"
+replace invname_hold_temp="london guaranty accident" if invname_hold_orig=="London Guar & Acc Co" & investor_city_temp=="london"
+replace invname_hold_temp="london lancashire life general assurance association" if invname_hold_orig=="London & Lancashire Life & General Assurance Association  Ltd." & investor_city_temp=="london"
+replace invname_hold_temp="ocean accident guaranty" if invname_hold_orig=="Ocean Accident & Guar. Corp." & investor_city_temp=="london"
+replace invname_hold_temp="london lancashire life federal assurance association limited" if invname_hold_orig=="London & Lancashire Life & General Ass. Assn.  Ltd. (Canadian Branch" & investor_city_temp=="london/montreal"
+replace invname_hold_temp="star life assurance society" if invname_hold_orig=="Star Life Ass. Soc" & investor_city_temp=="london/toronto"
+replace invname_hold_temp="pacific mutual life insurance" if invname_hold_orig=="Pacific Mutual Life Company" & investor_city_temp=="los angeles"
+replace invname_hold_temp="traders mechanic mutual fire insurance" if invname_hold_orig=="Traders & Mechanics' Mutual Eire Insurance Company" & investor_city_temp=="lowell"
+replace invname_hold_temp="madison insurance" if invname_hold_orig=="Madison Insurance Company, Madison Insurance Company" & investor_city_temp=="madison"
+replace invname_hold_temp="union phoenix espanol insurance" if invname_hold_orig=="Union & Phenix Esp. Ins. Co." & investor_city_temp=="madrid/new york"
+replace invname_hold_temp="new hampshire fire insurance" if invname_hold_orig=="New Hamsphire Fire Insurance Company" & investor_city_temp=="manchester"
+replace invname_hold_temp="new hampshire insurance" if invname_hold_orig=="New Hampshire Insurance Company" & investor_city_temp=="manchester"
+replace invname_hold_temp="new hampshire fire insurance" if invname_hold_orig=="New Hampshire Fire Insurance Company" & investor_city_temp=="manchester"
+replace invname_hold_temp="manheim insurance" if invname_hold_orig=="Man   N.Heim Insurance Company" & investor_city_temp=="mannheim"
+replace invname_hold_temp="marlborough savings bank" if invname_hold_orig=="Mariborough,Savings Bank" & investor_city_temp=="marlborough"
+replace invname_hold_temp="marlborough savings bank" if invname_hold_orig=="Marlborough Savings Bank" & investor_city_temp=="marlborough"
+replace invname_hold_temp="marlborough savings bank" if invname_hold_orig=="Marlborough Savings Banx" & investor_city_temp=="marlborough"
+replace invname_hold_temp="decker jewett bank" if invname_hold_orig=="Decker Jewett & Company's Bank" & investor_city_temp=="marysville"
+replace invname_hold_temp="northern california bank savings bank" if invname_hold_orig=="Northern California Bank or Savings" & investor_city_temp=="marysville"
+replace invname_hold_temp="middleborough savings bank" if invname_hold_orig=="Miildleborough Savings Bank" & investor_city_temp=="middleborough"
+replace invname_hold_temp="farmers bank mifflinburgh" if invname_hold_orig=="Farmers Bank of Mifflenbury" & investor_city_temp=="mifflinburg"
+replace invname_hold_temp="mifflinburg bank" if invname_hold_orig=="Miffiinburg Bank" & investor_city_temp=="mifflinburg"
+replace invname_hold_temp="mifflinburg bank" if invname_hold_orig=="Mifflinburg Bank" & investor_city_temp=="mifflinburg"
+replace invname_hold_temp="millbury savings bank" if invname_hold_orig=="MIll.hury Savings Bank" & investor_city_temp=="millbury"
+replace invname_hold_temp="milwaukee mechanic insurance" if invname_hold_orig=="Milwaukee Merchants' Insurance Company" & investor_city_temp=="milwaukee"
+replace invname_hold_temp="northwestern mutual life insurance" if invname_hold_orig=="Northwestern Mutual Life Insurance CompaN. Y." & investor_city_temp=="milwaukee"
+replace invname_hold_temp="old line life insurance" if invname_hold_orig=="Old Line Life Insurance Co, of America" & investor_city_temp=="milwaukee"
+replace invname_hold_temp="nassau county trust" if invname_hold_orig=="Nassan County Trust Company" & investor_city_temp=="mineola"
+replace invname_hold_temp="monson savings bank" if invname_hold_orig=="Moiison Savings Bank" & investor_city_temp=="monson"
+replace invname_hold_temp="montclair trust" if invname_hold_orig=="Montclair TrustCompany" & investor_city_temp=="montclair"
+replace invname_hold_temp="london lancashire life insurance" if invname_hold_orig=="London & Lancashire Life Insurance Co. (Can. Br. Montreal)" & investor_city_temp=="montreal"
+replace invname_hold_temp="london lancashire life insurance" if invname_hold_orig=="London & Lancashire Life Ins. Co. London" & investor_city_temp=="montreal"
+replace invname_hold_temp="sun life assurance" if invname_hold_orig=="Sun Iife Assurance Company of Canada" & investor_city_temp=="montreal"
+replace invname_hold_temp="sun life assurance" if invname_hold_orig=="Sun Life Assurance Company of Canada" & investor_city_temp=="montreal"
+replace invname_hold_temp="sun life assurance" if invname_hold_orig=="Sun Life Assurance Company cf Canada" & investor_city_temp=="montreal"
+replace invname_hold_temp="sun life assurance" if invname_hold_orig=="Sun Life Assurance Company of Canada. Montreal. Can" & investor_city_temp=="montreal"
+replace invname_hold_temp="moodus savings bank" if invname_hold_orig=="Moodus Savings Bank" & investor_city_temp=="moodus"
+replace invname_hold_temp="burlington county safe deposit trust" if invname_hold_orig=="Burlington County Safe Dep. & Trust Co." & investor_city_temp=="moorestown"
+replace invname_hold_temp="bucks county coutributionship" if invname_hold_orig=="Bucks County Contributionship. etc." & investor_city_temp=="morrisville"
+replace invname_hold_temp="bucks county coutributionship insurance houses other buildings from loss by fire" if invname_hold_orig=="Bucks County Contributionship for Ins. Houses & Other Buildings from Loss by Fire" & investor_city_temp=="morrisville"
+replace invname_hold_temp="bucks county coutributionship insurance houses other buildings from loss by fire" if invname_hold_orig=="Bucks County Contributionship for Insuring Houses & Other Bldgs from Loss by Fire" & investor_city_temp=="morrisville"
+replace invname_hold_temp="bucks county coutributionship insurance houses other buildings from loss by fire" if invname_hold_orig=="Bucks County Contributionship for Insuring Houses and Other Buildings from Loss by Fire." & investor_city_temp=="morrisville"
+replace invname_hold_temp="mount holly safe deposit trust" if invname_hold_orig=="Mounty Holly Safe Dep. & Trust Co." & investor_city_temp=="mount holly"
+replace invname_hold_temp="mount vernon trust" if invname_hold_orig=="Mt. Vernon Trust Company" & investor_city_temp=="mount vernon"
+replace invname_hold_temp="mount vernon trust" if invname_hold_orig=="Mt Vernon Trust Company Mt" & investor_city_temp=="mount vernon"
+replace invname_hold_temp="bank of mountain view" if invname_hold_orig=="Bank of Mountain View" & investor_city_temp=="mountain view"
+replace invname_hold_temp="citizens savings trust" if invname_hold_orig=="Citizens' Savings & Trust Company Mt," & investor_city_temp=="mt pleasant"
+replace invname_hold_temp="goodman bank james h" if invname_hold_orig=="Goodman, James H.,& Co, Bank" & investor_city_temp=="napa"
+replace invname_hold_temp="goodman bank james h" if invname_hold_orig=="James H. Goodman & Co." & investor_city_temp=="napa"
+replace invname_hold_temp="goodman bank james h" if invname_hold_orig=="James H. Goodman & Co. Bank" & investor_city_temp=="napa"
+replace invname_hold_temp="city guaranty savings bank" if invname_hold_orig=="City Guaranty Savings Bank. Nashua. N. H" & investor_city_temp=="nashua"
+replace invname_hold_temp="natick five cents savings bank" if invname_hold_orig=="Natiok Five Cents Savings Bank" & investor_city_temp=="natick"
+replace invname_hold_temp="naugatuck savings bank" if invname_hold_orig=="Naugatuck Savings Bank." & investor_city_temp=="naugatuck"
+replace invname_hold_temp="nevada county bank agency" if invname_hold_orig=="Nevada County Bank  Agency of  Nevada" & investor_city_temp=="nevada city"
+replace invname_hold_temp="nevada county bank agency" if invname_hold_orig=="Nevada County Bank (Agency of) Nevada City" & investor_city_temp=="nevada city"
+replace invname_hold_temp="new bedford institution savings" if invname_hold_orig=="New Bedford Five Cents Savings Bank" & investor_city_temp=="new bedford"
+replace invname_hold_temp="new bedford institution savings" if invname_hold_orig=="New Bedford Institution for Savings" & investor_city_temp=="new bedford"
+replace invname_hold_temp="burritt savings bank" if invname_hold_orig=="Burritt Savings Bank of New Britain" & investor_city_temp=="new britain"
+replace invname_hold_temp="ancient order united workmen" if invname_hold_orig=="Ancient Order of United Workmen of Conn.ecticut (Grand Lodge)" & investor_city_temp=="new haven"
+replace invname_hold_temp="mechanic trading insurance" if invname_hold_orig=="Mechanics & Traders' Insurance Company" & investor_city_temp=="new orleans"
+replace invname_hold_temp="prudential insurance america" if invname_hold_orig=="Prudent Insurance Company of America" & investor_city_temp=="newark"
+replace invname_hold_temp="prudential insurance america" if invname_hold_orig=="Prudential Insurance Company" & investor_city_temp=="newark"
+replace invname_hold_temp="newtown savings bank" if invname_hold_orig=="Newtown Savings Bank" & investor_city_temp=="newtown"
+replace invname_hold_temp="north easton savings bank" if invname_hold_orig=="Nortli Kaston Savings Bank." & investor_city_temp=="north easton"
+replace invname_hold_temp="fairfield county savings bank" if invname_hold_orig==";ld County Savings Bank" & investor_city_temp=="norwalk"
+replace invname_hold_temp="bank rideout smith" if invname_hold_orig=="Bank of Rideout  Smith & So." & investor_city_temp=="oroville"
+replace invname_hold_temp="general fire assurance" if invname_hold_orig=="General Fire Assoc'n, of Paris" & investor_city_temp=="paris/new york"
+replace invname_hold_temp="general fire assurance" if invname_hold_orig=="General Fire Assurance Company" & investor_city_temp=="paris/new york"
+replace invname_hold_temp="general fire assurance" if invname_hold_orig=="Genernl Fire Assurance Co." & investor_city_temp=="paris/new york"
+replace invname_hold_temp="urbaine fire insurance" if invname_hold_orig=="Urbaine Fire Insurance Co." & investor_city_temp=="paris/new york"
+replace invname_hold_temp="abeille fire insurance" if invname_hold_orig=="Abeilie Fire Insurance Company" & investor_city_temp=="paris/providence"
+replace invname_hold_temp="crown city savings bank" if invname_hold_orig=="Crown City Bank" & investor_city_temp=="pasadena"
+replace invname_hold_temp="passaic trust safe deposit" if invname_hold_orig=="Passaic Trust &Safe Deposit company                                              #  15" & investor_city_temp=="passaic"
+replace invname_hold_temp="paterson safe deposit trust" if invname_hold_orig=="Paterson Safe Deposit & Trust Company" & investor_city_temp=="paterson"
+replace invname_hold_temp="paterson savings bank" if invname_hold_orig=="Paterson Savings Bank" & investor_city_temp=="paterson"
+replace invname_hold_temp="paterson savings institution" if invname_hold_orig=="Paterson Savings 'Institution" & investor_city_temp=="paterson"
+replace invname_hold_temp="paterson savings institution" if invname_hold_orig=="Paterson Savings Institution Paterson" & investor_city_temp=="paterson"
+replace invname_hold_temp="pawling savings bank" if invname_hold_orig=="Pawhug Savings Bank" & investor_city_temp=="pawling"
+replace invname_hold_temp="pawtucket institution savings bank" if invname_hold_orig=="Pawtucket Institution or Savings" & investor_city_temp=="pawtucket"
+replace invname_hold_temp="slater trust" if invname_hold_orig=="Stater Trust Company" & investor_city_temp=="pawtucket"
+replace invname_hold_temp="warren five cents savings bank" if invname_hold_orig=="Warrenton Five Cents Savings Bank" & investor_city_temp=="peabody"
+replace invname_hold_temp="perth amboy savings institution" if invname_hold_orig=="Perth Amboy Savings Institution, Perth" & investor_city_temp=="perth amboy"
+replace invname_hold_temp="general accident fire life assurance" if invname_hold_orig=="General Acc.. Fire & Life As. Corp. Ltd." & investor_city_temp=="perth/philadelphia"
+replace invname_hold_temp="general accident fire life assurance limited" if invname_hold_orig=="General Accident  Fire & Life Assurance CorpLtd" & investor_city_temp=="perth/philadelphia"
+replace invname_hold_temp="general accident fire life assurance limited" if invname_hold_orig=="General Accident  Life & Fire Assurance Corporation  Ltd." & investor_city_temp=="perth/philadelphia"
+replace invname_hold_temp="general accident fire life assurance limited" if invname_hold_orig=="General Accid,Fire & Life Assur, Corp," & investor_city_temp=="perth/philadelphia"
+replace invname_hold_temp="rossia insurance" if invname_hold_orig=="Rossia Ins. Co., St." & investor_city_temp=="petersburg/new york"
+replace invname_hold_temp="berkshire life insurance" if invname_hold_orig=="Berkshire Life Insurance Company Pittsfield" & investor_city_temp=="pittsfield"
+replace invname_hold_temp="berkshire mutual life insurance" if invname_hold_orig=="Berkshire r.lfe Insurance Company" & investor_city_temp=="pittsfield"
+replace invname_hold_temp="palinfield trust" if invname_hold_orig=="PlainfieldTrust Company" & investor_city_temp=="plainfield"
+replace invname_hold_temp="palinfield trust" if invname_hold_orig=="Plain field Trust Company" & investor_city_temp=="plainfield"
+replace invname_hold_temp="palinfield trust" if invname_hold_orig=="Plamfield Trust Company" & investor_city_temp=="plainfield"
+replace invname_hold_temp="mutual trust westchester county" if invname_hold_orig=="Mutual Trust Co. of W. Chester County" & investor_city_temp=="port chester"
+replace invname_hold_temp="mutual trust westchester county" if invname_hold_orig=="Mutual Trust Company of Westchester Co." & investor_city_temp=="port chester"
+replace invname_hold_temp="piscataqua savings bank" if invname_hold_orig=="Plscataqua Savings Bank" & investor_city_temp=="portsmouth"
+replace invname_hold_temp="piscataqua fire insurance" if invname_hold_orig=="Piscataquis Fire Insurance Company" & investor_city_temp=="portsmouth"
+replace invname_hold_temp="portsmouth trust guaranty" if invname_hold_orig=="Portsmouth Trust & Guarantee Company. Portsmouth. N. H" & investor_city_temp=="portsmouth"
+replace invname_hold_temp="safe deposit bank" if invname_hold_orig=="Safe Deposit Bank of Pottsville" & investor_city_temp=="pottsville"
+replace invname_hold_temp="william pennsylvania fire insurance" if invname_hold_orig=="WIll.iam Penn Fire Ins. Co." & investor_city_temp=="pottsville"
+replace invname_hold_temp="william pennsylvania fire insurance" if invname_hold_orig=="Wm. Penn Fire Insurance Company" & investor_city_temp=="pottsville"
+replace invname_hold_temp="polishkeepsie trust" if invname_hold_orig=="Polish keeps ie Trust Company." & investor_city_temp=="poughkeepsie"
+replace invname_hold_temp="poughkeepsie savings bank" if invname_hold_orig=="Poughkeepsie Savings Bank" & investor_city_temp=="poughkeepsie"
+replace invname_hold_temp="polishkeepsie trust" if invname_hold_orig=="Poughkeepsie Trust Co" & investor_city_temp=="poughkeepsie"
+replace invname_hold_temp="providence institution savings bank" if invname_hold_orig=="Provide� e Institution for Savings" & investor_city_temp=="providence"
+replace invname_hold_temp="providence mutual fire insurance" if invname_hold_orig=="Providence Mutual Fir� Insurance Company" & investor_city_temp=="providence"
+replace invname_hold_temp="providence washington insurance" if invname_hold_orig=="Providence Washington Insurance Company" & investor_city_temp=="providence"
+replace invname_hold_temp="putnam savings bank" if invname_hold_orig=="Putnam Savings Bank Putnam Conn." & investor_city_temp=="putnam"
+replace invname_hold_temp="rhinebeck savings bank" if invname_hold_orig=="Rhinebeck Savmgs Bank" & investor_city_temp=="rhinebeck"
+replace invname_hold_temp="virginia fire marine insurance" if invname_hold_orig=="Virginia Fire k Marine Insurance Company" & investor_city_temp=="richmond"
+replace invname_hold_temp="virginia fire marine insurance" if invname_hold_orig=="Virginia Fire & Marine Insuranc eCompa" & investor_city_temp=="richmond"
+replace invname_hold_temp="louisiana campagnie dassur contre ilncendie delaware" if invname_hold_orig=="La Compagnie d'Assurance Contr l'lncendie de Rimouski" & investor_city_temp=="rimouski"
+replace invname_hold_temp="roslyn savings bank" if invname_hold_orig=="Roslyn Savings Baric" & investor_city_temp=="roslyn"
+replace invname_hold_temp="saco birddeford savings institution" if invname_hold_orig=="Saco 8c Biddeford Savings Institution" & investor_city_temp=="saco"
+replace invname_hold_temp="sag harbor savings bank" if invname_hold_orig=="Sag Harbor Savings Bank. Sag" & investor_city_temp=="sag harbor"
+replace invname_hold_temp="holyoke mutual fire insurance" if invname_hold_orig=="Holyoke Mutual Fire Insurance Company in Salem" & investor_city_temp=="salem"
+replace invname_hold_temp="holyoke mutual insurance" if invname_hold_orig=="Holyoke Mutual Insurance Company in Salem" & investor_city_temp=="salem"
+replace invname_hold_temp="holyoke mutual life insurance" if invname_hold_orig=="Holyoke Mutual Life Insurance Company in Salem" & investor_city_temp=="salem"
+replace invname_hold_temp="rollingsford savings bank" if invname_hold_orig=="RoIIinsford Savings Bank" & investor_city_temp=="salmon falls"
+replace invname_hold_temp="rollingsford savings bank" if invname_hold_orig=="Rolllrisfurd 8aring- Bank" & investor_city_temp=="salmon falls"
+replace invname_hold_temp="anglo california bank" if invname_hold_orig=="Anglo-Californiin Bank, Ltd." & investor_city_temp=="san francisco"
+replace invname_hold_temp="pacific coast casualty" if invname_hold_orig=="Pacific Coast Casualty Conipanv" & investor_city_temp=="san francisco"
+replace invname_hold_temp="pacific coast casualty" if invname_hold_orig=="Pacific no Coast Casualty Company" & investor_city_temp=="san francisco"
+replace invname_hold_temp="commercial bank" if invname_hold_orig=="Commercial Bank of San Luis" & investor_city_temp=="san luis obispo"
+replace invname_hold_temp="marin county bank" if invname_hold_orig=="Marin Counr.v Bank" & investor_city_temp=="san rafael"
+replace invname_hold_temp="mutual fire insurance montgomery county" if invname_hold_orig=="Mutual Fire Insurance Company of Montgomery Co." & investor_city_temp=="sandy spring"
+replace invname_hold_temp="santa cruz county national bank" if invname_hold_orig=="Santa Cms County National Bank" & investor_city_temp=="santa cruz"
+replace invname_hold_temp="shelbourne falls savings bank" if invname_hold_orig=="Shelburne F+B1:D36alls Savings Bank" & investor_city_temp=="shelburne falls"
+replace invname_hold_temp="shelton savings bank" if invname_hold_orig=="Shelton Savings Bank" & investor_city_temp=="shelton"
+replace invname_hold_temp="skowhegan savings bank" if invname_hold_orig=="Skowliegau Savings Bank" & investor_city_temp=="skowhegan"
+replace invname_hold_temp="hamilton bank trust" if invname_hold_orig=="Hamlin Bank & Trust Company" & investor_city_temp=="smethport"
+replace invname_hold_temp="somersworth savings bank" if invname_hold_orig=="Sunn rsworth Savings Bank" & investor_city_temp=="somersworth"
+replace invname_hold_temp="e p wilbur trust" if invname_hold_orig=="Wilbur E. P. Trust Company" & investor_city_temp=="south bethlehem"
+replace invname_hold_temp="e p wilbur trust" if invname_hold_orig=="Wilbur (E. P.) Trust Company" & investor_city_temp=="south bethlehem"
+replace invname_hold_temp="sooth paris savings bank" if invname_hold_orig=="South Pa  ris Savings Bank" & investor_city_temp=="south paris"
+replace invname_hold_temp="southport savings bank" if invname_hold_orig=="Southport Savings Bank" & investor_city_temp=="southport"
+replace invname_hold_temp="mutual fire association" if invname_hold_orig=="Mutual Eire Assurance Company" & investor_city_temp=="springfield"
+replace invname_hold_temp="minnesota mutual life insurance" if invname_hold_orig=="MiLte.-otA .Mutual Life Insurance Company" & investor_city_temp=="st paul"
+replace invname_hold_temp="minnesota mutual life insurance" if invname_hold_orig=="Minnesota Mutual Life Insurance CompaN. Y." & investor_city_temp=="st paul"
+replace invname_hold_temp="salamandra insurance" if invname_hold_orig=="Salamandra Ins, Co," & investor_city_temp=="st petersburg"
+replace invname_hold_temp="hardware dealers mutual fire insurance" if invname_hold_orig=="_Hardware Dealers Mutual Fire Insurance Company" & investor_city_temp=="stevens point"
+replace invname_hold_temp="sunbury trust safe deposit" if invname_hold_orig=="Sunbury Trust Jfc Safe Deposit Company" & investor_city_temp=="sunbury"
+replace invname_hold_temp="people mutual fire insurance association league" if invname_hold_orig=="People's Mutual Life Ins. Ass'n & League" & investor_city_temp=="syracuse"
+replace invname_hold_temp="trust deposit onondaza" if invname_hold_orig=="Trust &Deposit CompanyOnondaga." & investor_city_temp=="syracuse"
+replace invname_hold_temp="trust deposit onondaza" if invname_hold_orig=="Trust k Deposit Company Onondaga" & investor_city_temp=="syracuse"
+replace invname_hold_temp="independent order foresters" if invname_hold_orig=="Independent Order of Foresters (Sup. Court)" & investor_city_temp=="toronto"
+replace invname_hold_temp="independent order foresters" if invname_hold_orig=="Independent Order of Foresters, Supreme Court" & investor_city_temp=="toronto"
+replace invname_hold_temp="london lancashire guaranty accident" if invname_hold_orig=="London and Lancashire Guar. & Acci. Co. of Canada" & investor_city_temp=="toronto"
+replace invname_hold_temp="north american life assurance" if invname_hold_orig=="North American Life Awmrance Company" & investor_city_temp=="toronto"
+replace invname_hold_temp="standard life insurance" if invname_hold_orig=="Standard Life Assurance Company (Can" & investor_city_temp=="toronto"
+replace invname_hold_temp="subsidiary high court ancient order foresters" if invname_hold_orig=="Subsidiary High Court of the A. O, of Foresters," & investor_city_temp=="toronto"
+replace invname_hold_temp="subsidiary high court ancient order foresters" if invname_hold_orig=="Subsidiary High Court of the Ancient Order of Foresters" & investor_city_temp=="toronto"
+replace invname_hold_temp="western assurance" if invname_hold_orig=="Western Assurance Company (U. S. Branch)" & investor_city_temp=="toronto"
+replace invname_hold_temp="british america assurance" if invname_hold_orig=="British America AssurBritish America Assur, Co" & investor_city_temp=="toronto/new york"
+replace invname_hold_temp="vandergrift savings trust" if invname_hold_orig=="Vandergri& Savings & Trust Company" & investor_city_temp=="vandergrift"
+replace invname_hold_temp="william collins sons" if invname_hold_orig=="Wm. Collins & Sons." & investor_city_temp=="ventura"
+replace invname_hold_temp="vineland trust" if invname_hold_orig=="VLttelandUTr^t Company" & investor_city_temp=="vineland"
+replace invname_hold_temp="first national fire insurance" if invname_hold_orig=="First Natiional Fire Insurance Company" & investor_city_temp=="washington"
+replace invname_hold_temp="mutual fire insurance london county" if invname_hold_orig=="Mutual Fire Insurance Company of I^udoun County" & investor_city_temp=="waterford"
+replace invname_hold_temp="national protective legion" if invname_hold_orig=="National Protective League" & investor_city_temp=="waverly"
+replace invname_hold_temp="wayne title fire trust" if invname_hold_orig=="Wayne Title fie Trust Company" & investor_city_temp=="wayne"
+replace invname_hold_temp="tioga county savings trust" if invname_hold_orig=="Tiosri County Savings & Trust Company" & investor_city_temp=="wellsboro"
+replace invname_hold_temp="chester county trust" if invname_hold_orig=="Cheater Cotofcy Trust Company" & investor_city_temp=="west chester"
+replace invname_hold_temp="highland trust" if invname_hold_orig=="Highland Trust Company of New Jersey" & investor_city_temp=="west hoboken"
+replace invname_hold_temp="hudson trust" if invname_hold_orig=="Iludrfbn Trust Company" & investor_city_temp=="west hoboken"
+replace invname_hold_temp="westborougn savings bank" if invname_hold_orig=="Westhorougli Savings Bank" & investor_city_temp=="westborough"
+replace invname_hold_temp="westchester bronx title mortgage guaranty" if invname_hold_orig=="Westchester & Bronx Title & Mort. Guaranty Co." & investor_city_temp=="white plains"
+replace invname_hold_temp="white river savings bank" if invname_hold_orig=="White River Savings Bank White River" & investor_city_temp=="white river junction"
+replace invname_hold_temp="bank newberry" if invname_hold_orig=="Bank or Newberry" & investor_city_temp=="williamsport"
+replace invname_hold_temp="savings institution" if invname_hold_orig=="Savings Institution of the City of Williamsport in the County of Lycoming" & investor_city_temp=="williamsport"
+replace invname_hold_temp="wiiliamstown savings bank" if invname_hold_orig=="WiIll.amstown Savings Bank" & investor_city_temp=="williamstown"
+replace invname_hold_temp="farmers mutual fire insurance" if invname_hold_orig=="Farmers' Mutual Fire Ins. Co., State of Delaware" & investor_city_temp=="wilmington"
+replace invname_hold_temp="farmers mutual fire insurance" if invname_hold_orig=="Farmers' Mut. Fire Ins. Co. of the State of Delaware" & investor_city_temp=="wilmington"
+replace invname_hold_temp="farmers mutual fire insurance" if invname_hold_orig=="Farmers' Mutual Fire Ins Co of the State of Dela" & investor_city_temp=="wilmington"
+replace invname_hold_temp="farmers mutual life insurance" if invname_hold_orig=="Fanners' Mutual Life Ins. Co. of the State of Delaware" & investor_city_temp=="wilmington"
+replace invname_hold_temp="windsor locks savings bank" if invname_hold_orig=="Windsor Locks Savings Bank" & investor_city_temp=="windsor locks"
+replace invname_hold_temp="barnstable county mutual fire insurance" if invname_hold_orig=="Barnstable County Mutual Eire Insurance Co" & investor_city_temp=="yarmouthport"
+replace invname_hold_temp="switzerland general insurance" if invname_hold_orig=="Switzerland General Insurance Company." & investor_city_temp=="zurich"
+replace invname_hold_temp="switzerland general insurance" if invname_hold_orig=="Switzerland Gen. Ins. Co." & investor_city_temp=="zurich"
+replace invname_hold_temp="danbury savings bank" if invname_hold_orig=="i Savings Bank" & investor_city_temp=="danbury"
+replace invname_hold_temp="providence institution savings" if strpos(invname_hold_orig,"Provide") & strpos(invname_hold_orig,"e Institution for Savings")
+replace invname_hold_temp="w p nicholls bank" if invname_hold_orig=="Bank of W. & P. Nicholls"
+replace invname_hold_temp="mechanic farmers savings bank" if invname_hold_temp=="panics farmers savings bank"
+replace invname_hold_temp="merchants farmers mutual fire insurance" if invname_hold_temp=="mechanic farmers mutual fire insurance"
+replace invname_hold_temp="union trust albany" if invname_hold_temp=="vill on trust albany"
+replace invname_hold_temp="london lancashire life general assurance association" if invname_hold_orig=="London & Lancashire Life & General Assurance Association  Ltd." & investor_city_temp=="london"
+replace invname_hold_temp="london lancashire life general assurance association" if invname_hold_orig=="London & Lancashire Life & General Ass. Assn.  Ltd. (Canadian Branch" & investor_city_temp=="london/montreal"
+replace invname_hold_temp="london lancashire life general assurance association" if invname_hold_orig=="London & Lancashire Life & General Assurance Association Ltd." & investor_city_temp=="london/montreal"
+replace invname_hold_temp="london lancashire life general assurance association" if invname_hold_orig=="London & Lancashire Life & General Assurance Association (Ltd.)" & investor_city_temp=="london/montreal"
+replace invname_hold_temp="london lancashire life general assurance association" if invname_hold_orig=="London & Lancashire Life & General Asur. Ass., Ltd." & investor_city_temp=="london/montreal"
+replace invname_hold_temp="london lancashire life general assurance association" if invname_hold_orig=="London & Lancashire Life & General Assurance Association" & investor_city_temp=="london/new york"
+
+
 
 *Some further revision
 replace invname_hold_temp=subinword(invname_hold_temp,"federal","general",.) if regexm(invname_hold_orig,"Genera(l)?") & !strpos(invname_hold_orig,"Federal")
 replace invname_hold_temp=subinword(invname_hold_temp,"germania","german",.) if regexm(invname_hold_orig,"German") & !strpos(invname_hold_orig,"Germania")
+
+*Basic cleaning
+replace invname_hold_temp=subinword(invname_hold_temp,"ltd","limited",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"liab","liability",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"ins","insurance",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"company","",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"ft","and",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"fc","and",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"jc","and",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"and","",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"erie insurance","fire insurance",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"accid","accident",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"acc","accident",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"guar","guaranty",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"american samoa","assurance",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"assur","assurance",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"asso","association",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"assn","association",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"assocn","association",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"assoc","association",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"br","branch",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"branch","",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"ave","avenue",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"cann","canada",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"cann","canada",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"cent","cents",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"connecticut ty","county",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"dep$","deposit",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"l ire","fire",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"erie insurance","fire insurance",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"guar ","guaranty",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"guarantee","guaranty",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"illinois inois","illinois",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"indiana the town","in the towns",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"indiana the town","in the town",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"inst","institution",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"titution","institution",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"ins","insurance",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"insur","insurance",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"liab","liability",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"ltd","limited",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"manufacturing","manufacturers",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"mfgrs","manufacturers",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"mfgr","manufacturers",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"mfrs","manufacturers",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"manufacturer","manufacturers",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"mer","mercantile",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"mort","mortgage",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"mut","mutual",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"nat","national",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"pittsburg","pittsburgh",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"re insurance","reinsurance",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"sav","savings",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"savng","savings",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"savngs","savings",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"savins","savings",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"savin","savings",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"saving","savings",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"securities","security",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"soc","society",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"sup court","supreme court",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"trust title","title trust",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"trading","traders",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"tr","trust",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"trut","trust",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"trustees","trust",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"trustee","trust",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"u s a","us",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"u s","us",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"us a","us",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"usa","us",.)
+replace invname_hold_temp=regexr(invname_hold_temp,"of us$","")
+replace invname_hold_temp=regexr(invname_hold_temp,"us$","")
+replace invname_hold_temp=subinword(invname_hold_temp,"us","united states",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"and its vicinity","vicinity",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"its vicinity","vicinity",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"vicin","vicinity",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"vic","vicinity",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"inc","",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"company","",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"branch","",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"institute","institution",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"massachusetts r ine","marine",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"guar ","guaranty",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"u s a","us",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"us","us",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"u s","us",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"usa","us",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"insur","insurance",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"sav","savings",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"savng","savings",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"savngs","savings",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"savins","savings",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"savin","savings",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"saving","savings",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"securities","security",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"inst","institution",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"institute","institution",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"soc","society",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"ave","avenue",.)
+replace invname_hold_temp=regexr(invname_hold_temp,"the$","")
+replace invname_hold_temp=regexr(invname_hold_temp,"phila$","")
+replace invname_hold_temp=subinword(invname_hold_temp,"guar ","guaranty",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"vic","vicinity",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"and its vicinity","vicinity",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"its vicinity","vicinity",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"trust title","title trust",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"tr","trust",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"pittsburg","pittsburgh",.)
+replace invname_hold_temp=regexr(invname_hold_temp,"dep$","deposit")
+replace invname_hold_temp=subinword(invname_hold_temp,"massachusetts r ine","marine",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"massachusetts r ine","marine",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"manufacturing","manufacturers",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"assn","association",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"illinois inois","illinois",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"american samoa","association",.)
+*replace invname_hold_temp=subinword(invname_hold_temp,"at","",.)
+*replace invname_hold_temp=subinword(invname_hold_temp,"of","",.)
+*replace invname_hold_temp=subinword(invname_hold_temp,"for","",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"indiana town","",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"indiana the town","",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"cent","cents",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"indiana the town","in the town",.)
+replace invname_hold_temp=regexr(invname_hold_temp,"indiana$","")
+replace invname_hold_temp=regexr(invname_hold_temp,"trut","trust")
+replace invname_hold_temp=subinword(invname_hold_temp,"trustees","trust",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"trustee","trust",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"mut","mutual",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"mfgrs","manufacturers",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"mfgr","manufacturers",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"manufacturing","manufacturers",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"mfrs","manufacturers",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"titution","institution",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"indiana the towns","",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"illinois inois","illinois",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"venue","avenue",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"grant","granting",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"annuities","annuity",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"lives","life",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"warehousing","warehouse",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"houses","house",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"housing","house",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"insuring","insurance",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"phila","philadelphia",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"institute","institution",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"massachusetts r ine","marine",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"trading","traders",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"insuring","insurance",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"townships","township",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"towns","town",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"securities","security",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"mechanics","mechanic",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"so vines","savings",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"ins","insurance",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"unassurco","union assurance",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"lia","liability",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"mer","mercantile",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"merc","mercantile",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"more","mercantile",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"mercantiles","mercantile",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"merchants","merchant",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"acc","accident",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"guarantee","guaranty",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"off","office",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"facinc","pacific",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"soc","society",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"lunion","union",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"baptists","baptiste",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"damerica","damerique",.)
+replace invname_hold_temp=subinword(invname_hold_temp,"re insurance","reinsurance",.)
