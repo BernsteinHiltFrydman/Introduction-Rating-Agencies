@@ -4,6 +4,7 @@ global root_do "D:\Dropbox\Bond Rating\Code and Data\do_issue"
 cd "$root_dta"
 use Holdings_Data_InvestorClean_dummy.dta, clear
 
+replace cname_hold_temp="new york central lines" if cname_hold_temp=="central"
 replace cname_hold_temp="wessex water" if strpos(cname_hold_temp,"nessex water")
 gen coupon_hold_temp=coupon_hold
 replace coupon_hold_temp=strtrim(coupon_hold_temp)
@@ -774,33 +775,150 @@ replace maturity_hold_temp="1910/1913/1934" if invname_hold_orig=="Worcester Fiv
 replace maturity_hold_temp="1913/1934" if invname_hold_orig=="Provident Life & Trust Company" & cname_hold_orig=="MILWAUKEE AND NORTHERN" & stock_type_hold=="N/A" & investor_city_hold=="Philadelphia" & investor_state_hold=="Pa"
 replace maturity_hold_temp="1913/1934" if invname_hold_orig=="Roslyn Savings Baric" & cname_hold_orig=="MILWAUKEE AND NORTHERN" & stock_type_hold=="N/A" & investor_city_hold=="Roslyn" & investor_state_hold=="N. Y."
 replace maturity_hold_temp="1910/1913/1934" if invname_hold_orig=="Institution for Savings" & cname_hold_orig=="MILWAUKEE AND NORTHERN" & stock_type_hold=="N/A" & investor_city_hold=="Lynn" & investor_state_hold=="Mass"
+replace maturity_hold_temp=strtrim(maturity_hold_temp)
+replace maturity_hold_temp=stritrim(maturity_hold_temp)
+replace coupon_hold_temp="4" if coupon_hold_temp=="N/A" & maturity_hold_temp=="4"
+replace coupon_hold_temp="4.5" if coupon_hold_temp=="N/A" & maturity_hold_temp=="45"
+replace coupon_hold_temp="5" if coupon_hold_temp=="N/A" & maturity_hold_temp=="5"
 
+*Cleaning Unreasonable Maturity
+replace maturity_hold_temp="1921-23" if maturity_year_hold=="19211-23" & invname_hold_orig=="New Bedford Institution for Savings" & cname_hold_orig=="COnn ECTICUT RIVER" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="New Bedford" & investor_state_hold=="Mass."
+replace maturity_hold_temp="1912" if maturity_year_hold=="912" & invname_hold_orig=="Dauphin Deposit & Trust Company" & cname_hold_orig=="PENNSYLVANIA RAILROAD" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="Harrisburg" & investor_state_hold=="Pa."
+replace maturity_hold_temp="1933-37" if maturity_year_hold=="1933-7" & invname_hold_orig=="Auburn Savings Bank" & cname_hold_orig=="PORTLAND (ME ) ELEVATOR COMPANY" & stock_type_hold=="" & class_hold=="N/A" & investor_city_hold=="Auburn" & investor_state_hold=="Me."
+replace maturity_hold_temp="1913-15" if maturity_year_hold=="4366" & invname_hold_orig=="Lehigh Valley Trust & Safe Deposit Company" & cname_hold_orig=="NORFOLK AND WESTERN POCAHONTAS COAL AND COKE" & stock_type_hold=="N/A" & class_hold=="Equipment" & investor_city_hold=="Allentown" & investor_state_hold=="Pa."
+replace maturity_hold_temp="1913" if maturity_year_hold=="1013" & invname_hold_orig=="Equitable Life Assurance Society" & cname_hold_orig=="ATCHISON TOPEKA AND SANTA FE" & stock_type_hold=="N/A" & class_hold=="Serial Debentures" & investor_city_hold=="New York" & investor_state_hold=="N. Y."
+replace maturity_hold_temp="1911-25" if maturity_year_hold=="1911-25." & invname_hold_orig=="Central Trust Company" & cname_hold_orig=="CHICAGO ROCK ISLAND AND PACIFIC RAILWAY" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="New York" & investor_state_hold=="N. Y."
+replace maturity_hold_temp="1910-1911-1912" if maturity_year_hold=="3969" & invname_hold_orig=="Oranjre County Trust Company" & cname_hold_orig=="CHICAGO AND ALTON RAILROAD" & stock_type_hold=="N/A" & class_hold=="Equipment" & investor_city_hold=="Middletowu." & investor_state_hold=="N.Y."
+replace maturity_hold_temp="1907-10" if maturity_year_hold=="1909/ 1907-10" & invname_hold_orig=="Canada Life Assurance Company" & cname_hold_orig=="TORONTO SAVINGS AND LOAN COMPANY" & stock_type_hold=="N/A" & class_hold=="Toronto, Canada" & investor_city_hold=="Toronto" & investor_state_hold=="Canada"
+replace maturity_hold_temp="1920" if maturity_year_hold=="1820" & invname_hold_orig=="Scranton Savings Bank" & cname_hold_orig=="SLEEPY EYE MILLING COMPANY" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="Scranton" & investor_state_hold=="Pa."
+replace maturity_hold_temp="1924-25" if maturity_year_hold=="924-25" & invname_hold_orig=="Provident Institution for Savings" & cname_hold_orig=="OLD COLONY" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="Boston" & investor_state_hold=="Mass."
+replace maturity_hold_temp="1911-15" if maturity_year_hold=="1911-15." & invname_hold_orig=="Girard Trust Company" & cname_hold_orig=="ST LOUIS AND SAN FRANCISCO" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="Philadelphia" & investor_state_hold=="Pa."
+replace maturity_hold_temp="1911-15" if maturity_year_hold=="1011-15" & invname_hold_orig=="Girard Trust Company" & cname_hold_orig=="ERIE RAILROAD" & stock_type_hold=="N/A" & class_hold=="Equipment" & investor_city_hold=="Philadelphia" & investor_state_hold=="Pa."
+replace maturity_hold_temp="1915-24" if maturity_year_hold=="1015-24" & invname_hold_orig=="Western Saving Fund Society" & cname_hold_orig=="NEW YORK CENTRAL LINES" & stock_type_hold=="N/A" & class_hold=="Equipment" & investor_city_hold=="Philadelphia" & investor_state_hold=="Pa."
+replace maturity_hold_temp="1919-1920" if maturity_year_hold=="1919-200" & invname_hold_orig=="Industrial Trust. Title & Savings Co." & cname_hold_orig=="NEW YORK CENTRAL LINES," & stock_type_hold=="N/A" & class_hold=="Equipment" & investor_city_hold=="Philadelphia" & investor_state_hold=="Pa."
+replace maturity_hold_temp="1908" if maturity_year_hold=="-1908" & invname_hold_orig=="Hudson Trust Company" & cname_hold_orig=="KANSAS CITY, FORT SCOTT AND MEMPHIS" & stock_type_hold=="N/A" & class_hold=="Equipment" & investor_city_hold=="West Hoboken" & investor_state_hold=="N. J."
+replace maturity_hold_temp="1931" if maturity_year_hold=="1031" & invname_hold_orig=="Bridgeport Savings Bank" & cname_hold_orig=="LOUISVILLE, CINCINNATI AND LEXINGTON" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="Bridgeport" & investor_state_hold=="Conn"
+replace maturity_hold_temp="1927" if maturity_year_hold=="1727" & invname_hold_orig=="Provident Institution for Savings" & cname_hold_orig=="BOSTON, REVERE BEACH AND LYNN" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="Amesbury" & investor_state_hold=="Mass."
+replace maturity_hold_temp="1912-15" if maturity_year_hold=="1912-151" & invname_hold_orig=="Maryland Life Insurance Company" & cname_hold_orig=="SOUTHERN RAILWAY" & stock_type_hold=="N/A" & class_hold=="Equipment" & investor_city_hold=="Baltimore" & investor_state_hold=="Md."
+replace maturity_hold_temp="1913-15" if maturity_year_hold=="1013-15" & invname_hold_orig=="Farmers & Mechanics' Trust Company" & cname_hold_orig=="WESTINGHOUSE ELECTRIC AND MANUFACTURING COMPANY" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="West Chester" & investor_state_hold=="Pa."
+replace maturity_hold_temp="1913-31" if maturity_year_hold=="1013-31" & invname_hold_orig=="Androscoggin County Savings Bank" & cname_hold_orig=="BERLIN MILLS COMPANY Vs" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="Lewiston" & investor_state_hold=="Pa"
+replace maturity_hold_temp="1912-15-21-24" if maturity_year_hold=="1012-15-21-24" & invname_hold_orig=="Aetna Insurance Company" & cname_hold_orig=="DETROIT RAILWAY" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="Hartford" & investor_state_hold=="Conn"
+replace maturity_hold_temp="1914&1916" if maturity_year_hold=="1941-916" & invname_hold_orig=="Burlington City Loan & Trust Company" & cname_hold_orig=="ST LOUIS, IRON MOUNTAIN AND SOUTHERN" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="Burlington" & investor_state_hold=="N. J."
+replace maturity_hold_temp="1930" if maturity_year_hold=="1530" & invname_hold_orig=="Philadelphia Manufacturers' Mutual Fire Ins. Co." & cname_hold_orig=="AUBURN GAS COMPANY" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="Philadelphia." & investor_state_hold=="Conn"
+replace maturity_hold_temp="1910-1911-1912" if maturity_year_hold=="3969" & invname_hold_orig=="Fidelity Trust Company" & cname_hold_orig=="ST LOUIS, IRON MOUNTAIN AND SOUTHERN" & stock_type_hold=="N/A" & class_hold=="Car Trust" & investor_city_hold=="Rochester" & investor_state_hold=="N. Y."
+replace maturity_hold_temp="1934" if maturity_year_hold=="934" & invname_hold_orig=="Erie Trust Company" & cname_hold_orig=="PAN AMERICAN" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="Erie" & investor_state_hold=="Pa."
+replace maturity_hold_temp="1927" if maturity_year_hold=="1027" & invname_hold_orig=="Brookline Savings Bank" & cname_hold_orig=="NEW ALBANY STREET" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="Williamsport" & investor_state_hold=="Pa."
+replace maturity_hold_temp="1935" if maturity_year_hold=="1035" & invname_hold_orig=="Auburn Savings Bank" & cname_hold_orig=="BODWELL WATER POWER COMPANY" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="Auburn" & investor_state_hold=="Me"
+replace maturity_hold_temp="1927" if maturity_year_hold=="927" & invname_hold_orig=="National Union Fire Insurance Company" & cname_hold_orig=="WEST BRADDOCK BRIDGE" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="Pittsburgh" & investor_state_hold=="Pa."
+replace maturity_hold_temp="1942" if maturity_year_hold=="1042" & invname_hold_orig=="Northern Assurance Co." & cname_hold_orig=="GOUVERNEUR AND OSWEGATCHIE" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="London.,New York" & investor_state_hold=="Eng.N.Y"
+replace maturity_hold_temp="1908-17" if maturity_year_hold=="1908-1" & invname_hold_orig=="Morton Trust Company" & cname_hold_orig=="SEABOARD AIR LINE" & stock_type_hold=="N/A" & class_hold=="Equipment" & investor_city_hold=="New York" & investor_state_hold=="N. Y."
+replace maturity_hold_temp="1926" if maturity_year_hold=="1026" & invname_hold_orig=="Commercial Trust Company" & cname_hold_orig=="NEWPORT (R I ) HOME WATER" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="Reading" & investor_state_hold=="Pa."
+replace maturity_hold_temp="1956" if maturity_year_hold=="1056" & invname_hold_orig=="National Fire Insurance Company" & cname_hold_orig=="ALABAMA, TENNESSEE AND NORTHERN" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="Hartford" & investor_state_hold=="Conn"
+replace maturity_hold_temp="1918" if maturity_year_hold=="1018" & invname_hold_orig=="Alliance Insurance Company" & cname_hold_orig=="ERIE RAILROAD" & stock_type_hold=="N/A" & class_hold=="Equipment" & investor_city_hold=="Philadelphia" & investor_state_hold=="Pa."
+replace maturity_hold_temp="1916" if maturity_year_hold=="1110" & invname_hold_orig=="I'nion Savings Bank of Pittsburgh" & cname_hold_orig=="NATIONAL FIREPROOFING COMPANY" & stock_type_hold=="N/A" & class_hold=="Notes" & investor_city_hold=="Pittsburgh" & investor_state_hold=="Pa."
+replace maturity_hold_temp="1930" if maturity_year_hold=="1030" & invname_hold_orig=="Sun Life Assurance Company of Canada" & cname_hold_orig=="SPRINGFIELD AND NORTHEASTERN TRACTION" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="Montreal" & investor_state_hold=="Can"
+replace maturity_hold_temp="1915-17" if maturity_year_hold=="1915-171" & invname_hold_orig=="Citizens' Trust Company" & cname_hold_orig=="TEXAS AND PACIFIC EquipMEnt" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="Schenectady" & investor_state_hold=="N. Y."
+replace maturity_hold_temp="1923" if maturity_year_hold=="1823" & invname_hold_orig=="Albany Safe Deposit & Storage Company" & cname_hold_orig=="NEW YORK, LACKAWANNA AND WESTERN" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="Albany" & investor_state_hold=="N. Y."
+replace maturity_hold_temp="1922" if maturity_year_hold=="1022" & invname_hold_orig=="Albany Insurance Company" & cname_hold_orig=="SPRINGFIELD AND EASTERN STREET" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="Albany" & investor_state_hold=="N. Y."
+replace maturity_hold_temp="1913-16" if maturity_year_hold=="1913-16." & invname_hold_orig=="Prudential Insurance Company" & cname_hold_orig=="ATLANTA BIRMINGHAM AND ATLANTIC" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="Newark" & investor_state_hold=="N. J."
+replace maturity_hold_temp="1913-19" if maturity_year_hold=="1913-1" & invname_hold_orig=="Guaranty Trust Company" & cname_hold_orig=="NEW YORK CENTRAL LINES" & stock_type_hold=="N/A" & class_hold=="Equipment" & investor_city_hold=="New York" & investor_state_hold=="N. Y"
+replace maturity_hold_temp="1916-17" if maturity_year_hold=="1916-1" & invname_hold_orig=="Travelers' Indemnity Company" & cname_hold_orig=="NEW YORK CENTRAL LINES" & stock_type_hold=="N/A" & class_hold=="Equipment" & investor_city_hold=="Hartford" & investor_state_hold=="Conn"
+replace maturity_hold_temp="1939" if maturity_year_hold=="939" & invname_hold_orig=="United states Fidelity & Guaranty Company" & cname_hold_orig=="SEATTLE ELECTRIC COMPANY" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="Baltimore" & investor_state_hold=="Md"
+replace maturity_hold_temp="1915-24" if maturity_year_hold=="5" & invname_hold_orig=="People  Savings Bank" & cname_hold_orig=="LEWISTON JOURNAL 5,, 1915-24" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="Lewiston" & investor_state_hold=="Me"
+replace maturity_hold_temp="1912-13" if maturity_year_hold=="1012-13" & invname_hold_orig=="Bloomfield Trust Company" & cname_hold_orig=="HUDSON AND MANHATTAN" & stock_type_hold=="N/A" & class_hold=="Equipment" & investor_city_hold=="Bloomfield" & investor_state_hold=="N. J."
+replace maturity_hold_temp="1908-1909-1910" if maturity_year_hold=="3176" & invname_hold_orig=="Fidelity Trust Company" & cname_hold_orig=="MOBILE AND OHIO" & stock_type_hold=="N/A" & class_hold=="Equipment" & investor_city_hold=="Rochester" & investor_state_hold=="N. Y."
+replace maturity_hold_temp="1918" if maturity_year_hold=="918" & invname_hold_orig=="Island Savings Bank" & cname_hold_orig=="WOBURN LIGHT, HEAT AND POWER" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="Newport" & investor_state_hold=="R. I"
+replace maturity_hold_temp="1913-16" if maturity_year_hold=="1913-161" & invname_hold_orig=="Order of the Golden Seal" & cname_hold_orig=="IIYGENIC ICE AND STORAGE" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="Roxbury" & investor_state_hold=="N. Y."
+replace maturity_hold_temp="1912-13" if maturity_year_hold=="1912-13 6" & invname_hold_orig=="Detroit Fire & Marine Insurance Company" & cname_hold_orig=="CHESBROUGH LUMBER COMPANY (Detroit, Mich )" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="Detroit" & investor_state_hold=="Mich."
+replace maturity_hold_temp="1941-42" if maturity_year_hold=="1941-42." & invname_hold_orig=="Citizens' Savings & Trust Company" & cname_hold_orig=="EITCHMAN GLENDALE CONSOLIDATED COAL COMPANY" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="Mt Pleasant" & investor_state_hold=="Pa."
+replace maturity_hold_temp="opt 1910-11" if maturity_year_hold=="Opt 1910-11" & invname_hold_orig=="Hancock County Savings Bank" & cname_hold_orig=="TRENTON PASSENGER" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="Ellsworth." & investor_state_hold=="Me."
+replace maturity_hold_temp="1921" if maturity_year_hold=="1821" & invname_hold_orig=="Union Savings Bank of Pittsburg" & cname_hold_orig=="TONOPAH AND GOLDFIELD" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="Pittsburg" & investor_state_hold=="Pa."
+replace maturity_hold_temp="1912" if maturity_year_hold=="1012" & invname_hold_orig=="Pennsylvania Mutual Life Insurance Co." & cname_hold_orig=="KEYSTONE COAL AND COKE COMPANY" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="Philadelphia" & investor_state_hold=="Pa."
+replace maturity_hold_temp="opt 1916-17" if maturity_year_hold=="Opt 1916-17" & invname_hold_orig=="Franklin County Savings Bank" & cname_hold_orig=="TRENTON PASSENGER" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="Farmington" & investor_state_hold=="Me."
+replace maturity_hold_temp="opt 1916-17" if maturity_year_hold=="Opt. 1916-17" & invname_hold_orig=="Franklin County Savings Bank" & cname_hold_orig=="TRENTON PASSENGER" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="Farmington" & investor_state_hold=="Me."
+replace maturity_hold_temp="1914" if maturity_year_hold=="1014" & invname_hold_orig=="Bangor Trust Company" & cname_hold_orig=="PUBLIC SERVICE RAILWAY" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="Bangor" & investor_state_hold=="Pa."
+replace maturity_hold_temp="1914-16" if maturity_year_hold=="1914-16." & invname_hold_orig=="American Bonding Company of Baltimore" & cname_hold_orig=="HOUSTON (TEX ) OIL COMPANY" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="Baltimore" & investor_state_hold=="Md"
+replace maturity_hold_temp="1923" if maturity_year_hold=="1023" & invname_hold_orig=="Merchants' Insurance Company" & cname_hold_orig=="LEHIGH VALLEY RAILROAD" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="Bangor" & investor_state_hold=="Me"
+replace maturity_hold_temp="1905" if maturity_year_hold=="1006" & invname_hold_orig=="Conn.ecticut Fire Insurance Compan" & cname_hold_orig=="TRADERS' SAFE AND TRUST COMPANY, Chicago, Ill" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="Hartford" & investor_state_hold=="Conn."
+replace maturity_hold_temp="1921" if maturity_year_hold=="1021" & invname_hold_orig=="Fidelity Mutual Life Insurance Company" & cname_hold_orig=="BERGNER AND EXCEL BREWING COMPANY" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="Philadelphia" & investor_state_hold=="Me"
+replace maturity_hold_temp="1924" if maturity_year_hold=="1024" & invname_hold_orig=="Fall River Savings Bank" & cname_hold_orig=="SCHENECTADY AND DUANESBURGH RAILROAD" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="Fall River" & investor_state_hold=="Mass."
+replace maturity_hold_temp="1944" if maturity_year_hold=="1044" & invname_hold_orig=="Fall River Five Cents Savings Bank" & cname_hold_orig=="SCHENECTADY AND DUANESBURGH RAILROAD" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="Fall River" & investor_state_hold=="Mass."
+replace maturity_hold_temp="N/A" if maturity_year_hold=="5.5" & invname_hold_orig=="St. Joseph Loan & Trust Company" & cname_hold_orig=="JACKSON (GEO W ) COMPANY (Chicago, III)" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="South Bend" & investor_state_hold=="Ind"
+replace maturity_hold_temp="1914-15" if maturity_year_hold=="1014-15" & invname_hold_orig=="Carbondale Miners' & mechanics' Sav. Bk." & cname_hold_orig=="ERIE RAILROAD" & stock_type_hold=="N/A" & class_hold=="Equipment" & investor_city_hold=="Carbondale" & investor_state_hold=="Pa."
+replace maturity_hold_temp="1911-13" if maturity_year_hold=="1911-13." & invname_hold_orig=="People's Savings Bank" & cname_hold_orig=="ANN ARBOR RAILROAD" & stock_type_hold=="N/A" & class_hold=="EquipmentNotes." & investor_city_hold=="Pittsburgh" & investor_state_hold=="Pa."
+replace maturity_hold_temp="1908" if maturity_year_hold=="5" & invname_hold_orig=="Bath Savings Institution" & cname_hold_orig=="PORTLAND AND OGDENSBURG" & stock_type_hold=="N/A" & class_hold=="1908" & investor_city_hold=="Bath" & investor_state_hold=="R. I"
+replace maturity_hold_temp="1912" if maturity_year_hold=="45" & invname_hold_orig=="Maryland Casualty Company" & cname_hold_orig=="CANADIAN NORTHERN" & stock_type_hold=="N/A" & class_hold=="Equipment" & investor_city_hold=="Baltimore" & investor_state_hold=="Md."
+
+
+replace maturity_hold_temp=subinstr(maturity_hold_temp," ","",.)
+replace maturity_hold_temp=subinstr(maturity_hold_temp,"-","-19",.) if !strpos(maturity_hold_temp,"-19")
+replace maturity_hold_temp=regexr(maturity_hold_temp,"^10","19") if length(maturity_hold_temp)>=4
+replace maturity_hold_temp=regexr(maturity_hold_temp,"-19$","-1919") if length(maturity_hold_temp)>=4
+replace maturity_hold_temp=regexr(maturity_hold_temp,"^9","19") if length(maturity_hold_temp)==3
+replace maturity_hold_temp="1910-11-12" if maturity_hold_temp=="11/12/1910"
+replace maturity_hold_temp="1911-12-13" if maturity_hold_temp=="12/13/1911"
+replace maturity_hold_temp="1913/1918" if strpos(maturity_hold_temp,"1913, extended to 1918")
+replace maturity_hold_temp=subinstr(maturity_hold_temp,".","",.)
+replace maturity_hold_temp=subinstr(maturity_hold_temp,"`","",.)
+replace maturity_hold_temp=subinstr(maturity_hold_temp,",","&",.)
+replace maturity_hold_temp=subinstr(maturity_hold_temp,"and","&",.)
+replace maturity_hold_temp=subinstr(maturity_hold_temp,"*","",.)
+replace maturity_hold_temp=subinstr(maturity_hold_temp," ","",.)
+replace maturity_hold_temp=subinstr(maturity_hold_temp,"opt"," opt ",.)
+replace maturity_hold_temp=subinstr(maturity_hold_temp,"Opt"," opt ",.)
+replace maturity_hold_temp=strtrim(maturity_hold_temp)
+replace maturity_hold_temp=stritrim(maturity_hold_temp)
+replace maturity_hold_temp="opt 1908" if maturity_hold_temp=="opt 190N"
+replace maturity_hold_temp="1914&1917" if maturity_hold_temp=="1914-191917"
+replace maturity_hold_temp="1916-1918-1919" if maturity_hold_temp=="1916-18-1919"
+replace maturity_hold_temp="opt 1903" if maturity_hold_temp=="opt ional1903"
+replace maturity_hold_temp="1950-1" if maturity_hold_temp=="1950-191"
+replace maturity_hold_temp="1937&1942-1923&1926" if maturity_hold_temp=="1937&1942-192326"
+replace maturity_hold_temp="1924-1925" if maturity_hold_temp=="924-1925"
+replace maturity_hold_temp="1917" if maturity_hold_temp=="19451917"
+replace maturity_hold_temp="1924-1925" if maturity_hold_temp=="924-1925"
+replace maturity_hold_temp="1936" if maturity_hold_temp=="19336"
+replace maturity_hold_temp="1929-1905" if maturity_hold_temp=="1929-191905"
+replace maturity_hold_temp="1951-1990" if maturity_hold_temp=="19511990"
+replace maturity_hold_temp="1947-2008" if maturity_hold_temp=="1947-192008"
+replace maturity_hold_temp="1911-1913" if maturity_hold_temp=="191113"
+replace maturity_hold_temp="1914-1915" if maturity_hold_temp=="191415"
+replace maturity_hold_temp="1924-1925" if maturity_hold_temp=="924-1925"
+replace maturity_hold_temp="1914" if maturity_hold_temp=="19141"
+replace maturity_hold_temp="1913-1918" if maturity_hold_temp=="191318"
+replace maturity_hold_temp="1908-1910" if maturity_hold_temp=="19081910"
+replace maturity_hold_temp="1913-1914-1915-1917-1919-1920" if maturity_hold_temp=="1913-14-15-17-19-20"
 
 
 cd "$root_dta"
 saveold Holdings_Data_Issue_temp.dta, replace
 
 
-
+/*
 
 use Holdings_Data_Issue_temp.dta, clear
 
 drop if industry=="Government"
+/*
 gen m=cond(regexm(invname_hold_orig,"[0-9]"),"1","0")
 replace m=m+"2" if regexm(cname_hold_orig,"[0-9]")
 replace m=m+"3" if regexm(stock_type_hold,"[0-9]")
 replace m=m+"4" if regexm(class_hold,"[0-9]")	 
 replace m=m+"5" if regexm(investor_city_hold,"[0-9]")
 replace m=m+"6" if regexm(investor_state_hold,"[0-9]")
-
 drop if m=="0"
-
 sort m 
-browse m coupon_hold maturity_year_hold invname_hold_orig cname_hold_orig stock_type_hold class_hold investor_city_hold investor_state_hold book_year_hold industry
+*/
+browse coupon_hold maturity_year_hold invname_hold_orig cname_hold_orig stock_type_hold class_hold investor_city_hold investor_state_hold book_year_hold industry
 /*
 drop if industry=="Government"
-duplicates drop maturity_year_hold, force
-browse maturity_year_hold
+gen m=cond(strpos(maturity_hold_temp,"19"),0,1)
+replace m=1 if length(maturity_hold_temp)!=4 & (length(maturity_hold_temp)!=7&strpos(maturity_hold_temp,"-"))
+
+duplicates drop maturity_hold_temp, force
+sort coupon_hold_temp
+browse par_value_clean_hold coupon_hold maturity_hold_temp invname_hold_orig cname_hold_orig stock_type_hold class_hold investor_city_hold investor_state_hold book_year_hold industry if length(maturity_hold_temp)~=4 & length(maturity_hold_temp)~=9 & industry~="Government" & maturity_hold_temp~="N/A"
+
 
 
 
