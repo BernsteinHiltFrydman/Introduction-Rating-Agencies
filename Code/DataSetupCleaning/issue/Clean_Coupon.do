@@ -14,7 +14,9 @@ replace coupon_hold_temp=subinstr(coupon_hold_temp," ","",.)
 replace coupon_hold_temp=subinstr(coupon_hold_temp,"&&","&",.)
 replace coupon_hold_temp="4.875" if coupon_hold_temp=="4.7-8"
 gen maturity_hold_temp=maturity_year_hold
-
+gen class_hold_temp=lower(class_hold)
+replace class_hold_temp=strtrim(class_hold_temp)
+replace class_hold_temp=stritrim(class_hold_temp)
 
 replace coupon_hold_temp="6" if cname_hold_orig=="AMERICAN PIPE AND CONSTRUCTION COMPANY" & invname_hold_orig=="Lewisburg Trust & Safe Deposit Company" & book_year_hold==1911 & maturity_year_hold=="N/A" & par_value_clean_hold==3000 & stock_type_hold=="N/A" & class_hold=="N/A"
 replace coupon_hold_temp="6" if cname_hold_orig=="AMERICAN PIPE AND CONSTRUCTION COMPANY" & invname_hold_orig=="Industrial Trust" & book_year_hold==1911 & maturity_year_hold=="N/A" & par_value_clean_hold==20000 & stock_type_hold=="N/A" & class_hold=="N/A"
@@ -888,7 +890,119 @@ replace maturity_hold_temp="1914" if maturity_hold_temp=="19141"
 replace maturity_hold_temp="1913-1918" if maturity_hold_temp=="191318"
 replace maturity_hold_temp="1908-1910" if maturity_hold_temp=="19081910"
 replace maturity_hold_temp="1913-1914-1915-1917-1919-1920" if maturity_hold_temp=="1913-14-15-17-19-20"
+replace maturity_hold_temp=subinstr(maturity_hold_temp,"I","1",.)
+replace maturity_hold_temp=subinstr(maturity_hold_temp,"i","1",.)
+replace maturity_hold_temp=subinstr(maturity_hold_temp,"&","&19",.) if !strpos(maturity_hold_temp,"&19")
 
+replace maturity_hold_temp="N/A" if par_value_clean_hold==5000 & coupon_hold_temp=="4" & invname_hold_orig=="Maryland Life Insurance Company" & cname_hold_orig=="SOUTHERN RAILWAY" & stock_type_hold=="N/A" & class_hold=="Equipment" & investor_city_hold=="Baltimore" & investor_state_hold=="Md."
+replace maturity_hold_temp="N/A" if par_value_clean_hold==10000 & coupon_hold_temp=="4" & invname_hold_orig=="Maryland Life Insurance Company" & cname_hold_orig=="SOUTHERN RAILWAY" & stock_type_hold=="N/A" & class_hold=="Equipment" & investor_city_hold=="Baltimore" & investor_state_hold=="Md."
+replace maturity_hold_temp="N/A" if par_value_clean_hold==5000 & coupon_hold_temp=="4" & invname_hold_orig=="Maryland Life Insurance Company" & cname_hold_orig=="SOUTHERN RAILWAY" & stock_type_hold=="N/A" & class_hold=="Equipment" & investor_city_hold=="Baltimore" & investor_state_hold=="Md."
+replace maturity_hold_temp="N/A" if par_value_clean_hold==200000 & coupon_hold_temp=="4.5" & invname_hold_orig=="Eutaw Savings Bank" & cname_hold_orig=="CHICAGO, ROCK ISLAND AND PACIFIC RAILWAY" & stock_type_hold=="N/A" & class_hold=="Equipment" & investor_city_hold=="Baltimore" & investor_state_hold=="Md."
+replace maturity_hold_temp="1917" if par_value_clean_hold==87980 & coupon_hold_temp=="4.5" & invname_hold_orig=="Travelers' Insurance Company" & cname_hold_orig=="CANADIAN NORTHERN" & stock_type_hold=="N/A" & class_hold=="Equipment" & investor_city_hold=="Hartford" & investor_state_hold=="Conn."
+replace maturity_hold_temp="1908" if par_value_clean_hold==1000 & coupon_hold_temp=="5" & invname_hold_orig=="Ipswich Savings Bank" & cname_hold_orig=="PORTLAND AND OGDENSBURG" & stock_type_hold=="N/A" & class_hold=="1908" & investor_city_hold=="Ipswich" & investor_state_hold=="Mass."
+replace maturity_hold_temp="1911-1912-1913" if par_value_clean_hold==12900 & coupon_hold_temp=="6" & invname_hold_orig=="People's Trust Company of Lancaster" & cname_hold_orig=="YORK SILK MANUFACTURING COMPANY" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="Lancaster" & investor_state_hold=="Pa."
+replace maturity_hold_temp="1910-1911-1912" if par_value_clean_hold==25000 & coupon_hold_temp=="4" & invname_hold_orig=="Orange County Trust Company" & cname_hold_orig=="CHICAGO AND ALTON RAILROAD" & stock_type_hold=="N/A" & class_hold=="Equipment" & investor_city_hold=="Middletown" & investor_state_hold=="N. Y."
+replace maturity_hold_temp="1908" if par_value_clean_hold==55000 & coupon_hold_temp=="5" & invname_hold_orig=="New Bedford Institution for Savings" & cname_hold_orig=="PORTLAND AND OGDENSBURG" & stock_type_hold=="N/A" & class_hold=="1908" & investor_city_hold=="New Bedford" & investor_state_hold=="Mass."
+replace maturity_hold_temp="1936& opt 1912" if par_value_clean_hold==750000 & coupon_hold_temp=="4" & invname_hold_orig=="Mercantile Trust Company" & cname_hold_orig=="WESTERN UNION TELEGRAPH COMPANY" & stock_type_hold=="N/A" & class_hold=="Convertible" & investor_city_hold=="New York" & investor_state_hold=="N. Y."
+replace maturity_hold_temp="1913-1914&1917" if par_value_clean_hold==500000 & coupon_hold_temp=="5" & invname_hold_orig=="Equitable Life Assurance Society" & cname_hold_orig=="CINCINNATI, HAMILTON AND DAYTON" & stock_type_hold=="N/A" & class_hold=="Equipment" & investor_city_hold=="New York" & investor_state_hold=="N. Y."
+replace maturity_hold_temp="N/A" if par_value_clean_hold==2000 & coupon_hold_temp=="4" & invname_hold_orig=="Guaranty Trust Company of New York" & cname_hold_orig=="NORFOLK AND WESTERN" & stock_type_hold=="N/A" & class_hold=="Equipment" & investor_city_hold=="New York" & investor_state_hold=="N. Y."
+replace maturity_hold_temp="1913/1918" if par_value_clean_hold==275000 & coupon_hold_temp=="5" & invname_hold_orig=="Mutual Life Insurance Company" & cname_hold_orig=="PHILADELPHIA BOURSE" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="New York" & investor_state_hold=="N. Y."
+replace maturity_hold_temp="1908" if par_value_clean_hold==5000 & coupon_hold_temp=="4.5" & invname_hold_orig=="Columbus Trust Company" & cname_hold_orig=="CANADIAN NORTHERN" & stock_type_hold=="N/A" & class_hold=="Equipment" & investor_city_hold=="Newburgh. N. Y." & investor_state_hold==""
+replace maturity_hold_temp="1910" if par_value_clean_hold==5000 & coupon_hold_temp=="4.5" & invname_hold_orig=="Columbus Trust Company" & cname_hold_orig=="CANADIAN NORTHERN" & stock_type_hold=="N/A" & class_hold=="Equipment" & investor_city_hold=="Newburgh" & investor_state_hold=="N. Y."
+replace maturity_hold_temp="N/A" if par_value_clean_hold==19550 & coupon_hold_temp=="4.5" & invname_hold_orig=="Penn Trust Company" & cname_hold_orig=="CANADIAN NORTHERN" & stock_type_hold=="N/A" & class_hold=="Equipment" & investor_city_hold=="Norristown" & investor_state_hold=="Pa."
+replace maturity_hold_temp="1914" if par_value_clean_hold==25000 & coupon_hold_temp=="5" & invname_hold_orig=="Slater Trust Company" & cname_hold_orig=="MISSOURI PACIFIC" & stock_type_hold=="N/A" & class_hold=="Equipment Trust" & investor_city_hold=="Pawtucket" & investor_state_hold=="R. I"
+replace maturity_hold_temp="1908-9" if par_value_clean_hold==98805 & coupon_hold_temp=="4" & invname_hold_orig=="Pennsylvania Fire Insurance Company" & cname_hold_orig=="NORFOLK AND WESTERN" & stock_type_hold=="N/A" & class_hold=="Equipment" & investor_city_hold=="Philadelphia" & investor_state_hold=="Pa."
+replace maturity_hold_temp="1919/1923" if par_value_clean_hold==40000 & coupon_hold_temp=="4" & invname_hold_orig=="Insurance Company of North America" & cname_hold_orig=="PHILADELPHIA, BALTIMORE AND WASHINGTON" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="Philadelphia" & investor_state_hold=="Pa."
+replace maturity_hold_temp="N/A" if par_value_clean_hold==147055 & coupon_hold_temp=="4" & invname_hold_orig=="Girard Trust Company" & cname_hold_orig=="NORFOLK AND WESTERN" & stock_type_hold=="N/A" & class_hold=="Equipment" & investor_city_hold=="Philadelphia" & investor_state_hold=="Pa."
+replace maturity_hold_temp="1912-1917" if par_value_clean_hold==47000 & coupon_hold_temp=="5" & invname_hold_orig=="Girard Trust Company" & cname_hold_orig=="IOWA CENTRAL" & stock_type_hold=="N/A" & class_hold=="Equipment," & investor_city_hold=="Philadelphia" & investor_state_hold=="Pa."
+replace maturity_hold_temp="1913/1918" if par_value_clean_hold==25000 & coupon_hold_temp=="5" & invname_hold_orig=="Saving Fund Society of Germantown & Its Vicinity" & cname_hold_orig=="PHILADELPHIA BOURSE" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="Philadelphia" & investor_state_hold=="Pa."
+replace maturity_hold_temp="N/A" if par_value_clean_hold==24760 & coupon_hold_temp=="4" & invname_hold_orig=="German-American Title & Trust Co" & cname_hold_orig=="NORFOLK AND WESTERN" & stock_type_hold=="N/A" & class_hold=="Equipment" & investor_city_hold=="Philadelphia" & investor_state_hold=="Pa."
+replace maturity_hold_temp="1912-1913" if par_value_clean_hold==11000 & coupon_hold_temp=="4" & invname_hold_orig=="West Philadelphia Title & Trust Company" & cname_hold_orig=="NORFOLK AND WESTERN POCAHONTAS COAL AND COKE" & stock_type_hold=="N/A" & class_hold=="Equipment" & investor_city_hold=="Philadelphia" & investor_state_hold=="Pa."
+replace maturity_hold_temp="1913/1918" if par_value_clean_hold==10000 & coupon_hold_temp=="5" & invname_hold_orig=="Mutual Trust Company" & cname_hold_orig=="PHILADELPHIA BOURSE" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="Philadelphia" & investor_state_hold=="Pa."
+replace maturity_hold_temp="1908-9" if par_value_clean_hold==126000 & coupon_hold_temp=="N/A" & invname_hold_orig=="Maine Savings Bank" & cname_hold_orig=="BERLIN MILLS COMPANY" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="Portland" & investor_state_hold=="Me."
+replace maturity_hold_temp="1912-1915" if par_value_clean_hold==300000 & coupon_hold_temp=="4.5" & invname_hold_orig=="Providence Institution for Savings" & cname_hold_orig=="CHICAGO AND EASTERN ILLINOIS" & stock_type_hold=="N/A" & class_hold=="Equipment" & investor_city_hold=="Providence" & investor_state_hold=="R. I"
+replace maturity_hold_temp="1917-1918-1919" if par_value_clean_hold==10000 & coupon_hold_temp=="5" & invname_hold_orig=="Peoples Savings Bank" & cname_hold_orig=="PHOENIX PROPERTIES" & stock_type_hold=="N/A" & class_hold=="N/A" & investor_city_hold=="Providence" & investor_state_hold=="R. I."
+replace maturity_hold_temp="1908" if par_value_clean_hold==25000 & coupon_hold_temp=="4.5" & invname_hold_orig=="Union Trust Company" & cname_hold_orig=="CANADIAN NORTHERN" & stock_type_hold=="N/A" & class_hold=="Equipment" & investor_city_hold=="Rochester" & investor_state_hold=="N. Y."
+replace maturity_hold_temp="1909" if par_value_clean_hold==15000 & coupon_hold_temp=="4.5" & invname_hold_orig=="Union Trust Company" & cname_hold_orig=="CANADIAN NORTHERN" & stock_type_hold=="N/A" & class_hold=="Equipment" & investor_city_hold=="Rochester" & investor_state_hold=="N. Y."
+replace maturity_hold_temp="1910" if par_value_clean_hold==8000 & coupon_hold_temp=="4.5" & invname_hold_orig=="Citizens' Trust Company" & cname_hold_orig=="CANADIAN NORTHERN" & stock_type_hold=="N/A" & class_hold=="Equipment" & investor_city_hold=="Schenectady" & investor_state_hold=="N. Y."
+replace maturity_hold_temp="1912" if par_value_clean_hold==4000 & coupon_hold_temp=="4.5" & invname_hold_orig=="Citizens' Trust Company" & cname_hold_orig=="CANADIAN NORTHERN" & stock_type_hold=="N/A" & class_hold=="Equipment" & investor_city_hold=="Schenectady" & investor_state_hold=="N. Y."
+replace maturity_hold_temp="1909" if par_value_clean_hold==13000 & coupon_hold_temp=="4.5" & invname_hold_orig=="Citizens' Trust Company" & cname_hold_orig=="CANADIAN NORTHERN" & stock_type_hold=="N/A" & class_hold=="Equipment" & investor_city_hold=="Schenectady" & investor_state_hold=="N. Y."
+replace maturity_hold_temp="1911" if par_value_clean_hold==49005 & coupon_hold_temp=="4.5" & invname_hold_orig=="Western Assur. Co." & cname_hold_orig=="CANADIAN NORTHERN" & stock_type_hold=="N/A" & class_hold=="Equipment" & investor_city_hold=="Toronto" & investor_state_hold=="Can."
+replace maturity_hold_temp="N/A" if par_value_clean_hold==62726 & coupon_hold_temp=="4.5" & invname_hold_orig=="British-American As. Co." & cname_hold_orig=="CANADIAN NORTHERN" & stock_type_hold=="N/A" & class_hold=="Equipment" & investor_city_hold=="Toronto/New York" & investor_state_hold=="Can./N. Y."
+replace maturity_hold_temp="1910&1911" if par_value_clean_hold==25000 & coupon_hold_temp=="6" & invname_hold_orig=="Woonsocket Institution for Savings" & cname_hold_orig=="MINNEAPOLIS, ST PAUL AND SAULT STE MARIE" & stock_type_hold=="N/A" & class_hold=="Equipment" & investor_city_hold=="Woonsocket" & investor_state_hold=="R. I."
+replace maturity_hold_temp="1927" if maturity_hold_temp=="1727"
+replace maturity_hold_temp="1920" if maturity_hold_temp=="1820"
+replace maturity_hold_temp="1923" if maturity_hold_temp=="1823"
+replace maturity_hold_temp="1915-1919" if maturity_hold_temp=="191S-1919"
+replace maturity_hold_temp="1912-1916" if maturity_hold_temp=="1912-19l6"
+replace maturity_hold_temp="1908-1910" if maturity_hold_temp=="190K-1910"
+
+*Stock_type
+cap drop stock_type_temp
+gen stock_type_temp=stock_type_hold
+replace stock_type_temp=lower(stock_type_temp)
+replace stock_type_temp="bonds" if stock_type_temp=="bond."
+replace stock_type_temp="bonds" if stock_type_temp=="bonds"
+replace stock_type_temp="bonds" if stock_type_temp=="bonds"
+replace stock_type_temp="bonds" if stock_type_temp=="bonds."
+replace stock_type_temp="n/a" if stock_type_temp=="camden"
+replace stock_type_temp="common" if stock_type_temp=="com"
+replace stock_type_temp="common & preferred" if stock_type_temp=="com & pref"
+replace stock_type_temp="common" if stock_type_temp=="com."
+replace stock_type_temp="common & preferred" if stock_type_temp=="com. & pref."
+replace stock_type_temp="common & preferred" if stock_type_temp=="common & preferred"
+replace stock_type_temp="common & preferred" if stock_type_temp=="common and preferred"
+replace stock_type_temp="common & preferred" if stock_type_temp=="common and preferred."
+replace stock_type_temp="common & preferred" if stock_type_temp=="common and preferredstock"
+replace stock_type_temp="common" if stock_type_temp=="common common"
+replace stock_type_temp="common" if stock_type_temp=="common stock"
+replace stock_type_temp="debenture" if stock_type_temp=="deb stock"
+replace stock_type_temp="debenture" if stock_type_temp=="debenture"
+replace stock_type_temp="first preferred" if stock_type_temp=="first"
+replace stock_type_temp="first preferred" if stock_type_temp=="first  preferred"
+replace stock_type_temp="first preferred" if stock_type_temp=="first preferred"
+replace stock_type_temp="first and second preferred" if stock_type_temp=="first preferred and second preferred"
+replace stock_type_temp="first preferred" if stock_type_temp=="first prefferdstock"
+replace stock_type_temp="first preferred" if stock_type_temp=="fisrt preferred"
+replace stock_type_temp="guaranteed stock" if stock_type_temp=="guaranteed"
+replace stock_type_temp="leased line stock" if stock_type_temp=="leased line"
+replace stock_type_temp="leased line stock" if stock_type_temp=="leased lines"
+replace stock_type_temp="n/a" if stock_type_temp=="n/a"
+replace stock_type_temp="n/a" if stock_type_temp=="na"
+replace stock_type_temp="common" if stock_type_temp=="ord stock"
+replace stock_type_temp="common" if stock_type_temp=="ordinary stock"
+replace stock_type_temp="preferred" if stock_type_temp=="peferred"
+replace stock_type_temp="preferred" if stock_type_temp=="perferred"
+replace stock_type_temp="preferred" if stock_type_temp=="pre."
+replace stock_type_temp="preferred" if stock_type_temp=="pref"
+replace stock_type_temp="preferred" if stock_type_temp=="pref stock"
+replace stock_type_temp="preferred" if stock_type_temp=="pref."
+replace stock_type_temp="preferred" if stock_type_temp=="pref. stock"
+replace stock_type_temp="preferred" if stock_type_temp=="preference"
+replace stock_type_temp="preferred" if stock_type_temp=="preferred"
+replace stock_type_temp="preferred" if stock_type_temp=="preferred 8tock"
+replace stock_type_temp="common & preferred" if stock_type_temp=="preferred and common"
+replace stock_type_temp="first preferred" if stock_type_temp=="preferred first"
+replace stock_type_temp="second preferred" if stock_type_temp=="preferred second"
+replace stock_type_temp="preferred" if stock_type_temp=="preferred."
+replace stock_type_temp="preferred" if stock_type_temp=="preferredstock"
+replace stock_type_temp="preferred" if stock_type_temp=="preffered"
+replace stock_type_temp="preferred" if stock_type_temp=="preffered stock"
+replace stock_type_temp="preferred" if stock_type_temp=="prefferred"
+replace stock_type_temp="scrip stock" if stock_type_temp=="scrip"
+replace stock_type_temp="second preferred" if stock_type_temp=="second"
+replace stock_type_temp="securities" if stock_type_temp=="securities."
+replace stock_type_temp="stock" if stock_type_temp=="stoc k"
+replace stock_type_temp="stock" if stock_type_temp=="stock"
+replace stock_type_temp="stock" if stock_type_temp=="stock"
+replace stock_type_temp="scrip stock" if stock_type_temp=="stock and scrip"
+replace stock_type_temp="common" if stock_type_temp=="stock common"
+replace stock_type_temp="preferred" if stock_type_temp=="stock preferred"
+replace stock_type_temp="stock" if stock_type_temp=="stock stock"
+replace stock_type_temp="stock" if stock_type_temp=="stocks"
+replace stock_type_temp="n/a" if stock_type_temp==""
+replace stock_type_temp=strtrim(stock_type_temp)
+replace stock_type_temp=stritrim(stock_type_temp)
 
 cd "$root_dta"
 saveold Holdings_Data_Issue_temp.dta, replace
@@ -899,6 +1013,30 @@ saveold Holdings_Data_Issue_temp.dta, replace
 use Holdings_Data_Issue_temp.dta, clear
 
 drop if industry=="Government"
+
+foreach i in "stock" "various" "preferred" "common" "leased line stock" "bonds" "first preferred" "debenture" "12 p c stock" "loans" "second preferred" "new stock" "cumulative prior lieu stock" "assenting stock" "stock" "bonds" "class 2 stock" "class 4 stock" "class 1 stock" "class 3 stock" "notes" "common & preferred" "first and second preferred" "guaranteed stock" "debenture" "securities" "notes" "scrip stock" "underwriting syndicate stock" "properties  stock" "stock old issue" "registered" "registered stock"{
+
+	gen investor_temp=lower(invname_hold_orig)
+	gen issuer_temp=lower(cname_hold_orig)
+	gen city_temp=lower(investor_city_hold)
+	gen state_temp=lower(investor_state_hold)
+	replace stock_type_temp=stock_type_temp+";`i'" if strpos(investor_temp,"`i'")
+	replace stock_type_temp=stock_type_temp+";`i'" if strpos(issuer_temp,"`i'")
+	replace stock_type_temp=stock_type_temp+";`i'" if strpos(class_hold_temp,"`i'")	
+	replace stock_type_temp=stock_type_temp+";`i'" if strpos(state_temp,"`i'")
+	replace stock_type_temp=stock_type_temp+";`i'" if strpos(city_temp,"`i'")
+	drop investor_temp issuer_temp city_temp state_temp
+}
+
+duplicates drop stock_type_temp, force
+
+
+
+
+
+
+
+
 /*
 gen m=cond(regexm(invname_hold_orig,"[0-9]"),"1","0")
 replace m=m+"2" if regexm(cname_hold_orig,"[0-9]")
@@ -909,7 +1047,7 @@ replace m=m+"6" if regexm(investor_state_hold,"[0-9]")
 drop if m=="0"
 sort m 
 */
-browse coupon_hold maturity_year_hold invname_hold_orig cname_hold_orig stock_type_hold class_hold investor_city_hold investor_state_hold book_year_hold industry
+browse coupon_hold_temp maturity_hold_temp invname_hold_orig cname_hold_orig stock_type_hold class_hold investor_city_hold investor_state_hold book_year_hold industry
 /*
 drop if industry=="Government"
 gen m=cond(strpos(maturity_hold_temp,"19"),0,1)
@@ -917,7 +1055,7 @@ replace m=1 if length(maturity_hold_temp)!=4 & (length(maturity_hold_temp)!=7&st
 
 duplicates drop maturity_hold_temp, force
 sort coupon_hold_temp
-browse par_value_clean_hold coupon_hold maturity_hold_temp invname_hold_orig cname_hold_orig stock_type_hold class_hold investor_city_hold investor_state_hold book_year_hold industry if length(maturity_hold_temp)~=4 & length(maturity_hold_temp)~=9 & industry~="Government" & maturity_hold_temp~="N/A"
+browse par_value_clean_hold coupon_hold_temp maturity_hold_temp invname_hold_orig cname_hold_orig stock_type_hold class_hold investor_city_hold investor_state_hold book_year_hold industry if length(maturity_hold_temp)~=4 & length(maturity_hold_temp)~=9 & industry~="Government" & maturity_hold_temp~="N/A"
 
 
 
