@@ -1137,7 +1137,25 @@ replace stock_type_temp="notes" if stock_type_hold=="Stock" & class_hold_temp=="
 drop investor_temp issuer_temp city_temp state_temp
 
 
-browse stock_type_temp stock_type_hold class_hold_temp book_year_hold industry par_value_clean_hold investor_temp issuer_temp state_temp city_temp if stock_type_temp=="new stock" | stock_type_temp=="stock; pref.; pref; bond; bonds; pref; pref." | stock_type_temp=="stock;3 bond;3 bonds" | stock_type_temp=="stock;3 notes" | stock_type_temp=="debenture stock" | stock_type_temp=="guaranteed stock" | stock_type_temp=="stock and bonds" | stock_type_temp=="stock old issue" & industry~="Government"
+*browse stock_type_temp stock_type_hold class_hold_temp book_year_hold industry par_value_clean_hold investor_temp issuer_temp state_temp city_temp if stock_type_temp=="new stock" | stock_type_temp=="stock; pref.; pref; bond; bonds; pref; pref." | stock_type_temp=="stock;3 bond;3 bonds" | stock_type_temp=="stock;3 notes" | stock_type_temp=="debenture stock" | stock_type_temp=="guaranteed stock" | stock_type_temp=="stock and bonds" | stock_type_temp=="stock old issue" & industry~="Government"
+
+*Revise par_value
+cap gen par_value_temp=par_value_clean_hold
+replace par_value_temp=10000 if par_value_clean_hold==0 & stock_type_hold=="Preferred" & coupon_hold_temp=="N/A" & maturity_hold_temp=="N/A" & cname_hold_orig=="RUSSELL MILLER MILLINGCOMPANY" & invname_hold_orig=="Middle Fire Insurance Company"
+replace par_value_temp=3000 if par_value_clean_hold==0 & stock_type_hold=="N/A" & coupon_hold_temp=="4" & maturity_hold_temp=="N/A" & cname_hold_orig=="PORTLAND (ME ) ELEVATOR COMPANY" & invname_hold_orig=="Machias Savings Bank"
+replace par_value_temp=30000 if par_value_clean_hold==0 & stock_type_hold=="N/A" & coupon_hold_temp=="3.5" & maturity_hold_temp=="1949" & cname_hold_orig=="CHICAGO, BURLINGTON AND QUINCY" & invname_hold_orig=="Littleton Savings Bank"
+replace par_value_temp=26938 if par_value_clean_hold==0 & stock_type_hold=="N/A" & coupon_hold_temp=="5" & maturity_hold_temp=="1917" & cname_hold_orig=="MISSOURI PACIFIC" & invname_hold_orig=="Agricultural Insurance Company"
+replace par_value_temp=50900 if par_value_clean_hold==0 & stock_type_hold=="N/A" & coupon_hold_temp=="7" & maturity_hold_temp=="1914-1915" & cname_hold_orig=="MORRIS AND ESSEX" & invname_hold_orig=="Morris County Savings Bank"
+replace par_value_temp=60000 if par_value_clean_hold==0 & stock_type_hold=="N/A" & coupon_hold_temp=="4" & maturity_hold_temp=="1949" & cname_hold_orig=="MINNEAPOLIS AND ST LOUIS" & invname_hold_orig=="Winsted Savings Bank"
+replace par_value_temp=31920 if par_value_clean_hold==0 & stock_type_hold=="N/A" & coupon_hold_temp=="5" & maturity_hold_temp=="1937" & cname_hold_orig=="MONTANA CENTRAL" & invname_hold_orig=="Orient Insurance Company"
+replace par_value_temp=10000 if par_value_clean_hold==10 & stock_type_hold=="" & coupon_hold_temp=="5" & maturity_hold_temp=="1920" & cname_hold_orig=="ROCKLAND-ROCKPORT LIME COMPANY (ME )" & invname_hold_orig=="Kennebec Savings Bank"
+replace par_value_temp=20000 if par_value_clean_hold==20 & stock_type_hold=="N/A" & coupon_hold_temp=="4" & maturity_hold_temp=="1954" & cname_hold_orig=="HARLEM RIVER AND PORTCHESTER" & invname_hold_orig=="Farmington Savings Bank"
+replace par_value_temp=20000 if par_value_clean_hold==20 & stock_type_hold=="" & coupon_hold_temp=="5" & maturity_hold_temp=="1924" & cname_hold_orig=="PITTSBURGH TERMINAL WAREHOUSE AND TRANSFER CO" & invname_hold_orig=="Allemannia Fire Insurance Company"
+replace par_value_temp=22000 if par_value_clean_hold==22 & stock_type_hold=="N/A" & coupon_hold_temp=="4" & maturity_hold_temp=="1960" & cname_hold_orig=="ATCHISON, TOPEKA AND SANTA FE" & invname_hold_orig=="Hudson Trust Company"
+replace par_value_temp=30000 if par_value_clean_hold==30 & stock_type_hold=="N/A" & coupon_hold_temp=="5" & maturity_hold_temp=="N/A" & cname_hold_orig=="MISSOURI PACIFIC" & invname_hold_orig=="Miners' Savings Bank"
+replace par_value_temp=30000 if par_value_clean_hold==30 & stock_type_hold=="Common" & coupon_hold_temp=="N/A" & maturity_hold_temp=="N/A" & cname_hold_orig=="ILLINOIS CENTRAL" & invname_hold_orig=="Mutual Trust Company of Westchester County"
+replace maturity_hold_temp="1914-1919" if par_value_clean_hold==0 & stock_type_hold=="N/A" & coupon_hold_temp=="4" & maturity_hold_temp=="N/A" & cname_hold_orig=="PORTLAND (ME ) ELEVATOR COMPANY" & invname_hold_orig=="Machias Savings Bank"
+replace cname_hold_temp="globe grain milling" if par_value_clean_hold==25 & stock_type_hold=="" & coupon_hold_temp=="5" & maturity_hold_temp=="N/A" & cname_hold_orig=="GLOBE STEAMSHIP COMPANY (Duluth, Minn )" & invname_hold_orig=="Anglo-Californian Bank  Ltd."
 
 
 saveold temp1.dta,replace
@@ -1147,7 +1165,7 @@ drop if industry=="Government"
 duplicates tag stock_type_temp, gen(count)
 duplicates drop stock_type_temp, force
 
-browse par_value_clean_hold count stock_type_hold class_hold_temp book_year_hold industry par_value_clean_hold invname_hold_temp cname_hold_temp if par_value_clean_hold<50 //if regexm(stock_type_temp,"(1|2)")
+browse par_value_clean_hold count stock_type_hold class_hold_temp book_year_hold industry par_value_clean_hold invname_hold_orig cname_hold_orig if par_value_clean_hold<50 & industry~="Government" //if regexm(stock_type_temp,"(1|2)")
 
 
 
