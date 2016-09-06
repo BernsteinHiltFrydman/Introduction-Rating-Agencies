@@ -956,7 +956,7 @@ replace stock_type_temp="common & preferred" if stock_type_temp=="common and pre
 replace stock_type_temp="common & preferred" if stock_type_temp=="common and preferredstock"
 replace stock_type_temp="common" if stock_type_temp=="common common"
 replace stock_type_temp="common" if stock_type_temp=="common stock"
-replace stock_type_temp="debenture" if stock_type_temp=="deb stock"
+replace stock_type_temp="debenture stock" if stock_type_temp=="deb stock"
 replace stock_type_temp="debenture" if stock_type_temp=="debenture"
 replace stock_type_temp="first preferred" if stock_type_temp=="first"
 replace stock_type_temp="first preferred" if stock_type_temp=="first  preferred"
@@ -1007,29 +1007,147 @@ replace stock_type_temp=stritrim(stock_type_temp)
 cd "$root_dta"
 saveold Holdings_Data_Issue_temp.dta, replace
 
-
-/*
-
+set more off
 use Holdings_Data_Issue_temp.dta, clear
 
-drop if industry=="Government"
+foreach i in "stock" "various" "pref." "pref" "bond" "preferred" "common" "leased line stock" "first preferred" "debenture" "12 p c stock" "loans" "second preferred" "new stock" "cumulative prior lieu stock" "assenting stock" "stock" "bonds" "class 2 stock" "class 4 stock" "class 1 stock" "class 3 stock" "notes" "common & preferred"/*
+*/ "first and second preferred" "guaranteed stock" "securities" "scrip" "scrip stock" "underwriting syndicate stock" "properties stock" "stock old issue" "registered" "registered stock" "guaranteed" "leased line" "leased lines" "ord stock" "ordinary stock" "pref stock" "pre." "pref" "pref stock" "pref." "pref. stock" "preferred second"/*
+*/ "preferred and common" "preferred." "stoc k" "stock" "stock" "stock and scrip" "stock common" "stock preferred" "deb stock" "deb" {
 
-foreach i in "stock" "various" "preferred" "common" "leased line stock" "bonds" "first preferred" "debenture" "12 p c stock" "loans" "second preferred" "new stock" "cumulative prior lieu stock" "assenting stock" "stock" "bonds" "class 2 stock" "class 4 stock" "class 1 stock" "class 3 stock" "notes" "common & preferred" "first and second preferred" "guaranteed stock" "debenture" "securities" "notes" "scrip stock" "underwriting syndicate stock" "properties  stock" "stock old issue" "registered" "registered stock"{
-
-	gen investor_temp=lower(invname_hold_orig)
-	gen issuer_temp=lower(cname_hold_orig)
-	gen city_temp=lower(investor_city_hold)
-	gen state_temp=lower(investor_state_hold)
-	replace stock_type_temp=stock_type_temp+";`i'" if strpos(investor_temp,"`i'")
-	replace stock_type_temp=stock_type_temp+";`i'" if strpos(issuer_temp,"`i'")
-	replace stock_type_temp=stock_type_temp+";`i'" if strpos(class_hold_temp,"`i'")	
-	replace stock_type_temp=stock_type_temp+";`i'" if strpos(state_temp,"`i'")
-	replace stock_type_temp=stock_type_temp+";`i'" if strpos(city_temp,"`i'")
-	drop investor_temp issuer_temp city_temp state_temp
+	cap gen investor_temp=lower(invname_hold_orig)
+	cap gen issuer_temp=lower(cname_hold_orig)
+	cap gen city_temp=lower(investor_city_hold)
+	cap gen state_temp=lower(investor_state_hold)
+	*replace stock_type_temp=stock_type_temp+";1 `i'" if regexm(investor_temp," `i'$") & stock_type_temp=="n/a"
+	*replace stock_type_temp=stock_type_temp+";2 `i'" if regexm(issuer_temp," `i'$") & stock_type_temp=="n/a"
+	replace stock_type_temp=stock_type_temp+";3 `i'" if strpos(class_hold_temp,"`i'")	
+	replace stock_type_temp=stock_type_temp+";4 `i'" if regexm(state_temp," `i'$")
+	replace stock_type_temp=stock_type_temp+";5 `i'" if regexm(city_temp," `i'$")
+	*drop investor_temp issuer_temp city_temp state_temp
 }
 
+foreach i in "stock" "various" "pref." "pref" "bond" "preferred" "common" "leased line stock" "first preferred" "debenture" "12 p c stock" "loans" "second preferred" "new stock" "cumulative prior lieu stock" "assenting stock" "stock" "bonds" "class 2 stock" "class 4 stock" "class 1 stock" "class 3 stock" "notes" "common & preferred"/*
+*/ "first and second preferred" "guaranteed stock" "securities" "scrip" "scrip stock" "underwriting syndicate stock" "properties stock" "stock old issue" "registered" "registered stock" "guaranteed" "leased line" "leased lines" "ord stock" "ordinary stock" "pref stock" "pre." "pref" "pref stock" "pref." "pref. stock" "preferred second"/*
+*/ "preferred and common" "preferred." "stoc k" "stock" "stock" "stock and scrip" "stock common" "stock preferred" "deb stock" "deb" {
+
+	replace stock_type_temp=stock_type_temp+";2 `i'" if regexm(issuer_temp," `i'$") & stock_type_temp=="n/a"
+	replace stock_type_temp=stock_type_temp+";1 `i'" if regexm(investor_temp," `i'$") & stock_type_temp=="n/a"
+	
+}
+replace stock_type_temp=subinstr(stock_type_temp,"n/a;","",.)
+replace stock_type_temp=subinstr(stock_type_temp,"2 securities","",.)
+replace stock_type_temp=subinstr(stock_type_temp,"2 debenture","",.)
+replace stock_type_temp=subinstr(stock_type_temp,"1 loans","",.)
+
+replace stock_type_temp="n/a" if stock_type_temp==""
+replace stock_type_temp="stock" if stock_type_temp=="1 stock"
+replace stock_type_temp="scrip" if stock_type_temp=="2 scrip"
+replace stock_type_temp="stock" if stock_type_temp=="2 stock"
+replace stock_type_temp="bonds" if stock_type_temp=="3 bond"
+replace stock_type_temp="bonds" if stock_type_temp=="3 bond;3 bonds"
+replace stock_type_temp="guaranteed bonds" if stock_type_temp=="3 bond;3 bonds;3 guaranteed"
+replace stock_type_temp="bonds" if stock_type_temp=="3 bond;3 bonds;3 securities"
+replace stock_type_temp="common" if stock_type_temp=="3 common"
+replace stock_type_temp="debenture" if stock_type_temp=="3 deb"
+replace stock_type_temp="debenture" if stock_type_temp=="3 debenture;3 deb"
+replace stock_type_temp="debenture note" if stock_type_temp=="3 debenture;3 notes;3 deb"
+replace stock_type_temp="guaranteed" if stock_type_temp=="3 guaranteed"
+replace stock_type_temp="n/a" if stock_type_temp=="3 leased line"
+replace stock_type_temp="loans" if stock_type_temp=="3 loans"
+replace stock_type_temp="notes" if stock_type_temp=="3 notes"
+replace stock_type_temp="debenture notes" if stock_type_temp=="3 notes;3 deb"
+replace stock_type_temp="preferred" if stock_type_temp=="3 pref;3 preferred;3 pref"
+replace stock_type_temp="scrip" if stock_type_temp=="3 scrip"
+replace stock_type_temp="securities" if stock_type_temp=="3 securities"
+replace stock_type_temp="stock and bonds" if stock_type_temp=="3 stock;3 bond;3 stock;3 bonds;3 stock;3 stock"
+replace stock_type_temp="common stock" if stock_type_temp=="3 stock;3 common;3 stock;3 stock;3 stock"
+replace stock_type_temp="debenture stock" if stock_type_temp=="3 stock;3 debenture;3 stock;3 stock;3 stock;3 deb"
+replace stock_type_temp="preferred stock" if stock_type_temp=="3 stock;3 pref;3 preferred;3 stock;3 pref;3 stock;3 stock"
+replace stock_type_temp="stock" if stock_type_temp=="3 stock;3 stock;3 stock;3 stock"
+replace stock_type_temp="debenture stock" if stock_type_temp=="3 stock;3 stock;3 stock;3 stock;3 deb"
+replace stock_type_temp="various" if stock_type_temp=="3 various"
+replace stock_type_temp="bonds" if stock_type_temp=="3 various;3 bond;3 bonds"
+replace stock_type_temp="assenting stock" if stock_type_temp=="assenting stock"
+replace stock_type_temp="bonds" if stock_type_temp=="bonds;3 bond;3 bonds"
+replace stock_type_temp="common and preferred" if stock_type_temp=="common & preferred"
+replace stock_type_temp="common" if stock_type_temp=="common;3 securities"
+replace stock_type_temp="common" if stock_type_temp=="common;4 common"
+replace stock_type_temp="cumulative prior lien stock" if stock_type_temp=="cumulative prior lieu stock"
+replace stock_type_temp="debenture notes" if stock_type_temp=="debenture;3 notes"
+replace stock_type_temp="first and second preferred" if stock_type_temp=="first and second preferred"
+replace stock_type_temp="first preferred" if stock_type_temp=="first preferred"
+replace stock_type_temp="first preferred registered" if stock_type_temp=="first preferred;3 registered"
+replace stock_type_temp="guaranteed stock" if stock_type_temp=="guaranteed stock"
+replace stock_type_temp="stock" if stock_type_temp=="leased line stock"
+replace stock_type_temp="new stock" if stock_type_temp=="new stock"
+replace stock_type_temp="notes" if stock_type_temp=="notes"
+replace stock_type_temp="preferred" if stock_type_temp=="preferred;3 securities"
+replace stock_type_temp="preferred" if stock_type_temp=="preferred;4 preferred"
+replace stock_type_temp="properties stock" if stock_type_temp=="properties stock"
+replace stock_type_temp="registered" if stock_type_temp=="registered"
+replace stock_type_temp="registered stock" if stock_type_temp=="registered stock"
+replace stock_type_temp="scrip stock" if stock_type_temp=="scrip stock"
+replace stock_type_temp="securities" if stock_type_temp=="securities"
+replace stock_type_temp="stock old issue" if stock_type_temp=="stock old issue"
+replace stock_type_temp="common stock" if stock_type_temp=="stock;3 common"
+replace stock_type_temp="debenture stock" if stock_type_temp=="stock;3 deb"
+replace stock_type_temp="debenture stock" if stock_type_temp=="stock;3 debenture;3 deb"
+replace stock_type_temp="guaranteed stock" if stock_type_temp=="stock;3 guaranteed"
+replace stock_type_temp="stock; pref.; pref; bond; bonds; pref; pref." if stock_type_temp=="stock;3 pref.;3 pref;3 bond;3 bonds;3 pref;3 pref."
+replace stock_type_temp="preferred stock" if stock_type_temp=="stock;3 pref;3 preferred;3 pref"
+replace stock_type_temp="stock securities" if stock_type_temp=="stock;3 securities"
+replace stock_type_temp="underwriting syndicate stock" if stock_type_temp=="underwriting syndicate stock"
+replace stock_type_temp="n/a" if stock_type_temp==""
+replace stock_type_temp="debenture notes" if stock_type_temp=="debenture note"
+replace stock_type_temp="scrip stock" if stock_type_temp=="scrip"
+replace stock_type_temp="stock" if stock_type_temp=="12 p c stock"
+replace stock_type_temp="stock" if stock_type_temp=="class 2 stock"
+replace stock_type_temp="stock" if stock_type_temp=="class 4 stock"
+replace stock_type_temp="stock" if stock_type_temp=="class 1 stock"
+replace stock_type_temp="stock" if stock_type_temp=="class 3 stock"
+replace stock_type_temp="stock" if stock_type_hold=="New Stock" & stock_type_hold=="New Stock" & class_hold_temp=="60% paid." & par_value_clean_hold==23400 & investor_temp=="franklin trust company" & issuer_temp=="portland (ore ) gas company"
+replace stock_type_temp="stock" if stock_type_hold=="Stock Old Issue" & class_hold_temp=="n/a" & par_value_clean_hold==10000 & investor_temp=="union trust company." & issuer_temp=="chicago and alton"
+replace stock_type_temp="first preferred" if stock_type_hold=="Stock" & class_hold_temp=="bonds, 1st pref." & par_value_clean_hold==10000 & investor_temp=="chambersburg trust company" & issuer_temp=="wilmington gas company"
+replace stock_type_temp="stock" if stock_type_hold=="Stock" & class_hold_temp=="bonds" & par_value_clean_hold==4000 & investor_temp=="people's bank of erie" & issuer_temp=="chicago, terre haute and southeastern"
+replace stock_type_temp="stock" if stock_type_hold=="Stock" & class_hold_temp=="bonds" & par_value_clean_hold==10000 & investor_temp=="lancaster trust company." & issuer_temp=="chicago, terre haute and southeastern"
+replace stock_type_temp="stock" if stock_type_hold=="Stock" & class_hold_temp=="bonds" & par_value_clean_hold==4000 & investor_temp=="farmers' trust company" & issuer_temp=="chicago, terre haute and southeastern"
+replace stock_type_temp="stock" if stock_type_hold=="Stock" & class_hold_temp=="bonds" & par_value_clean_hold==20000 & investor_temp=="fidelity mutual life insurance company" & issuer_temp=="chicago, terre haute and southeastern"
+replace stock_type_temp="stock" if stock_type_hold=="Stock" & class_hold_temp=="bonds" & par_value_clean_hold==10000 & investor_temp=="commonwealth title  ins. & trust company" & issuer_temp=="chicago, terre haute and southeastern"
+replace stock_type_temp="stock" if stock_type_hold=="Stock" & class_hold_temp=="bonds" & par_value_clean_hold==16000 & investor_temp=="presbyterian ministers' fund" & issuer_temp=="chicago, terre haute and southeastern"
+replace stock_type_temp="stock" if stock_type_hold=="Stock" & class_hold_temp=="bonds" & par_value_clean_hold==4000 & investor_temp=="frankford trust company" & issuer_temp=="chicago, terre haute and southeastern"
+replace stock_type_temp="stock" if stock_type_hold=="Stock" & class_hold_temp=="bonds" & par_value_clean_hold==4000 & investor_temp=="west philadelphia title & trust company" & issuer_temp=="chicago, terre haute and southeastern"
+replace stock_type_temp="stock" if stock_type_hold=="Stock" & class_hold_temp=="bonds" & par_value_clean_hold==8000 & investor_temp=="safe deposit bank" & issuer_temp=="chicago, terre haute and southeastern"
+replace stock_type_temp="stock" if stock_type_hold=="Stock" & class_hold_temp=="bonds" & par_value_clean_hold==10000 & investor_temp=="pennsylvania trust company" & issuer_temp=="chicago, terre haute and southeastern"
+replace stock_type_temp="stock" if stock_type_hold=="Stock" & class_hold_temp=="bonds" & par_value_clean_hold==20000 & investor_temp=="trust and deposit company of onondaga" & issuer_temp=="chicago, terre haute and southeastern"
+replace stock_type_temp="stock" if stock_type_hold=="Stock" & class_hold_temp=="bonds" & par_value_clean_hold==4000 & investor_temp=="utica trust & deposit company." & issuer_temp=="chicago, terre haute and southeastern"
+replace stock_type_temp="stock" if stock_type_hold=="Stock" & class_hold_temp=="bonds" & par_value_clean_hold==22000 & investor_temp=="miners' savings bank" & issuer_temp=="chicago, terre haute and southeastern"
+replace stock_type_temp="stock" if stock_type_hold=="Stock" & class_hold_temp=="bonds" & par_value_clean_hold==14200 & investor_temp=="new hampshire savings bank." & issuer_temp=="concord and portsmouth"
+replace stock_type_temp="stock" if stock_type_hold=="Stock" & class_hold_temp=="bonds" & par_value_clean_hold==10000 & investor_temp=="merrimack river savings bank" & issuer_temp=="concord and portsmouth"
+replace stock_type_temp="stock" if stock_type_hold=="Stock" & class_hold_temp=="bonds" & par_value_clean_hold==16200 & investor_temp=="manchester savings bank" & issuer_temp=="concord and portsmouth"
+replace stock_type_temp="stock" if stock_type_hold=="Stock" & class_hold_temp=="bonds" & par_value_clean_hold==12000 & investor_temp=="amoskeag savings bank" & issuer_temp=="concord and portsmouth"
+replace stock_type_temp="stock and bonds" if stock_type_hold=="Stocks" & class_hold_temp=="bonds" & par_value_clean_hold==16101 & investor_temp=="union trust company" & issuer_temp=="nashville ry and light"
+replace stock_type_temp="stock" if stock_type_hold=="Stock" & class_hold_temp=="syndicate bonds" & par_value_clean_hold==6740 & investor_temp=="underwriters' fire insurance company" & issuer_temp=="state security life and accident company"
+replace stock_type_temp="bonds" if stock_type_hold=="Stock" & class_hold_temp=="bonds" & par_value_clean_hold==5000 & investor_temp=="doylestown trust company" & issuer_temp=="wilmington gas company"
+replace stock_type_temp="bonds" if stock_type_hold=="Stock" & class_hold_temp=="bonds" & par_value_clean_hold==25000 & investor_temp=="pennsylvania fire insurance-company" & issuer_temp=="wilmington gas company"
+replace stock_type_temp="sink fund" if stock_type_hold=="Stock" & class_hold_temp=="bonds, s. f. coup." & par_value_clean_hold==10000 & investor_temp=="frankford trust company" & issuer_temp=="wilmington gas company"
+replace stock_type_temp="sink fund ( 1st ref & sink fund)" if stock_type_hold=="Stock" & class_hold_temp=="bonds, 1st bef. & sink. fund" & par_value_clean_hold==10000 & investor_temp=="united firemen's ins. co." & issuer_temp=="wilmington gas company"
+replace stock_type_temp="bonds" if stock_type_hold=="Stock" & class_hold_temp=="bonds" & par_value_clean_hold==10000 & investor_temp=="farmers & mechanics' trust company" & issuer_temp=="wilmington gas company"
+replace stock_type_temp="bonds" if stock_type_hold=="Stock" & class_hold_temp=="bonds" & par_value_clean_hold==7840 & investor_temp=="farmers' mutual fire ins. co. state of del." & issuer_temp=="wilmington gas company"
+replace stock_type_temp="notes" if stock_type_hold=="Stock" & class_hold_temp=="gold coupon notes" & par_value_clean_hold==8849 & investor_temp=="capital fire insurance company" & issuer_temp=="american locomotive company"
+drop investor_temp issuer_temp city_temp state_temp
+
+
+browse stock_type_temp stock_type_hold class_hold_temp book_year_hold industry par_value_clean_hold investor_temp issuer_temp state_temp city_temp if stock_type_temp=="new stock" | stock_type_temp=="stock; pref.; pref; bond; bonds; pref; pref." | stock_type_temp=="stock;3 bond;3 bonds" | stock_type_temp=="stock;3 notes" | stock_type_temp=="debenture stock" | stock_type_temp=="guaranteed stock" | stock_type_temp=="stock and bonds" | stock_type_temp=="stock old issue" & industry~="Government"
+
+
+saveold temp1.dta,replace
+
+/*
+drop if industry=="Government"
+duplicates tag stock_type_temp, gen(count)
 duplicates drop stock_type_temp, force
 
+browse par_value_clean_hold count stock_type_hold class_hold_temp book_year_hold industry par_value_clean_hold invname_hold_temp cname_hold_temp if par_value_clean_hold<50 //if regexm(stock_type_temp,"(1|2)")
 
 
 
