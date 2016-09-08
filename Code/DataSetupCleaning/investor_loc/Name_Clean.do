@@ -128,10 +128,39 @@ replace investor_state_temp="germany" if invname_hold_orig=="Prussian National I
 replace investor_state_temp="connecticut" if invname_hold_orig=="Savings Bank of Danbury" & investor_state_temp==""
 replace investor_state_temp="new jersey" if invname_hold_orig=="Weehawken Trust Company" & investor_state_temp==""
 
-cd "$root_data"
-saveold Holdings_Data_InvestorClean.dta, replace
+cd "$root_do"
+*Revise Dummy
+cap drop investor_state_1 investor_state_2 
+cap drop investor_state_3
+cap drop dummy_investor_state_*
+cap drop _merge dummy
+cap drop tag
 
-/*
+split investor_state_temp, p("/") gen(investor_state_)
+foreach i in "1" "2"{
+global x="investor_state_`i'"
+replace $x=strtrim($x)
+replace $x=stritrim($x)
+replace $x=lower($x)
+do City_State_Dummy.do
+}
+
+*Revise Dummy
+cap drop investor_city_1 investor_city_2 
+cap drop investor_city_3
+cap drop dummy_investor_city_*
+cap drop _merge dummy
+cap drop tag
+
+split investor_city_temp, p("/") gen(investor_city_)
+foreach i in "1" "2"{
+global x="investor_city_`i'"
+replace $x=strtrim($x)
+replace $x=stritrim($x)
+replace $x=lower($x)
+do City_State_Dummy.do
+}
+
 cd "$root_do"
 do Investor_Name_Dummy.do
 
