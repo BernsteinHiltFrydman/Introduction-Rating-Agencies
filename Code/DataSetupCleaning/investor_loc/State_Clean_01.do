@@ -1486,6 +1486,11 @@ do City_Clean.do
 cd "$root_data"
 saveold Holdings_Investor_LocClean.dta, replace
 
+cd "$root_do"
+do Name_Clean.do
+
+cd "$root_data"
+saveold Holdings_Data_InvestorClean_dummy.dta, replace
 
 /*
 keep if industry~="Government"
