@@ -1443,6 +1443,14 @@ replace investor_state_temp2="pennsylvania" if invname_hold_temp=="delaware coun
 replace investor_state_temp2="canada" if invname_hold_temp=="sun life assurance of canada" & investor_state_temp2==""
 replace investor_state_temp2="new hampshire" if investor_state_temp2=="n ii"
 replace investor_state_temp2="new hampshire" if investor_state_temp2=="nii"
+replace investor_state_temp="me" if cname_hold_orig=="CONNECTICUT RY AND LIGHTING" & invname_hold_orig=="Union Mutual Life Insurance Company" & par_value_clean_hold==14625
+replace investor_state_temp="connecticut" if cname_hold_orig=="CENTRAL OHIO" & invname_hold_orig=="Connecticut General Life Insurance Company. Hartford" & par_value_clean_hold==3000
+replace investor_state_temp="massachusetts" if cname_hold_orig=="BOSTON AND MAINE" & invname_hold_orig=="Warren Savings Bank" & par_value_clean_hold==10000
+replace investor_state_temp="massachusetts" if cname_hold_orig=="BOSTON AND MAINE" & invname_hold_orig=="New England Mutual Life Insurance Company. Boston" & par_value_clean_hold==23760
+replace investor_state_temp="me" if cname_hold_orig=="ARKANSAW WATER COMPANY" & invname_hold_orig=="Union Mutual Life Insurance Company#10" & par_value_clean_hold==10000
+replace investor_state_temp="california" if cname_hold_orig=="SOUTHERN PACIFIC RAILROAD (CalifOrnia) O" & invname_hold_orig=="Bank of San Bernardino" & par_value_clean_hold==20000
+replace investor_state_temp="california" if cname_hold_orig=="PALM FRUIT COMPANY Stock" & invname_hold_orig=="California Bank. Oakland" & par_value_clean_hold==500
+
 
 cap drop investor_state_1 investor_state_2 
 cap drop investor_state_3
