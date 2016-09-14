@@ -38,7 +38,7 @@ gen dum=cond(strpos(state,state_use),1,0) if _merge==3
 
 
 
-browse industry book_year_hold city state_mst investor_city_temp investor_state_temp count dum cname_hold_orig invname_hold_orig par_value_clean_hold coupon_hold if strpos(state_mst,"\") & maxco~=0
+browse industry book_year_hold city state_mst state investor_city_temp investor_state_temp count dum cname_hold_orig invname_hold_orig par_value_clean_hold coupon_hold if strpos(state_mst,"\") & maxco~=0
 
 
 
