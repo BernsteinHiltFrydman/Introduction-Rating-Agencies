@@ -1,6 +1,7 @@
- 
+
 global root_dta "D:\Dropbox\Bond Rating\Code and Data\dta"
 global root_do "D:\Dropbox\Bond Rating\Code and Data\do_issue"
+
 
 cd "$root_dta"
 
@@ -2855,7 +2856,50 @@ replace cname_hold_temp="utica electric light and power" if class_hold_temp=="bo
 replace cname_hold_temp="western electric" if class_hold_temp=="bonds" & par_value_temp==50000 & invname_hold_orig=="Boston Manufacturers' Mutual Fire Insurance Co." & cname_hold_orig=="WESTERN FUEL GAS COMPANY" & book_year_hold==1908
 replace cname_hold_temp="new york ontario and western" if class_hold_temp=="notes" & coupon_hold_temp=="n/a" & maturity_hold_temp=="n/a" & par_value_temp==20400 & invname_hold_orig=="Bankers Life Insurance Company" & cname_hold_orig=="YORK, ONTARIO AND WESTERN" & book_year_hold==1911
 
+*Missing par_value
+replace par_value_temp=4675 if coupon_hold_temp=="4.5" & maturity_hold_temp=="1929" & invname_hold_orig=="New London County Mutus" & cname_hold_orig=="BALTIMORE UNITED HEAT, LIGHT AND POWER COMPANY" & par_value_temp==.
+replace par_value_temp=41000 if coupon_hold_temp=="n/a" & maturity_hold_temp=="n/a" & invname_hold_orig=="Thomaston Savings Bank" & cname_hold_orig=="BIRMINGHAM NATIONAL BANK, Derby, Conn" & par_value_temp==.
+replace par_value_temp=5000 if coupon_hold_temp=="4" & maturity_hold_temp=="1927" & invname_hold_orig=="Ocean County Trust Company" & cname_hold_orig=="CHICAGO, BURLINGTON AND QUINCY" & par_value_temp==.
+replace par_value_temp=7000 if coupon_hold_temp=="4" & maturity_hold_temp=="1927" & invname_hold_orig=="Winchendon Savings Bank" & cname_hold_orig=="CHICAGO, BURLINGTON AND QUINCY" & par_value_temp==.
+replace par_value_temp=4000 if coupon_hold_temp=="4" & maturity_hold_temp=="1940" & invname_hold_orig=="Hillsborough Bridge Guar. Savings Bank" & cname_hold_orig=="CHICAGO JUNCTION RYS & UNION STOCK YARDS" & par_value_temp==.
+replace par_value_temp=5000 if coupon_hold_temp=="5" & maturity_hold_temp=="1915" & invname_hold_orig=="Hillsborough Bridge Guar. Savings Bank" & cname_hold_orig=="CHICAGO JUNCTION RYS & UNION STOCK YARDS" & par_value_temp==.
+replace par_value_temp=10000 if coupon_hold_temp=="5" & maturity_hold_temp=="1932" & invname_hold_orig=="Millers' National Insurance Company" & cname_hold_orig=="CICERO GAS" & par_value_temp==.
+replace par_value_temp=16000 if coupon_hold_temp=="5" & maturity_hold_temp=="1932" & invname_hold_orig=="North American Accident Insurance Company" & cname_hold_orig=="CICERO GAS" & par_value_temp==.
+replace par_value_temp=10000 if coupon_hold_temp=="5" & maturity_hold_temp=="1933" & invname_hold_orig=="County Savings Bank" & cname_hold_orig=="CINCINNATI GAS TRANSPORTATION COMPANY" & par_value_temp==.
+replace par_value_temp=1 if coupon_hold_temp=="n/a" & maturity_hold_temp=="n/a" & invname_hold_orig=="Delaware County Trust, Safe Deposit & Title Ins. Co" & cname_hold_orig=="GULF AND CHICAGO" & par_value_temp==.
+replace par_value_temp=25000 if coupon_hold_temp=="4" & maturity_hold_temp=="1966" & invname_hold_orig=="London Assurance Corporation" & cname_hold_orig=="MORTGAGE BOND COMPANY OF NEW YORK" & par_value_temp==.
+replace par_value_temp=13350 if coupon_hold_temp=="4" & maturity_hold_temp=="1916" & invname_hold_orig=="Providence Washington Insurance Company" & cname_hold_orig=="NARRAGANSETT ELECTRIC LIGHTING" & par_value_temp==.
+replace par_value_temp=15000 if coupon_hold_temp=="n/a" & maturity_hold_temp=="n/a" & invname_hold_orig=="Bank of Hemet" & cname_hold_orig=="PACIFIC GAS AND ELECTRIC COMPANY" & par_value_temp==.
+replace par_value_temp=5000 if coupon_hold_temp=="6" & maturity_hold_temp=="1937" & invname_hold_orig=="Federal Trust Company" & cname_hold_orig=="PACIFIC GAS AND ELECTRIC COMPANY" & par_value_temp==.
+replace par_value_temp=5000 if coupon_hold_temp=="6" & maturity_hold_temp=="1937" & invname_hold_orig=="Holmesburg Trust Company" & cname_hold_orig=="PACIFIC GAS AND ELECTRIC COMPANY" & par_value_temp==.
+replace par_value_temp=25000 if coupon_hold_temp=="6" & maturity_hold_temp=="1937" & invname_hold_orig=="People's Mutual Life Insurance Association & League" & cname_hold_orig=="PACIFIC GAS AND ELECTRIC COMPANY" & par_value_temp==.
+replace par_value_temp=50000 if coupon_hold_temp=="3.5" & maturity_hold_temp=="1944" & invname_hold_orig=="John Hancock Mutual Life Insurance Company" & cname_hold_orig=="PENNSYLVANIA COMPANY" & par_value_temp==.
+replace par_value_temp=10800 if coupon_hold_temp=="n/a" & maturity_hold_temp=="n/a" & invname_hold_orig=="Central Trust & Savings Company" & cname_hold_orig=="PHILADELPHIA CASUALTY COMPANY" & par_value_temp==.
+replace par_value_temp=5000 if coupon_hold_temp=="4" & maturity_hold_temp=="1934" & invname_hold_orig=="Topsham & Brunswick Twenty-Five Cents Sav,Bank" & cname_hold_orig=="PORTLAND AND RUMFORD FALLS" & par_value_temp==.
+replace par_value_temp=10000 if coupon_hold_temp=="5" & maturity_hold_temp=="1935" & invname_hold_orig=="Holmesburg Trust Company" & cname_hold_orig=="QUINCY GAS, ELECTRIC AND HEAT COMPANY" & par_value_temp==.
+replace par_value_temp=10000 if coupon_hold_temp=="5" & maturity_hold_temp=="1944" & invname_hold_orig=="Industrial Trust Company" & cname_hold_orig=="ST PAUL (MINN ) GAS LIGHT COMPANY" & par_value_temp==.
+replace par_value_temp=30000 if coupon_hold_temp=="6" & maturity_hold_temp=="1918" & invname_hold_orig=="sr. Paul Fire & Marine Insurance Company" & cname_hold_orig=="ST PAUL (MINN ) GAS LIGHT COMPANY" & par_value_temp==.
+replace par_value_temp=12130 if coupon_hold_temp=="n/a" & maturity_hold_temp=="n/a" & invname_hold_orig=="People's Bank & Trust Company" & cname_hold_orig=="SWETT (A L ) ELECTRIC LIGHT AND POWER COMPANY" & par_value_temp==.
+replace par_value_temp=200000 if coupon_hold_temp=="4" & maturity_hold_temp=="1953" & invname_hold_orig=="Northern Assurance Co." & cname_hold_orig=="TERMINAL RAILROAD ASSOCIATION OF ST LOUIS" & par_value_temp==.
+replace par_value_temp=11000 if coupon_hold_temp=="4.5" & maturity_hold_temp=="n/a" & invname_hold_orig=="Carbondale Miners & Mechanics' Sav. Bank." & cname_hold_orig=="TOLEDO, ST LOUIS AND WESTERN" & par_value_temp==.
+replace par_value_temp=25000 if coupon_hold_temp=="4" & maturity_hold_temp=="2008" & invname_hold_orig=="Nassau Trust Company of Brooklyn" & cname_hold_orig=="UNION PACIFIC" & par_value_temp==.
+replace par_value_temp=5000 if coupon_hold_temp=="6" & maturity_hold_temp=="1938" & invname_hold_orig=="Pennsylvania State Bank" & cname_hold_orig=="UNITED WATER COMPANY" & par_value_temp==.
+replace par_value_temp=5000 if coupon_hold_temp=="4.5" & maturity_hold_temp=="1913" & invname_hold_orig=="Glrard Fire & Marine Insurance Company" & cname_hold_orig=="WANAMAKER, JOHN" & par_value_temp==.
+replace par_value_temp=12000 if coupon_hold_temp=="5" & maturity_hold_temp=="1922" & invname_hold_orig=="Plainfield Trust Company" & cname_hold_orig=="WESTERN ELECTRIC COMPANY" & par_value_temp==.
+replace par_value_temp=4000 if coupon_hold_temp=="5" & maturity_hold_temp=="1955" & invname_hold_orig=="People's Bank of Wilkes-Barre" & cname_hold_orig=="WILKES-BARRE GAS AND ELECTRIC COMPANY" & par_value_temp==.
+replace par_value_temp=3000 if coupon_hold_temp=="4.5" & maturity_hold_temp=="1920" & invname_hold_orig=="Boothbay Savings Bank" & cname_hold_orig=="YORK LIGHT AND HEAT COMPANY" & par_value_temp==.
 
+replace coupon_hold_temp="5" if coupon_hold_temp=="n/a" & maturity_hold_temp=="n/a" & invname_hold_orig=="Bank of Hemet" & cname_hold_orig=="PACIFIC GAS AND ELECTRIC COMPANY" & par_value_temp==15000
+replace maturity_hold_temp="1936" if coupon_hold_temp=="5" & maturity_hold_temp=="n/a" & invname_hold_orig=="Bank of Hemet" & cname_hold_orig=="PACIFIC GAS AND ELECTRIC COMPANY" & par_value_temp==15000
+replace maturity_hold_temp="1913-1916" if coupon_hold_temp=="4.5" & maturity_hold_temp=="n/a" & invname_hold_orig=="Carbondale Miners & Mechanics' Sav. Bank." & cname_hold_orig=="TOLEDO, ST LOUIS AND WESTERN" & par_value_temp==11000
+
+
+replace cname_hold_temp="boston and maine" if cname_hold_temp=="ton and maine"
+replace cname_hold_temp="knox and lincoln" if cname_hold_temp=="x and lincoln"
+replace cname_hold_temp="chicago and southwestern" if cname_hold_temp=="chicago and south westerns"
+replace cname_hold_temp="lackawanna steel" if cname_hold_temp=="lackawanna steel gold"
+replace invname_hold_temp="paterson safe deposit trust" if invname_hold_temp=="" & investor_city_1=="paterson"
+replace invname_hold_temp="security" if invname_hold_temp=="" & investor_city_1=="pottstown"
 *********************************************
 
 cd "$root_dta"
@@ -2868,9 +2912,31 @@ cd "$root_do"
 do Clean_Class.do
 *gen issuer_loc_temp=class_hold_temp if tag_class=="2"
 *replace class_hold="" if tag_class=="2"|tag_class=="0"&tag
-replace coupon_hold_temp="opt "+maturity_hold_temp if strpos(class_hold_temp,"opt") & !strpos(maturity_hold_temp,"opt") & industry~="Government" & !strpos(maturity_hold_temp,"n/a")
-replace coupon_hold_temp="opt 1906" if !strpos(maturity_hold_temp,"opt") & industry~="Government" & class_hold=="Opt. 1906"
+replace maturity_hold_temp="opt "+maturity_hold_temp if strpos(class_hold_temp,"opt") & !strpos(maturity_hold_temp,"opt") & industry~="Government" & !strpos(maturity_hold_temp,"n/a")
+replace maturity_hold_temp="opt 1906" if !strpos(maturity_hold_temp,"opt") & industry~="Government" & class_hold=="Opt. 1906"
 replace class_hold_temp="stock" if stock_type_temp=="stock" & (class_hold_temp=="bonds"|class_hold_temp=="syndicate bonds") & coupon_hold_temp=="n/a" & maturity_hold_temp=="n/a"
+replace class_hold_temp="n/a" if class_hold_temp==""
+
+*Move cname to class
+gen use=cname_hold_temp
+replace use = regexr(use, "\((.)+\)", "")
+gen use2=cname_hold_temp
+replace use2=subinstr(class_hold_temp,"(","",.)
+replace use2=subinstr(class_hold_temp,")","",.)
+foreach i in "bonds" "certificates" "loans" "mortgage" "mortgages" "notes" "note" "stock" "stocks" "trust" "adjustment" "annuity" "assenting" "collateral" "common" "consolidated" "consolidation" "convertible" "coupon" "cumulative" /*
+*/"dividend" "drawings" "equipment" "first" "funding" "general" "gold" "guaranteed" "income" "interest" "joint" "lien" "non-cumulative" "perpetual" "preferred" "prior lien" "registered" "script" "second" "secured" "sinking fund"/*
+*/ "syndicate" "third" "title" "trust certificates" "branch" "bridge" "district" "division" "extension" "junction" "railway" "short line" "street" "system" "terminal" "association" "cable" "car" "debentures" "demand" "deposit"/*
+*/ "leased line" "property" "purchase money" "purchased lines" "real estate" "steamship" "in liquidation" "refunded" "refunding" "reorganization" "subscription" "class" "serial" "series" "year" "deb" "bond" "loan" "cert"{
+replace class_hold_temp=cond(class_hold_temp=="n/a","`i'",class_hold_temp+" `i'") if regexm(cname_hold_orig,"[A-Z][a-z][a-z]+") & !regexm(cname_hold_orig,"(,)") & regexm(use,"`i'$")
+replace class_hold_temp=cond(class_hold_temp=="n/a","`i'",class_hold_temp+" `i'") if regexm(cname_hold_orig,"[A-Z][a-z][a-z]+") & !regexm(cname_hold_orig,"(,)") & regexm(use2,"`i'$")
+replace class_hold_temp=regexr(cname_hold_temp,"`i'","") if regexm(cname_hold_orig,"[A-Z][a-z][a-z]+") & !regexm(cname_hold_orig,"(,)") & regexm(use,"`i'$")
+replace class_hold_temp=regexr(cname_hold_temp,"`i'","") if regexm(cname_hold_orig,"[A-Z][a-z][a-z]+") & !regexm(cname_hold_orig,"(,)") & regexm(use2,"`i'$")
+}
+
+replace cname_hold_temp=strtrim(cname_hold_temp)
+replace cname_hold_temp=stritrim(cname_hold_temp)
+drop use use2
+
 
 cap drop is_bond is_stock
 *Create security_type
@@ -2894,6 +2960,12 @@ label define isbond 1 "bond (from class/stock type)" 2 "has coupon", modify
 label define isstock 1 "stock (from class/stock type)" 2 "no coupon or maturity", modify
 label value is_bond isbond
 label value is_stock isstock
+
+*Class_related variable
+
+
+
+
 
 *Final
 cd "$root_dta"
