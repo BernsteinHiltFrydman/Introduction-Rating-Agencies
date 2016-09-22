@@ -1,4 +1,4 @@
-
+ 
 global root_dta "D:\Dropbox\Bond Rating\Code and Data\dta"
 global root_do "D:\Dropbox\Bond Rating\Code and Data\do_issue"
 
