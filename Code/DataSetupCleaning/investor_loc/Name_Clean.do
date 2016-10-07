@@ -22,7 +22,7 @@ global root_do="D:\Dropbox\Bond Rating\Code and Data\do_investor_loc"
 cd "$root_data"
 use Holdings_Investor_LocClean.dta, clear
 cd "$root_do"
-do Replace_List_Investor.do
+do Replace_Name_List.do
 global x="invname_hold_temp"
 *do Remove_Trailing_Geo.do
 replace invname_hold_temp=strtrim(invname_hold_temp)
@@ -772,6 +772,16 @@ replace investor_city_temp="stettin/chicago" if investor_city_temp=="stettin" & 
 replace investor_city_temp="stettin/chicago" if investor_city_temp=="stettin" & investor_state_temp=="germany/illinois"
 replace investor_city_temp="york/new york" if investor_city_temp=="york" & investor_state_temp=="england/new york"
 replace investor_city_temp="new york" if investor_city_temp=="york" & investor_state_temp=="new york"
+replace investor_city_temp="new london" if investor_city_temp=="new lodon"
+replace investor_city_temp=subinstr(investor_city_temp,"\","/",.)
+replace investor_state_temp=subinstr(investor_state_temp,"\","/",.)
+replace investor_city_temp="edinburgh & london/new york" if investor_city_temp=="edinburgh/london" & investor_state_temp=="england & scotland/new york"
+replace investor_city_temp="edinburgh & london/new york" if investor_city_temp=="london & edinburgh" & investor_state_temp=="great britain/new york"
+replace investor_city_temp="manheim" if investor_city_temp=="mannheim" & investor_state_temp=="new york"
+replace investor_city_temp="perth/philadelphia" if investor_city_temp=="perth" & investor_state_temp=="scotland/pennsylvania"
+replace investor_state_temp="england/canada" if investor_city_temp=="london/montreal" & investor_state_temp=="england/missouri"
+replace investor_state_temp="canada/new york" if investor_city_temp=="montreal/new york" & investor_state_temp=="canada"
+replace investor_state_temp="germany/new york" if investor_city_temp=="aixlachapelle/new york" & investor_state_temp=="new york/germany"
 
 
 
