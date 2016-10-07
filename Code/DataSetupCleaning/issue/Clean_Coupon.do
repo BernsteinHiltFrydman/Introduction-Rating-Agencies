@@ -2961,16 +2961,286 @@ label define isstock 1 "stock (from class/stock type)" 2 "no coupon or maturity"
 label value is_bond isbond
 label value is_stock isstock
 
-*Class_related variable
-
-
-
+*Clean weird maturity
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="allison hill trust" & maturity_year_hold=="1911-19"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="athol savings bank" & maturity_year_hold=="1911-20"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="auburn savings bank" & maturity_year_hold=="1911-21"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="bay ridge savings bank" & maturity_year_hold=="1911-22"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="beneficial savings fund society" & maturity_year_hold=="1911-23"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="berlin savings bank trust" & maturity_year_hold=="1911-24"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="bowery savings bank" & maturity_year_hold=="1911-25"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="lee savings bank" & maturity_year_hold=="1913-19"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="littletown savings bank" & maturity_year_hold=="1913-20"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="loan trust savings bank" & maturity_year_hold=="1913-21"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="lowell institution for savings" & maturity_year_hold=="1913-22"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="lynn five cents savings bank" & maturity_year_hold=="1913-23"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="maiden lane savings bank" & maturity_year_hold=="1913-24"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="manchester savings bank" & maturity_year_hold=="1913-25"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="marlborough savings bank" & maturity_year_hold=="1913-26"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="masioma savings bank" & maturity_year_hold=="1913-27"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="mason village savings bank" & maturity_year_hold=="1913-28"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="chanics savings bank" & maturity_year_hold=="1913-29"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="chanics savings bank" & maturity_year_hold=="1913-30"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="chanics savings bank" & maturity_year_hold=="1913-31"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="mechanic savings bank" & maturity_year_hold=="1913-32"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="metropolitan savings bank" & maturity_year_hold=="1913-33"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="middleborough savings bank" & maturity_year_hold=="1913-34"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="milton savings bank" & maturity_year_hold=="1913-35"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="monandack savings bank" & maturity_year_hold=="1913-36"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="monroe county savings bank" & maturity_year_hold=="1913-37"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="nashua trust" & maturity_year_hold=="1913-38"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="national life insurance of the united states of america" & maturity_year_hold=="1913-39"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="new york savings bank" & maturity_year_hold=="1913-40"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="north adams savings bank" & maturity_year_hold=="1913-41"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="north avenue savings bank" & maturity_year_hold=="1913-42"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="north river savings bank" & maturity_year_hold=="1913-43"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="north side savings bank" & maturity_year_hold=="1913-44"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="norway plains savings bank" & maturity_year_hold=="1913-45"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="oneida county savings bank" & maturity_year_hold=="1913-46"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="oswego county savings bank" & maturity_year_hold=="1913-47"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="pawling savings bank" & maturity_year_hold=="1913-48"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="people savings bank" & maturity_year_hold=="1913-49"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="peterborough savings bank" & maturity_year_hold=="1913-50"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="piscataqua savings bank" & maturity_year_hold=="1913-51"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="pitsfield savings bank" & maturity_year_hold=="1913-52"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="portsmouth trust guaranty" & maturity_year_hold=="1913-53"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="prudential savings bank" & maturity_year_hold=="1913-54"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="rhinebeck savings bank" & maturity_year_hold=="1913-55"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="riverhead savings bank" & maturity_year_hold=="1913-56"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="rochester loan banking" & maturity_year_hold=="1913-57"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="rome savings bank" & maturity_year_hold=="1913-58"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="roslyn savings bank" & maturity_year_hold=="1913-59"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="sag harbor savings bank" & maturity_year_hold=="1913-60"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="schenectady savings bank" & maturity_year_hold=="1913-61"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="seneca falls savings bank" & maturity_year_hold=="1913-62"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="siwooganock guaranty savings bank" & maturity_year_hold=="1913-63"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="skaneateles savings bank" & maturity_year_hold=="1913-64"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="somersworth savings bank" & maturity_year_hold=="1913-65"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="spencer savings bank" & maturity_year_hold=="1913-66"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="syracuse trust" & maturity_year_hold=="1913-68"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="taunton savings bank" & maturity_year_hold=="1913-69"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="union five cents savings bank" & maturity_year_hold=="1913-70"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="walden savings bank" & maturity_year_hold=="1913-71"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="wappinger savings bank" & maturity_year_hold=="1913-72"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="whitinsville savings bank" & maturity_year_hold=="1913-73"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="woburn five cents savings bank" & maturity_year_hold=="1913-74"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="woodsville guaranty savings bank" & maturity_year_hold=="1913-75"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="worcester county institution for savings" & maturity_year_hold=="1913-76"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="worcester five cents savings bank" & maturity_year_hold=="1913-77"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="worcester mechanic savings bank" & maturity_year_hold=="1913-78"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="cambridgeport savings bank" & maturity_year_hold=="1917-35"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="cayuga county savings bank" & maturity_year_hold=="1917-36"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="chelseu savings bank" & maturity_year_hold=="1917-37"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="cheshire county savings bank" & maturity_year_hold=="1917-38"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="city guaranty savings bank" & maturity_year_hold=="1917-39"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="city savings bank" & maturity_year_hold=="1917-40"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="cohoes savings institution" & maturity_year_hold=="1917-41"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="colebrook guaranty savings bank" & maturity_year_hold=="1917-42"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="college point savings bank" & maturity_year_hold=="1917-43"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="cornwall savings bank" & maturity_year_hold=="1917-44"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="crocker institution for savings" & maturity_year_hold=="1917-46"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="eastchester savings bank" & maturity_year_hold=="1917-47"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="elmira savings bank" & maturity_year_hold=="1917-48"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="erie county savings bank" & maturity_year_hold=="1917-49"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="fall river five cents savings bank" & maturity_year_hold=="1917-50"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="franklin savings bank" & maturity_year_hold=="1917-51"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="farmers mechanic savings bank" & maturity_year_hold=="1917-52"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="farmington savings bank" & maturity_year_hold=="1917-53"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="fishkill savings institution" & maturity_year_hold=="1917-54"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="franklin savings institution" & maturity_year_hold=="1917-55"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="greenwich savings bank" & maturity_year_hold=="1917-56"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="hamburg savings bank" & maturity_year_hold=="1917-57"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="haydenville savings bank" & maturity_year_hold=="1917-58"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="hillsborough bridge guaranty savings bank" & maturity_year_hold=="1917-59"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="hingham institution for savings" & maturity_year_hold=="1917-60"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="holyoke mechanic savings bank" & maturity_year_hold=="1917-61"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="holyoke savings bank" & maturity_year_hold=="1917-62"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="home savings bank" & maturity_year_hold=="1917-63"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="hudson savings bank" & maturity_year_hold=="1917-64"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="keene savings bank" & maturity_year_hold=="1917-65"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="lanchester savings bank" & maturity_year_hold=="1917-66"
+replace maturity_hold_temp="n/a" if book_year_hold==1913 & strpos(cname_hold_temp,"chicago rock island and pacific") & invname_hold_temp=="syracuse savings bank" & maturity_year_hold=="1913-67"
+replace invname_hold_temp=subinword(invname_hold_temp,"chanics","mechanic",.)
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="lee savings bank" & par_value_temp==15000 & maturity_hold_temp=="1913-1919" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="littletown savings bank" & par_value_temp==5000 & maturity_hold_temp=="1913-1920" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="loan trust savings bank" & par_value_temp==50000 & maturity_hold_temp=="1913-1921" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="lowell institution for savings" & par_value_temp==35000 & maturity_hold_temp=="1913-1922" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="lynn five cents savings bank" & par_value_temp==5000 & maturity_hold_temp=="1913-1923" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="maiden lane savings bank" & par_value_temp==15000 & maturity_hold_temp=="1913-1924" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="manchester savings bank" & par_value_temp==50000 & maturity_hold_temp=="1913-1925" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="marlborough savings bank" & par_value_temp==25000 & maturity_hold_temp=="1913-1926" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="masioma savings bank" & par_value_temp==5000 & maturity_hold_temp=="1913-1927" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="mason village savings bank" & par_value_temp==3000 & maturity_hold_temp=="1913-1928" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="chanics savings bank" & par_value_temp==60000 & maturity_hold_temp=="1913-1929" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="chanics savings bank" & par_value_temp==55000 & maturity_hold_temp=="1913-1930" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="chanics savings bank" & par_value_temp==16000 & maturity_hold_temp=="1913-1931" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="mechanic savings bank" & par_value_temp==95000 & maturity_hold_temp=="1913-1932" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="metropolitan savings bank" & par_value_temp==150000 & maturity_hold_temp=="1913-1933" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="middleborough savings bank" & par_value_temp==10000 & maturity_hold_temp=="1913-1934" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="milton savings bank" & par_value_temp==5000 & maturity_hold_temp=="1913-1935" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="monandack savings bank" & par_value_temp==5000 & maturity_hold_temp=="1913-1936" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="monroe county savings bank" & par_value_temp==150000 & maturity_hold_temp=="1913-1937" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="nashua trust" & par_value_temp==10000 & maturity_hold_temp=="1913-1938" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="national life insurance of the united states of america" & par_value_temp==21750 & maturity_hold_temp=="1913-1939" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="new york savings bank" & par_value_temp==300000 & maturity_hold_temp=="1913-1940" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="north adams savings bank" & par_value_temp==5000 & maturity_hold_temp=="1913-1941" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="north avenue savings bank" & par_value_temp==20000 & maturity_hold_temp=="1913-1942" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="north river savings bank" & par_value_temp==100000 & maturity_hold_temp=="1913-1943" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="north side savings bank" & par_value_temp==21000 & maturity_hold_temp=="1913-1944" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="norway plains savings bank" & par_value_temp==20000 & maturity_hold_temp=="1913-1945" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="oneida county savings bank" & par_value_temp==50000 & maturity_hold_temp=="1913-1946" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="oswego county savings bank" & par_value_temp==35000 & maturity_hold_temp=="1913-1947" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="pawling savings bank" & par_value_temp==20000 & maturity_hold_temp=="1913-1948" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="people savings bank" & par_value_temp==25000 & maturity_hold_temp=="1913-1949" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="peterborough savings bank" & par_value_temp==10000 & maturity_hold_temp=="1913-1950" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="piscataqua savings bank" & par_value_temp==20000 & maturity_hold_temp=="1913-1951" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="pitsfield savings bank" & par_value_temp==5000 & maturity_hold_temp=="1913-1952" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="portsmouth trust guaranty" & par_value_temp==50000 & maturity_hold_temp=="1913-1953" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="prudential savings bank" & par_value_temp==20000 & maturity_hold_temp=="1913-1954" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="rhinebeck savings bank" & par_value_temp==7000 & maturity_hold_temp=="1913-1955" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="riverhead savings bank" & par_value_temp==100000 & maturity_hold_temp=="1913-1956" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="rochester loan banking" & par_value_temp==45000 & maturity_hold_temp=="1913-1957" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="rome savings bank" & par_value_temp==55000 & maturity_hold_temp=="1913-1958" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="roslyn savings bank" & par_value_temp==9000 & maturity_hold_temp=="1913-1959" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="sag harbor savings bank" & par_value_temp==50000 & maturity_hold_temp=="1913-1960" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="schenectady savings bank" & par_value_temp==75000 & maturity_hold_temp=="1913-1961" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="seneca falls savings bank" & par_value_temp==20000 & maturity_hold_temp=="1913-1962" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="siwooganock guaranty savings bank" & par_value_temp==6000 & maturity_hold_temp=="1913-1963" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="skaneateles savings bank" & par_value_temp==15000 & maturity_hold_temp=="1913-1964" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="somersworth savings bank" & par_value_temp==15000 & maturity_hold_temp=="1913-1965" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="spencer savings bank" & par_value_temp==20000 & maturity_hold_temp=="1913-1966" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="syracuse savings bank" & par_value_temp==300000 & maturity_hold_temp=="1913-1967" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="syracuse trust" & par_value_temp==100000 & maturity_hold_temp=="1913-1968" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="taunton savings bank" & par_value_temp==15000 & maturity_hold_temp=="1913-1969" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="union five cents savings bank" & par_value_temp==5000 & maturity_hold_temp=="1913-1970" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="walden savings bank" & par_value_temp==20000 & maturity_hold_temp=="1913-1971" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="wappinger savings bank" & par_value_temp==20000 & maturity_hold_temp=="1913-1972" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="whitinsville savings bank" & par_value_temp==5000 & maturity_hold_temp=="1913-1973" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="woburn five cents savings bank" & par_value_temp==5000 & maturity_hold_temp=="1913-1974" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="woodsville guaranty savings bank" & par_value_temp==5000 & maturity_hold_temp=="1913-1975" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="worcester county institution for savings" & par_value_temp==200000 & maturity_hold_temp=="1913-1976" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="worcester five cents savings bank" & par_value_temp==25000 & maturity_hold_temp=="1913-1977" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="worcester mechanic savings bank" & par_value_temp==100000 & maturity_hold_temp=="1913-1978" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="mariners savings bank" & par_value_temp==50000 & maturity_hold_temp=="1913-1979" & book_year_hold==1913
+replace maturity_hold_temp="1918" if cname_hold_temp=="new york central lines" & invname_hold_temp=="people bank trust" & par_value_temp==15000 & maturity_hold_temp=="1915-1916" & book_year_hold==1913
+replace maturity_hold_temp="1915-1924" if cname_hold_temp=="new york central lines" & invname_hold_temp=="western savings fund society" & par_value_temp==400000 & maturity_hold_temp=="1915-1917" & book_year_hold==1913
+replace maturity_hold_temp="1915" if cname_hold_temp=="new york central lines" & invname_hold_temp=="northwestern national insurance" & par_value_temp==100000 & maturity_hold_temp=="1915-1918" & book_year_hold==1913
+replace maturity_hold_temp="1920" if cname_hold_temp=="new york central lines" & invname_hold_temp=="methodist minister relief insurance trust association" & par_value_temp==5000 & maturity_hold_temp=="1915-1921" & book_year_hold==1913
+replace maturity_hold_temp="1915" if cname_hold_temp=="new york central lines" & invname_hold_temp=="provident life trust" & par_value_temp==100000 & maturity_hold_temp=="1915-1924" & book_year_hold==1913
+replace maturity_hold_temp="1921" if cname_hold_temp=="new york central lines" & invname_hold_temp=="great eastern casualty" & par_value_temp==10000 & maturity_hold_temp=="1915-1925" & book_year_hold==1913
+replace maturity_hold_temp="1919-1920" if cname_hold_temp=="new york central lines" & invname_hold_temp=="employers liability assurance" & par_value_temp==50000 & maturity_hold_temp=="1915-1926" & book_year_hold==1913
+replace maturity_hold_temp="1926" if cname_hold_temp=="new york central lines" & invname_hold_temp=="traveler indemnity" & par_value_temp==30000 & maturity_hold_temp=="1915-1927" & book_year_hold==1913
+replace maturity_hold_temp="1914-1916" if cname_hold_temp=="new york central lines" & invname_hold_temp=="st marys trust" & par_value_temp==29000 & maturity_hold_temp=="1916-1920" & book_year_hold==1913
+replace maturity_hold_temp="1915" if cname_hold_temp=="new york central lines" & invname_hold_temp=="kane bank trust" & par_value_temp==5000 & maturity_hold_temp=="1917-1919" & book_year_hold==1913
+replace maturity_hold_temp="1914" if cname_hold_temp=="new york central lines" & invname_hold_temp=="market street title trust" & par_value_temp==10000 & maturity_hold_temp=="1918-1919" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="beneficial savings fund society" & par_value_temp==100000 & maturity_hold_temp=="1911-1923" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="berlin savings bank trust" & par_value_temp==10000 & maturity_hold_temp=="1911-1924" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="bowery savings bank" & par_value_temp==2000000 & maturity_hold_temp=="1911-1925" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="cambridgeport savings bank" & par_value_temp==15000 & maturity_hold_temp=="1917-1935" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="cayuga county savings bank" & par_value_temp==100000 & maturity_hold_temp=="1917-1936" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="chelseu savings bank" & par_value_temp==35000 & maturity_hold_temp=="1917-1937" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="cheshire county savings bank" & par_value_temp==10000 & maturity_hold_temp=="1917-1938" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="city guaranty savings bank" & par_value_temp==5000 & maturity_hold_temp=="1917-1939" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="city savings bank" & par_value_temp==5000 & maturity_hold_temp=="1917-1940" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="cohoes savings institution" & par_value_temp==150000 & maturity_hold_temp=="1917-1941" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="colebrook guaranty savings bank" & par_value_temp==5000 & maturity_hold_temp=="1917-1942" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="college point savings bank" & par_value_temp==39000 & maturity_hold_temp=="1917-1943" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="cornwall savings bank" & par_value_temp==5000 & maturity_hold_temp=="1917-1944" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="portland savings bank" & par_value_temp==130000 & maturity_hold_temp=="1917-1945" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="crocker institution for savings" & par_value_temp==10000 & maturity_hold_temp=="1917-1946" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="eastchester savings bank" & par_value_temp==30000 & maturity_hold_temp=="1917-1947" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="elmira savings bank" & par_value_temp==16000 & maturity_hold_temp=="1917-1948" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="erie county savings bank" & par_value_temp==600000 & maturity_hold_temp=="1917-1949" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="fall river five cents savings bank" & par_value_temp==25000 & maturity_hold_temp=="1917-1950" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="franklin savings bank" & par_value_temp==150000 & maturity_hold_temp=="1917-1951" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="farmers mechanic savings bank" & par_value_temp==180000 & maturity_hold_temp=="1917-1952" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="farmington savings bank" & par_value_temp==10000 & maturity_hold_temp=="1917-1953" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="fishkill savings institution" & par_value_temp==6000 & maturity_hold_temp=="1917-1954" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="franklin savings institution" & par_value_temp==25000 & maturity_hold_temp=="1917-1955" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="greenwich savings bank" & par_value_temp==498000 & maturity_hold_temp=="1917-1956" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="hamburg savings bank" & par_value_temp==10000 & maturity_hold_temp=="1917-1957" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="haydenville savings bank" & par_value_temp==10000 & maturity_hold_temp=="1917-1958" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="hillsborough bridge guaranty savings bank" & par_value_temp==11000 & maturity_hold_temp=="1917-1959" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="hingham institution for savings" & par_value_temp==20000 & maturity_hold_temp=="1917-1960" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="holyoke mechanic savings bank" & par_value_temp==10000 & maturity_hold_temp=="1917-1961" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="holyoke savings bank" & par_value_temp==100000 & maturity_hold_temp=="1917-1962" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="home savings bank" & par_value_temp==200000 & maturity_hold_temp=="1917-1963" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="hudson savings bank" & par_value_temp==5000 & maturity_hold_temp=="1917-1964" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="keene savings bank" & par_value_temp==10000 & maturity_hold_temp=="1917-1965" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="chicago rock island and pacific" & invname_hold_temp=="lanchester savings bank" & par_value_temp==5000 & maturity_hold_temp=="1917-1966" & book_year_hold==1913
+replace maturity_hold_temp="1918" if cname_hold_temp=="chicago rock island and pacific railway" & invname_hold_temp=="franklin fire insurance" & par_value_temp==50000 & maturity_hold_temp=="1914-1916" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="delaware and hudson" & invname_hold_temp=="new york life insurance trust" & par_value_temp==68000 & maturity_hold_temp=="1913-1935" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="delaware and hudson" & invname_hold_temp=="north adams savings bank" & par_value_temp==5000 & maturity_hold_temp=="1913-1936" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="delaware and hudson" & invname_hold_temp=="orange savings bank" & par_value_temp==35000 & maturity_hold_temp=="1913-1937" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="delaware and hudson" & invname_hold_temp=="people savings bank" & par_value_temp==50000 & maturity_hold_temp=="1913-1938" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="delaware and hudson" & invname_hold_temp=="people savings bank" & par_value_temp==75000 & maturity_hold_temp=="1913-1939" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="delaware and hudson" & invname_hold_temp=="portsmouth savings bank" & par_value_temp==15000 & maturity_hold_temp=="1913-1940" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="delaware and hudson" & invname_hold_temp=="providence institution for savings" & par_value_temp==500000 & maturity_hold_temp=="1913-1941" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="delaware and hudson" & invname_hold_temp=="quincy savings bank" & par_value_temp==50000 & maturity_hold_temp=="1913-1942" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="delaware and hudson" & invname_hold_temp=="randolph savings bank" & par_value_temp==25000 & maturity_hold_temp=="1913-1943" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="delaware and hudson" & invname_hold_temp=="rutland trust" & par_value_temp==10000 & maturity_hold_temp=="1913-1944" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="delaware and hudson" & invname_hold_temp=="salem five cents savings bank" & par_value_temp==50000 & maturity_hold_temp=="1916-1944" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="delaware and hudson" & invname_hold_temp=="spencer savings bank" & par_value_temp==10000 & maturity_hold_temp=="1916-1945" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="delaware and hudson" & invname_hold_temp=="south adams savings bank" & par_value_temp==15000 & maturity_hold_temp=="1916-1946" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="delaware and hudson" & invname_hold_temp=="suffolk savings bank for seamen others" & par_value_temp==100000 & maturity_hold_temp=="1916-1947" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="delaware and hudson" & invname_hold_temp=="taunton savings bank" & par_value_temp==10000 & maturity_hold_temp=="1916-1948" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="delaware and hudson" & invname_hold_temp=="union five cents savings bank" & par_value_temp==5000 & maturity_hold_temp=="1916-1949" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="delaware and hudson" & invname_hold_temp=="universal savings bank" & par_value_temp==5000 & maturity_hold_temp=="1916-1950" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="delaware and hudson" & invname_hold_temp=="waltham savings bank" & par_value_temp==25000 & maturity_hold_temp=="1916-1951" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="delaware and hudson" & invname_hold_temp=="maiden savings bank" & par_value_temp==75000 & maturity_hold_temp=="1916-1952" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="delaware and hudson" & invname_hold_temp=="websters five cents savings bank" & par_value_temp==15000 & maturity_hold_temp=="1916-1953" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="delaware and hudson" & invname_hold_temp=="wellfleet savings bank" & par_value_temp==5000 & maturity_hold_temp=="1916-1954" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="delaware and hudson" & invname_hold_temp=="williamstown savings bank" & par_value_temp==30000 & maturity_hold_temp=="1916-1955" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="delaware and hudson" & invname_hold_temp=="woburn five cents savings bank" & par_value_temp==5000 & maturity_hold_temp=="1916-1956" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="delaware and hudson" & invname_hold_temp=="worcester north savings institution" & par_value_temp==25000 & maturity_hold_temp=="1916-1957" & book_year_hold==1913
+replace maturity_hold_temp="1920-1927" if cname_hold_temp=="fitchburg" & invname_hold_temp=="east cambridge savings bank" & par_value_temp==25000 & maturity_hold_temp=="1920-1928" & book_year_hold==1913
+replace maturity_hold_temp="1920-1927" if cname_hold_temp=="fitchburg" & invname_hold_temp=="home savings bank" & par_value_temp==233000 & maturity_hold_temp=="1920-1929" & book_year_hold==1913
+replace maturity_hold_temp="1920-1927" if cname_hold_temp=="fitchburg" & invname_hold_temp=="wellfleet savings bank" & par_value_temp==17000 & maturity_hold_temp=="1920-1930" & book_year_hold==1913
+replace maturity_hold_temp="1920-1927" if cname_hold_temp=="fitchburg" & invname_hold_temp=="whitinsville savings bank" & par_value_temp==14000 & maturity_hold_temp=="1920-1931" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="delaware and hudson" & invname_hold_temp=="farmers mechanic savings bank" & par_value_temp==15000 & maturity_hold_temp=="1913-1919" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="delaware and hudson" & invname_hold_temp=="gardner savings bank" & par_value_temp==11000 & maturity_hold_temp=="1913-1920" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="delaware and hudson" & invname_hold_temp=="german fire insurance" & par_value_temp==10000 & maturity_hold_temp=="1913-1921" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="delaware and hudson" & invname_hold_temp=="home savings bank" & par_value_temp==50000 & maturity_hold_temp=="1913-1922" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="delaware and hudson" & invname_hold_temp=="institution for savings in roxbury vicinity" & par_value_temp==50000 & maturity_hold_temp=="1913-1923" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="delaware and hudson" & invname_hold_temp=="lee savings bank" & par_value_temp==5000 & maturity_hold_temp=="1913-1924" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="delaware and hudson" & invname_hold_temp=="littletown savings bank" & par_value_temp==10000 & maturity_hold_temp=="1913-1925" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="delaware and hudson" & invname_hold_temp=="lowell institution for savings" & par_value_temp==20000 & maturity_hold_temp=="1913-1926" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="delaware and hudson" & invname_hold_temp=="lowell mechanic savings bank" & par_value_temp==20000 & maturity_hold_temp=="1913-1927" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="delaware and hudson" & invname_hold_temp=="marlborough savings bank" & par_value_temp==25000 & maturity_hold_temp=="1913-1928" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="delaware and hudson" & invname_hold_temp=="middleborough savings bank" & par_value_temp==25000 & maturity_hold_temp=="1913-1929" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="delaware and hudson" & invname_hold_temp=="middlesex institution savings" & par_value_temp==25000 & maturity_hold_temp=="1913-1930" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="delaware and hudson" & invname_hold_temp=="milton savings bank" & par_value_temp==20000 & maturity_hold_temp=="1913-1931" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="delaware and hudson" & invname_hold_temp=="monson savings bank" & par_value_temp==10000 & maturity_hold_temp=="1913-1932" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="delaware and hudson" & invname_hold_temp=="new bedford institution savings" & par_value_temp==150000 & maturity_hold_temp=="1913-1933" & book_year_hold==1913
+replace maturity_hold_temp="n/a" if cname_hold_temp=="delaware and hudson" & invname_hold_temp=="new hampshire savings bank" & par_value_temp==16000 & maturity_hold_temp=="1913-1934" & book_year_hold==1913
+replace maturity_hold_temp="1915-1917" if cname_hold_temp=="west end street" & invname_hold_temp=="cape ann savings bank" & par_value_temp==10000 & maturity_hold_temp=="1915-1918" & book_year_hold==1913
+replace maturity_hold_temp="1915-1917" if cname_hold_temp=="west end street" & invname_hold_temp=="lowell five cents savings bank" & par_value_temp==20000 & maturity_hold_temp=="1915-1919" & book_year_hold==1913
+replace maturity_hold_temp="1915-1917" if cname_hold_temp=="west end street" & invname_hold_temp=="north avenue savings bank" & par_value_temp==6000 & maturity_hold_temp=="1915-1921" & book_year_hold==1913
+replace maturity_hold_temp="1915-1932" if cname_hold_temp=="west end street" & invname_hold_temp=="braintree savings bank" & par_value_temp==10000 & maturity_hold_temp=="1915-1933" & book_year_hold==1913
+replace maturity_hold_temp="1915-1932" if cname_hold_temp=="west end street" & invname_hold_temp=="east boston savings bank" & par_value_temp==50000 & maturity_hold_temp=="1915-1934" & book_year_hold==1913
+replace maturity_hold_temp="1915-1932" if cname_hold_temp=="west end street" & invname_hold_temp=="haverhill savings bank" & par_value_temp==50000 & maturity_hold_temp=="1915-1936" & book_year_hold==1913
+replace maturity_hold_temp="1915-1932" if cname_hold_temp=="west end street" & invname_hold_temp=="middleborough savings bank" & par_value_temp==56000 & maturity_hold_temp=="1915-1937" & book_year_hold==1913
+replace maturity_hold_temp="1915-1932" if cname_hold_temp=="west end street" & invname_hold_temp=="salem five cents savings bank" & par_value_temp==20000 & maturity_hold_temp=="1915-1939" & book_year_hold==1913
+replace maturity_hold_temp="1915-1932" if cname_hold_temp=="west end street" & invname_hold_temp=="somerville savings bank" & par_value_temp==50000 & maturity_hold_temp=="1915-1940" & book_year_hold==1913
+replace maturity_hold_temp="1915-1932" if cname_hold_temp=="west end street" & invname_hold_temp=="south adams savings bank" & par_value_temp==25000 & maturity_hold_temp=="1915-1941" & book_year_hold==1913
+replace maturity_hold_temp="1908/1918" if cname_hold_temp=="buffalo and southwestern" & invname_hold_temp=="eutaw savings bank" & par_value_temp==75000 & maturity_hold_temp=="1908/1919" & book_year_hold==1913
+replace maturity_hold_temp="1908/1918" if cname_hold_temp=="buffalo and southwestern" & invname_hold_temp=="german american fire insurance" & par_value_temp==10000 & maturity_hold_temp=="1908/1920" & book_year_hold==1913
+replace maturity_hold_temp="1908/1918" if cname_hold_temp=="buffalo and southwestern" & invname_hold_temp=="insurance of salamandra" & par_value_temp==35000 & maturity_hold_temp=="1908/1921" & book_year_hold==1913
+replace maturity_hold_temp="1908/1918" if cname_hold_temp=="buffalo and southwestern" & invname_hold_temp=="international insurance" & par_value_temp==15000 & maturity_hold_temp=="1908/1922" & book_year_hold==1913
+replace maturity_hold_temp="1908/1918" if cname_hold_temp=="buffalo and southwestern" & invname_hold_temp=="manayunk trust" & par_value_temp==5000 & maturity_hold_temp=="1908/1923" & book_year_hold==1913
+replace maturity_hold_temp="1908/1918" if cname_hold_temp=="buffalo and southwestern" & invname_hold_temp=="maryland motor car insurance" & par_value_temp==5000 & maturity_hold_temp=="1908/1924" & book_year_hold==1913
+replace maturity_hold_temp="1908/1918" if cname_hold_temp=="buffalo and southwestern" & invname_hold_temp=="masonic life association" & par_value_temp==10000 & maturity_hold_temp=="1908/1925" & book_year_hold==1913
+replace maturity_hold_temp="1908/1918" if cname_hold_temp=="buffalo and southwestern" & invname_hold_temp=="pennsylvania mutual life insurance" & par_value_temp==100000 & maturity_hold_temp=="1908/1926" & book_year_hold==1913
+replace maturity_hold_temp="1908/1918" if cname_hold_temp=="buffalo and southwestern" & invname_hold_temp=="philadelphia savings fund society" & par_value_temp==99000 & maturity_hold_temp=="1908/1927" & book_year_hold==1913
+replace maturity_hold_temp="1908/1918" if cname_hold_temp=="buffalo and southwestern" & invname_hold_temp=="savings fund society of germantown vicinity" & par_value_temp==25000 & maturity_hold_temp=="1908/1928" & book_year_hold==1913
+replace maturity_hold_temp="1908/1918" if cname_hold_temp=="buffalo and southwestern" & invname_hold_temp=="united states fidelity guaranty" & par_value_temp==5000 & maturity_hold_temp=="1908/1929" & book_year_hold==1913
+replace maturity_hold_temp="1916" if cname_hold_temp=="seaboard air line" & invname_hold_temp=="people bank trust" & par_value_temp==10000 & maturity_hold_temp=="1914-1915" & book_year_hold==1913
 
 
 *Final
 cd "$root_dta"
 saveold Holdings_Data_Issue_temp.dta, replace
-
+use Holdings_Data_Issue_temp.dta, clear
 *Class_hold
 
 /*
