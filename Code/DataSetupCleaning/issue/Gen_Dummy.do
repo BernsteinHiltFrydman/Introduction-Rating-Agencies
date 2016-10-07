@@ -2,6 +2,7 @@
 set more off
 global root_dta "D:\Dropbox\Bond Rating\Code and Data\dta"
 cd "$root_dta"
+
 use Holdings_Data_Issue_temp.dta, clear
 *Revise investor_type_temp
 replace invname_hold_temp=invname_hold_temp+" indiana" if regexm(invname_hold_orig," Indiana$") & !regexm(invname_hold_temp,"indiana$")
@@ -302,7 +303,8 @@ cd "$root_dta"
 save tempc_2,replace
 
 *use tempc_1, clear
-merge m:n id using tempc_1, gen(merge_dummy)
+merge 1:1 id using tempc_1, gen(merge_dummy)
+cap drop _merge
 sort investor_city_temp group_dummy
 cap drop inv
 
@@ -350,6 +352,8 @@ replace cname_hold_temp=regexr(cname_hold_temp,"telephone$","")
 replace cname_hold_temp=regexr(cname_hold_temp,"county","")
 replace cname_hold_temp=regexr(cname_hold_temp,"st","")
 replace cname_hold_temp=regexr(cname_hold_temp,"extension","")
+replace cname_hold_temp=regexr(cname_hold_temp,"division","")
+replace cname_hold_temp=regexr(cname_hold_temp,"omaha[ ]?$","")
 
 global x="cname_hold_temp"
 cd "D:\Dropbox\Bond Rating\Code and Data\do"
@@ -372,7 +376,8 @@ sort id
 cd "$root_dta"
 rename cname_hold_temp cop
 *save tempc_2.dta,replace
-merge m:n id using tempc_1.dta, gen(merge_str) 
+merge 1:1 id using tempc_1.dta, gen(merge_str) 
+cap drop _merge
 cap drop cop
 cap drop merge_str id
 /*duplicates drop cname_hold_temp,force
@@ -503,7 +508,7 @@ save temp2.dta,replace
 use temp_coupon.dta, clear
 sort cname_hold_temp coupon_hold_temp
 cap drop _merge
-merge m:n cname_hold_temp coupon_hold_temp using temp2.dta
+merge m:1 cname_hold_temp coupon_hold_temp using temp2.dta
 cap drop _merge
 egen id_coupon_temp=group(cname_hold_temp coupon_hold_temp) if group_coupon==""
 replace id_coupon_temp=cond(id_coupon_temp==.,0,id_coupon_temp)
@@ -522,6 +527,7 @@ save temp_dummy.dta, replace
 cd "$root_dta"
 use temp_dummy.dta, clear
 drop if industry=="Government"
+replace maturity_hold_temp=regexr(maturity_hold_temp,"opt [0-9][0-9][0-9][0-9]([\-][0-9][0-9][0-9][0-9])*","")
 duplicates drop cname_hold_temp maturity_hold_temp, force
 rename maturity_hold_temp maturity1
 keep cname_hold_temp maturity1
@@ -529,7 +535,7 @@ save temp1.dta, replace
 
 rename maturity1 maturity_std
 joinby cname_hold_temp using temp1.dta
-
+/*
 replace maturity_std=";"+maturity_std+";"
 replace maturity_std=subinstr(maturity_std,"&",";&;",.)
 replace maturity_std=subinstr(maturity_std,"/",";/;",.)
@@ -539,37 +545,51 @@ replace maturity1=";"+maturity1+";"
 replace maturity1=subinstr(maturity1,"&",";&;",.)
 replace maturity1=subinstr(maturity1,"/",";/;",.)
 replace maturity1="" if maturity1==";n;/;a;"
-
+*/
+replace maturity_std="" if maturity_std=="n/a"
+replace maturity1="" if maturity1=="n/a"
 split maturity1, parse("&" "/" "-") gen(matr)
 
-gen matr_min=matr1 if strpos(maturity_std,"-")
-gen matr_max=matr1 if strpos(maturity_std,"-")
+split maturity_std,gen(may) parse("&" "/" "-")
+
+gen matr_min=may1 if strpos(maturity_std,"-")
+gen matr_max=may1 if strpos(maturity_std,"-")
+destring matr_min,replace
+destring matr_max,replace
 
 forv i=2/6{
-	replace matr_max=matr`i' if strpos(maturity_std,"-") & matr_max!=""
+	destring may`i', replace
+	replace matr_max=may`i' if strpos(maturity_std,"-") & may`i'>matr_max & may`i'!=.
+	replace matr_min=may`i' if strpos(maturity_std,"-") & may`i'<matr_min & may`i'!=.
 }
-
 
 cap drop group_maturity
 gen group_maturity=1
 
 forv i=1/6{
-	replace matr`i'=maturity_std if matr`i'==""
-	replace group_maturity=0 if !strpos(maturity_std,matr`i')
-	replace group_maturity=1 if matr`i'<=matr_max & matr`i'>=matr_min & strpos(maturity_std,"-")
+	replace group_maturity=0 if !strpos(maturity_std,matr`i') & matr`i'!=""
+	destring matr`i', replace
+	replace group_maturity=1 if matr`i'<=matr_max & matr`i'>=matr_min & strpos(maturity_std,"-") & matr`i'!=.
 }
 
-*Notice that we have to recheck the cases like "3 & 5-6", then min_max will be 3 & 6 which is not correct
+/*forv i=1/6{
+	destring matr`i', replace
+	replace group_maturity=1 if matr`i'<=matr_max & matr`i'>=matr_min & strpos(maturity_std,"-") & matr`i'==.
+}
+
 replace maturity_std=subinstr(maturity_std,";","",.)
 replace maturity1=subinstr(maturity1,";","",.)
+*/
 replace group_maturity=0 if maturity1==""
 *replace group_maturity=0 if maturity1==maturity_std
 *rename maturity_std maturity_hold_temp
 cap drop matr*
+cap drop may*
 
 sort cname_hold_temp maturity_std
-keep if group_maturity==1 
-by cname_hold_temp: gen x=_n
+keep if group_maturity==1
+cap drop x 
+by cname_hold_temp maturity_std: gen x=_n
 rename maturity1 maturity
 reshape wide maturity, i(cname_hold_temp maturity_std) j(x)
 by cname_hold_temp: gen x=_n
@@ -586,7 +606,7 @@ egen id_maturity_std=group(cname_hold_temp maturity_std)
 
 cap drop group_maturity_mst
 gen group_maturity_mst=.
-forv i=1/102{
+forv i=1/51{
 	replace group_maturity_mst=id_maturity_std if maturity_hold_temp==maturity`i'
 }
 keep cname_hold_temp maturity_hold_temp group_maturity_mst
@@ -610,7 +630,7 @@ save temp2.dta,replace
 use temp_dummy.dta, clear
 sort cname_hold_temp maturity_hold_temp
 cap drop _merge
-merge m:n cname_hold_temp maturity_hold_temp using temp2.dta
+merge m:1 cname_hold_temp maturity_hold_temp using temp2.dta
 cap drop _merge
 egen id_maturity_temp=group(cname_hold_temp maturity_hold_temp) if group_maturity==""
 replace id_maturity_temp=cond(id_maturity_temp==.,0,id_maturity_temp)
@@ -620,15 +640,128 @@ replace group_maturity=subinstr(group_maturity,"/","/9999",.)
 egen id_maturity=group(id_maturity_temp group_maturity)
 tostring id_maturity, replace
 replace id_maturity=group_maturity if group_maturity!="0"
-cap drop group_maturity id_maturity_temp co
+cap drop group_maturity 
+cap drop id_maturity_temp 
+cap drop co
+save temp3.dta, replace
+keep id_maturity 
+keep if strpos(id_maturity,"/")
+duplicates drop id_maturity,force
+split id_maturity, gen(mtr) parse("/")
+reshape long mtr, i(id_maturity) j(x)
+destring mtr,replace
+sort id_maturity mtr
+tostring mtr,replace
+cap drop x
+bysort id_maturity: gen x=_n
+reshape wide mtr, i(id_maturity) j(x)
+gen id_mtr=mtr1
+cap drop mtr1
+forv i=2/31{
+replace id_mtr=id_mtr+"/"+mtr`i' if mtr`i'!="."
+drop mtr`i'
+}
+cap drop _merge
+merge 1:m id_maturity using temp3.dta
+cap drop _merge
+replace id_maturity=id_mtr if id_mtr!="" & strpos(id_maturity,"/")
 
 
 *Issue
-egen id_issue=group(cname_hold_temp coupon_hold_temp maturity_hold_temp issuer_loc_temp collateral_temp class_type)
-egen id_issue_d=group(id_issuer id_coupon id_maturity issuer_loc_temp collateral_temp class_type)
+cap drop id_issue id_issue_d
+egen id_issue=group(cname_hold_temp coupon_hold_temp maturity_hold_temp issuer_loc_temp collateral_temp class_type stock_type_temp)
+egen id_issue_d=group(id_issuer id_coupon id_maturity issuer_loc_temp collateral_temp class_type stock_type_temp)
+saveold Holdings_Data_Dummy.dta, replace
 
 
+use Holdings_Data_Dummy.dta, clear
+cd "$root_dta"
+//gen id2=id_issue
+//sort id2
+save temp2.dta,replace
 
+set more off
+use temp2.dta,clear
+duplicates drop id_issue, force
+egen id=group(id_issuer id_coupon issuer_loc_temp collateral_temp class_type stock_type_temp)
+
+duplicates tag id_issue_d, gen(dup_0)
+split id_coupon, parse("/") gen(cop)
+split id_maturity, parse("/") gen(matr)
+gen id_cop_use=id_coupon
+gen id_matr_use=id_maturity
+forv i=1/3{
+	replace id_cop_use=cop`i' if cop`i'!=""
+	forv j=1/10{
+		replace id_matr_use=matr`j' if matr`j'!=""
+		egen id_issue`i'`j'=group(id_issuer id_cop_use id_matr_use issuer_loc_temp collateral_temp class_type stock_type_temp)
+		duplicates tag id_issue`i'`j', gen(dup_`i'`j')
+	}
+}
+
+gen pos = . 
+gen max = dup_0
+gen min = dup_0 
+tokenize "11 12 13 14 15 16 17 18 19 110 21 22 23 24 25 26 27 28 29 210 31 32 33 34 35 36 37 38 39 310" 
+
+forval j = 1/30 { 
+	replace pos = ``j'' if dup_``j'' > max & dup_``j'' < .
+	replace max = dup_``j'' if dup_``j'' > max & dup_``j'' < . 
+}
+
+gen id_issue_std=id_issue_d
+forval j = 1/30{
+	replace id_issue_std=10000000+id_issue``j'' if pos==``j''
+}
+
+format id_issue_std %10.0f
+//browse cname_hold_temp maturity_hold_temp coupon_hold_temp id_issue_std book_year_hold id_maturity if pos!=.
+sort id_issue
+/*
+save temps.dta, replace
+use temp2.dta, clear
+sort id_issue
+merge m:n id_issue using temps.dta
+*/
+
+keep id_issue id_issue_std
+cap drop _merge
+merge 1:m id_issue using temp2.dta
+cap drop _merge //id2
+
+rename id_issue id1
+rename id_issue_d id2
+rename id_issue_std id3
+rename id_issuer id4
+
+cap drop cop* matr* dup_* id_issue* pos max min _merge 
+cap drop id id_cop_use id_matr_use
+
+rename id1 id_issue 
+rename id2 id_issue_d 
+rename id3 id_issue_std
+rename id4 id_issuer
+/*
+//duplicates drop id_issuer id_coupon issuer_loc_temp collateral_temp class_type stock_type_temp, force
+
+reshape long dup_, i(id) j(y)
+bysort id_issuer id_coupon issuer_loc_temp collateral_temp class_type stock_type_temp: egen max=max(dup_)
+bysort id_issuer id_coupon issuer_loc_temp collateral_temp class_type stock_type_temp: egen min=min(dup_)
+
+duplicates drop id dup_, force
+save temp1.dta, replace
+use temp1.dta,clear
+gen n=cond(max==dup_,y,0)
+bysort id: egen nn=max(n)
+gen id_issue_std=id_issue_d
+
+foreach i of numlist 11/18 21/26 31{
+	replace id_issue_std=10000000+id_issue`i' if nn==`i'
+}
+
+cap drop _merge	
+merge m:n id_issuer id_coupon issuer_loc_temp collateral_temp class_type stock_type_temp using temp2.dta
+*/
 label var id_investor_city "group id for investor on city investor type"
 label var id_investor_state "group id for investor on city investor type"
 label var id_issuer "group id for issuer on issuer location"
@@ -637,115 +770,71 @@ label var id_maturity "group id for maturity on issuer name"
 label var id_issue "group id for issue on original variable"
 label var id_issue_d "group id for issue on group id (ex.id_issuer not cname)"
 
-*save temp_dummy.dta, replace
+//save temp_dummy.dta, replace
 
-foreach i in "invuse" "cuse" "group_coupon" "group_maturity" "investor_city_use" "id_investor_temp" "group_inv_nontype" "id_inv_nontype" "group_investor"{
+foreach i in "investor_state_use" "group_issuer" "group_inv_state" "invuse" "cuse" "group_coupon" "group_maturity" "investor_city_use" "id_investor_temp" "group_inv_nontype" "id_inv_nontype" "group_investor"{
 cap drop `i'
 }
 
-saveold Holdings_Data_Dummy.dta, replace
+cap drop tag_value
+cap gen tag_value=""
+replace tag_value="book value" if strpos(book_value_hold, "Y")|strpos(book_value_hold, "y")
+replace tag_value="par value" if (strpos(book_value_hold, "N")|book_value_hold=="") & mod(par_value_temp,1000)==0
+replace tag_value="market value" if (strpos(book_value_hold, "N")|book_value_hold=="") & !mod(par_value_temp,1000)==0
 
-/*This part turns out to be very trivial (less than 30 observations) and easy to make mistake
-*Issue revise id_coupon id_maturity
-gen id_c=id_coupon
-gen id_m=id_maturity
-replace id_coupon=regexr(id_c,"(/)[0-9]+","")
-replace id_maturity=regexr(id_m,"(/)[0-9]+","")
-egen id_issue_d1=group(id_issuer id_coupon id_maturity issuer_loc_temp collateral_temp class_type)
+order invname_hold_orig investor_id investor_name_master_match3 firm_id_holdings issue_id_holdings cname_hold_orig cname_hold_clean book_year_hold stock_type_hold coupon_hold min_coupon_hold max_coupon_hold /*
+*/maturity_year_hold min_mat_year_hold max_mat_year_hold class_hold investor_city_hold investor_state_hold investor_region1_final_hold investor_region2_final_hold par_value_clean_hold book_value_hold comments_hold/*
+*/ investor_type nyse_bond_issuer_id industry cname_hold_temp group_rrry count_rrry group_par count_par group_par2 count_par2 group_geo count_geo group_geo2 count_geo2 invname_hold_temp investor_state_temp /*
+*/investor_state_1 investor_state_2 dummy_investor_state_1 dummy_investor_state_2 investor_city_temp investor_city_1 investor_city_2 dummy_investor_city_1 dummy_investor_city_2 coupon_hold_temp maturity_hold_temp/*
+*/ class_hold_temp par_value_temp stock_type_temp tag_class issuer_loc_temp collateral_temp class_type is_bond is_stock
 
-replace id_coupon=regexr(id_c,"[0-9]+(/)","")
-replace id_maturity=regexr(id_m,"[0-9]+(/)","")
-egen id_issue_d2=group(id_issuer id_coupon id_maturity issuer_loc_temp collateral_temp class_type)
-
-cap drop id_coupon id_maturity
-rename id_c id_coupon
-rename id_m id_maturity
-
-duplicates tag id_issue_d, gen(c1)
-duplicates tag id_issue_d1, gen(c2)
-duplicates tag id_issue_d2, gen(c3)
-gen k=cond((c1==c2 & c2==c3),1,0)
-browse id_issue_* cname_hold_temp coupon_hold_temp maturity_hold_temp group_coupon if k==0
-bysort cname_hold_temp coupon_hold_temp: gen x2=_n
-reshape wide group_coupon_mst, i(cname_hold_temp coupon_hold_temp) j(x2)
-
-gen group_coupon=""
-forv i=1/9{
-	tostring group_coupon_mst`i',replace
-	replace group_coupon=group_coupon+"/"+group_coupon_mst`i' if group_coupon_mst`i'!=""
-}
-
-replace group_coupon=subinstr(group_coupon,"/.","",.)
-replace group_coupon=subinstr(group_coupon,".","",.)
-replace group_coupon=regexr(group_coupon,"^(/)","")
-
-/*Coupon & Maturity & Industry
-cd "$root_data"
-use temp_coupon.dta, clear
+cap drop industry_temp
 cap gen industry_temp=industry
-replace industry_temp="RRRY" if industry=="Steam Railroad" & industry=="Street Railway"
+replace industry_temp="Railway Railroad" if industry=="Street Railway"|industry=="Steam Railroad"
+cap gen investor_city_use=cond(investor_city_2!="",investor_city_2,investor_city_1)
+cap gen investor_state_use=cond(investor_state_2!="",investor_state_2,investor_state_1)
+cap gen dummy_investor_city_use=cond(dummy_investor_city_2!=.,dummy_investor_city_2,dummy_investor_city_1)
+cap gen dummy_investor_state_use=cond(dummy_investor_state_2!=.,dummy_investor_state_2,dummy_investor_state_1)
 
-save temp_coupon.dta, replace
 
-cd "$root_data"
-use temp_coupon.dta, clear
+replace industry="Steam Railroad" if industry=="Bank and Trust" & book_year_hold==1913
+replace industry="Industrial and Misc" if industry=="Bank and Trust" & book_year_hold==1911
+
+/*
+use trial.dta, clear
+*/
+gen x=_n
+tempfile t
+save "`t'"
 drop if industry=="Government"
-gen maturity=regexr(maturity_hold_temp,"opt [0-9][0-9][0-9][0-9]","")
-replace maturity="" if maturity=="n/a"
-replace maturity=strtrim(maturity)
-replace maturity=stritrim(maturity)
-split maturity, gen(mat) parse("-" "&" "/")
-destring mat*, replace
 
-gen maturity_min=mat1
-gen maturity_max=mat1
+gen maturity_std=maturity_hold_temp
+replace maturity_std="" if maturity_std=="n/a"
+split maturity_std,gen(may) parse("&" "/" "-")
+replace may1=subinword(may1,"opt","",.)
+replace may1=strtrim(may1)
+replace may1=stritrim(may1)
+gen matr_min=may1
+gen matr_max=may1
+destring matr_min,replace
+destring matr_max,replace
+
 
 forv i=2/6{
-replace maturity_max=mat`i' if mat`i'!=.
+	replace may`i'=subinword(may`i',"opt","",.)
+	replace may`i'=strtrim(may`i')
+	replace may`i'=stritrim(may`i')
+	destring may`i', replace
+	replace matr_max=may`i' if may`i'>matr_max & may`i'!=.
+	replace matr_min=may`i' if may`i'<matr_min & may`i'!=. 
 }
+cap drop maturity_std
+cap drop _merge
+merge 1:1 x using "`t'"
+cap drop may*
+cap drop _merge x
+cap drop maturity_max maturity_min
+rename matr_max maturity_max
+rename matr_min maturity_min
 
-gen coupon=cond(coupon_hold_temp=="n/a","",coupon_hold_temp)
-
-split coupon, gen(cop) parse("-" "&" "/")
-destring cop*,replace
-
-gen coupon_min=cop1
-gen coupon_max=cop1
-
-forv i=2/5{
-replace coupon_max=cop`i' if cop`i'!=.
-}
-
-drop mat1 mat2 mat3 mat4 mat5 mat6 cop1 cop2 cop3 cop4 cop5 
-
-
-*******
-duplicates drop cname_hold_temp coupon_hold_temp, force
-replace coupon_hold_temp=";"+coupon_hold_temp+";"
-replace coupon_hold_temp=subinstr(coupon_hold_temp,"&",";&;",.)
-replace coupon_hold_temp=subinstr(coupon_hold_temp,"/",";/;",.)
-drop if coupon_hold_temp==";n;/;a;"
-*ssc install egenmore
-egen leng_temp=noccur(coupon_hold_temp), string(";")
-gsort cname_hold_temp -leng_temp coupon_min
-by cname_hold_temp: gen x=_n
-bysort cname_hold_temp: egen max_temp=max(x)
-gsort -max_temp cname_hold_temp -leng_temp
-browse cname_hold_temp coupon_hold_temp x
-gen group_c=0
-forv i=1/x{
-replace group_c=x if 
-}
-
-
-forv i=1/
-*******
-
-gen maturity_maxmin=maturity_max-maturity_min
-gen coupon_maxmin=coupon_max-coupon_min
-gsort cname_hold_temp -maturity_maxmin maturity
-duplicates drop cname_hold_temp coupon_hold_temp, force 
-bysort cname_hold_temp: egen co=count(coupon_hold_temp) if strpos(coupon_hold_temp,"&")|strpos(coupon_hold_temp,"/")|strpos(coupon_hold_temp,"-")
-
-gsort -co cname_hold_temp -coupon_maxmin
-browse co cname_hold_temp coupon_maxmin coupon_hold_temp if coupon_maxmin<0
+saveold Holdings_Data_Dummy.dta, replace
