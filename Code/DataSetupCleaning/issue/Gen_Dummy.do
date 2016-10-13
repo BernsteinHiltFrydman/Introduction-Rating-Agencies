@@ -4,6 +4,7 @@ global root_dta "D:\Dropbox\Bond Rating\Code and Data\dta"
 cd "$root_dta"
 
 use Holdings_Data_Issue_temp.dta, clear
+replace class_hold_temp="n/a" if class_hold=="N/A" & !strpos(class_hold_temp,"n/a")
 *Revise investor_type_temp
 replace invname_hold_temp=invname_hold_temp+" indiana" if regexm(invname_hold_orig," Indiana$") & !regexm(invname_hold_temp,"indiana$")
 gen investor_type_temp="other investors"
@@ -328,7 +329,7 @@ egen id_investor_state=group(group_inv_state invuse investor_state_use investor_
 cap drop investor_city_use
 cd "$root_dta"
 save temp_dummy1.dta, replace
-
+use temp_dummy1.dta, clear
 *Issuer
 gen id=_n
 sort id
@@ -352,8 +353,7 @@ replace cname_hold_temp=regexr(cname_hold_temp,"telephone$","")
 replace cname_hold_temp=regexr(cname_hold_temp,"county","")
 replace cname_hold_temp=regexr(cname_hold_temp,"st","")
 replace cname_hold_temp=regexr(cname_hold_temp,"extension","")
-replace cname_hold_temp=regexr(cname_hold_temp,"division","")
-replace cname_hold_temp=regexr(cname_hold_temp,"omaha[ ]?$","")
+
 
 global x="cname_hold_temp"
 cd "D:\Dropbox\Bond Rating\Code and Data\do"
@@ -367,11 +367,76 @@ replace cname_hold_temp=strtrim(cname_hold_temp)
 do remove_geo.do
 replace cname_hold_temp=stritrim(cname_hold_temp)
 replace cname_hold_temp=strtrim(cname_hold_temp)
-replace cname_hold_temp=regexr(cname_hold_temp," and$","")
+*replace cname_hold_temp=regexr(cname_hold_temp," and$","")
 replace cname_hold_temp=regexr(cname_hold_temp,"bank of$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"prior lien$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"sink fund$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"sinking fund$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"trust certificates$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"short line$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"leased line$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"purchase money$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"purchased lines$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"real estate$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"in liquidation$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"joint collateral$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"bonds$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"certificates$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"loans$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"mortgage$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"notes$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"stocks$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"adjustment$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"assenting$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"collateral$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"common$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"consolidated$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"convertible$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"debentures$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"demand$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"deposit$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"drawings$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"equipment$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"first$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"funding$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"general$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"gold$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"guaranteed$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"income$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"joint$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"lien$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"non-cumulative$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"perpetual$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"preferred$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"registered$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"script$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"second$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"secured$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"syndicate$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"third$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"title$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"cable$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"car$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"steamship$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"refunded$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"refunding$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"reorganization$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"subscription”$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"railroad$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"railway$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"securities$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"electric$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"scrip$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"station$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"street$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"telegraph$","")
+replace cname_hold_temp=regexr(cname_hold_temp,"telephone$","")
+replace cname_hold_temp=stritrim(cname_hold_temp)
+replace cname_hold_temp=strtrim(cname_hold_temp)
 *drop if cname_hold_temp==""
 cap drop group_str
 egen group_str=group(cname_hold_temp issuer_loc_temp)
+egen group_issuer_nl=group(cname_hold_temp)
 sort id
 cd "$root_dta"
 rename cname_hold_temp cop
@@ -408,8 +473,11 @@ replace cname_hold_temp=cname_hold_temp+" stock" if regexm(cname_hold_orig,"STOC
 rename group_str group_issuer
 label var group_issuer "Index for matches removing(), words, and geographic and match"
 replace group_issuer=0 if group_issuer==.
+replace group_issuer_nl=0 if group_issuer_nl==.
 gen cuse=cond(group_issuer==0,cname_hold_temp,"0")
+gen cuse2=cond(group_issuer_nl==0,cname_hold_temp,"0")
 egen id_issuer=group(group_issuer cuse issuer_loc_temp)
+egen id_issuer_nl=group(group_issuer_nl cuse)
 
 cd "$root_dta"
 
@@ -803,6 +871,9 @@ replace industry="Industrial and Misc" if industry=="Bank and Trust" & book_year
 /*
 use trial.dta, clear
 */
+/**************************************************************
+This part creates max/min coupon/maturity
+**************************************************************/
 gen x=_n
 tempfile t
 save "`t'"
@@ -836,5 +907,42 @@ cap drop _merge x
 cap drop maturity_max maturity_min
 rename matr_max maturity_max
 rename matr_min maturity_min
+
+gen x=_n
+tempfile t
+save "`t'"
+drop if industry=="Government"
+
+gen coupon_std=coupon_hold_temp
+replace coupon_std="" if coupon_std=="n/a"
+split coupon_std,gen(may) parse("&" "/" "-")
+replace may1=subinword(may1,"opt","",.)
+replace may1=strtrim(may1)
+replace may1=stritrim(may1)
+gen matr_min=may1
+gen matr_max=may1
+destring matr_min,replace
+destring matr_max,replace
+
+
+forv i=2/5{
+	replace may`i'=subinword(may`i',"opt","",.)
+	replace may`i'=strtrim(may`i')
+	replace may`i'=stritrim(may`i')
+	destring may`i', replace
+	replace matr_max=may`i' if may`i'>matr_max & may`i'!=.
+	replace matr_min=may`i' if may`i'<matr_min & may`i'!=. 
+}
+cap drop coupon_std
+cap drop _merge
+merge 1:1 x using "`t'"
+cap drop may*
+cap drop _merge x
+cap drop coupon_max coupon_min
+cap drop cuse2 group_issuer_nl
+rename matr_max coupon_max
+rename matr_min coupon_min
+
+gen id_hold=_n
 
 saveold Holdings_Data_Dummy.dta, replace

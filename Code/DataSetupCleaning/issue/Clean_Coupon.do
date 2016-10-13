@@ -2763,8 +2763,8 @@ replace maturity_hold_temp="1913-1916" if class_hold_temp=="equipment" & coupon_
 replace maturity_hold_temp="1916" if class_hold_temp=="equipment" & coupon_hold_temp=="n/a" & maturity_hold_temp=="n/a" & par_value_temp==25000 & invname_hold_orig=="Travelers' Insurance Company" & cname_hold_orig=="HOCKING VALLEY" & book_year_hold==1911
 replace maturity_hold_temp="1914" if class_hold_temp=="equipment" & coupon_hold_temp=="n/a" & maturity_hold_temp=="n/a" & par_value_temp==10000 & invname_hold_orig=="Wayne County Savings Bank" & cname_hold_orig=="HOCKING VALLEY" & book_year_hold==1911
 replace maturity_hold_temp="1916" if class_hold_temp=="equipment" & coupon_hold_temp=="n/a" & maturity_hold_temp=="n/a" & par_value_temp==25000 & invname_hold_orig=="Woonsocket Institution for Savings" & cname_hold_orig=="HOCKING VALLEY" & book_year_hold==1911
-replace maturity_hold_temp="4.5&5" if class_hold_temp=="equipment bonds" & coupon_hold_temp=="n/a" & maturity_hold_temp=="n/a" & par_value_temp==50000 & invname_hold_orig=="Carbondale Miners' and Mechanics' Savings Bank" & cname_hold_orig=="NEW YORK CENTRAL LINES" & book_year_hold==1913
-replace maturity_hold_temp="4.5&5" if class_hold_temp=="equipment bonds" & coupon_hold_temp=="n/a" & maturity_hold_temp=="n/a" & par_value_temp==80000 & invname_hold_orig=="Industrial Trust, Title and Savings Co." & cname_hold_orig=="NEW YORK CENTRAL LINES" & book_year_hold==1913
+replace coupon_hold_temp="4.5&5" if class_hold_temp=="equipment bonds" & coupon_hold_temp=="n/a" & maturity_hold_temp=="n/a" & par_value_temp==50000 & invname_hold_orig=="Carbondale Miners' and Mechanics' Savings Bank" & cname_hold_orig=="NEW YORK CENTRAL LINES" & book_year_hold==1913
+replace coupon_hold_temp="4.5&5" if class_hold_temp=="equipment bonds" & coupon_hold_temp=="n/a" & maturity_hold_temp=="n/a" & par_value_temp==80000 & invname_hold_orig=="Industrial Trust, Title and Savings Co." & cname_hold_orig=="NEW YORK CENTRAL LINES" & book_year_hold==1913
 replace maturity_hold_temp="1912" if class_hold_temp=="collateral trust notes" & coupon_hold_temp=="n/a" & maturity_hold_temp=="n/a" & par_value_temp==9420 & invname_hold_orig=="Chambersburg Trust Company" & cname_hold_orig=="NORTH AMERICAN COMPANY" & book_year_hold==1908
 replace maturity_hold_temp="1912" if class_hold_temp=="collateral trust notes" & coupon_hold_temp=="n/a" & maturity_hold_temp=="n/a" & par_value_temp==25000 & invname_hold_orig=="Girard Trust Company" & cname_hold_orig=="NORTH AMERICAN COMPANY" & book_year_hold==1911
 replace maturity_hold_temp="1912" if class_hold_temp=="collateral trust notes" & coupon_hold_temp=="n/a" & maturity_hold_temp=="n/a" & par_value_temp==45000 & invname_hold_orig=="Knickerbocker Trust Company" & cname_hold_orig=="NORTH AMERICAN COMPANY" & book_year_hold==1911
@@ -3235,13 +3235,43 @@ replace maturity_hold_temp="1908/1918" if cname_hold_temp=="buffalo and southwes
 replace maturity_hold_temp="1908/1918" if cname_hold_temp=="buffalo and southwestern" & invname_hold_temp=="savings fund society of germantown vicinity" & par_value_temp==25000 & maturity_hold_temp=="1908/1928" & book_year_hold==1913
 replace maturity_hold_temp="1908/1918" if cname_hold_temp=="buffalo and southwestern" & invname_hold_temp=="united states fidelity guaranty" & par_value_temp==5000 & maturity_hold_temp=="1908/1929" & book_year_hold==1913
 replace maturity_hold_temp="1916" if cname_hold_temp=="seaboard air line" & invname_hold_temp=="people bank trust" & par_value_temp==10000 & maturity_hold_temp=="1914-1915" & book_year_hold==1913
+replace industry="Steam Railroad" if industry=="Bank and Trust" & book_year_hold==1913
+replace industry="Industrial and Misc" if industry=="Bank and Trust" & book_year_hold==1911
+replace investor_state_temp="maine" if investor_state_temp=="me"
+replace maturity_hold_temp="1908-1909" if maturity_hold_temp=="1908-9"
+replace maturity_hold_temp="1950-1951" if maturity_hold_temp=="1950-1"
+replace investor_state_temp="maine" if investor_state_temp=="me"
+replace par_value_temp=4000 if cname_hold_orig=="ATCHISON, TOPEKA AND SANTA FE ," & invname_hold_orig=="Dedham Mutual Fire Insurance Company" /*& par_value_temp==1000000*/ & book_year_hold==1913 & maturity_hold_temp=="1995" & coupon_hold_temp=="4"
+replace par_value_temp=2000000 if cname_hold_orig=="BALTIMORE AND OHIO" & invname_hold_orig=="Equitable Life Assurance Society" & par_value_temp==2000 & book_year_hold==1911 & maturity_hold_temp=="1948" & coupon_hold_temp=="4"
+replace par_value_temp=300000 if cname_hold_orig=="CHICAGO ROCK ISLAND AND PACIFIC RAILWAY" & invname_hold_orig=="Chelsea Savings Bank" & par_value_temp<=900 & book_year_hold==1911 & maturity_hold_temp=="1988" & coupon_hold_temp=="4"
+replace par_value_temp=300000 if cname_hold_orig=="DULUTH, SOUTH SHORE AND ATLANTIC" & invname_hold_orig=="Prudential Insurance Company" & par_value_temp==4070 & book_year_hold==1911 & maturity_hold_temp=="1937" & coupon_hold_temp=="5"
+replace par_value_temp=227000 if cname_hold_orig=="MASON CITY AND FORT DODGE" & invname_hold_orig=="Provident Life & Trust Company" & par_value_temp<=900 & book_year_hold==1911 & maturity_hold_temp=="1955" & coupon_hold_temp=="4"
+replace par_value_temp=500000 if cname_hold_orig=="NEW ENGLAND" & invname_hold_orig=="Society for Savings" & par_value_temp<=900 & book_year_hold==1908 & maturity_hold_temp=="1945" & coupon_hold_temp=="4"
+replace par_value_temp=1378000 if cname_hold_orig=="SOUTHERN RAILWAY" & invname_hold_orig=="Guaranty Trust Company of New York"  & book_year_hold==1911 & maturity_hold_temp=="1913" & coupon_hold_temp=="5"
 
+/*
+*Move class in cname to class
+gen wdct=wordcount(cname_hold_temp)
+global cdt `"& wdct>3 & class_hold_temp==`"n/a"'"'
+replace cname_hold_temp=cname_hold_temp+" "
+replace class_hold_temp=class_hold_temp+" "
+foreach i in "prior lien" "sink fund" "sinking fund" "trust certificates" "short line" "leased line" "purchase money" "purchased lines" "real estate" "in liquidation" "bonds" "certificates" "loans" "mortgage" "notes" "stocks" /*
+*/"adjustment" "assenting" "collateral" "common" "consolidated" "convertible" "debentures" "demand" "deposit" "drawings" "equipment" "first" "funding" "general" "gold" "guaranteed" "income" "joint" "lien" "non-cumulative" /*
+*/"perpetual" "preferred" "registered" "script" "second" "secured" "syndicate" "third" "title" "cable" "car" "steamship" "refunded" "refunding" "reorganization" "subscription"{
+replace tabb=1 if strpos(cname_hold_temp," `i' ") &!strpos(class_hold_temp," `i' ") & word(cname_hold_temp,-1)=="`i'"
+replace class_hold_temp=class_hold_temp+" "+" `i' " if strpos(cname_hold_temp," `i' ") &!strpos(class_hold_temp," `i' ") & !strpos(class_hold_temp,"n/a") & word(cname_hold_temp,-1)=="`i'" & word(cname_hold_temp,-1)!="and" & wdct>3 & 
+replace class_hold_temp=" `i' " if strpos(cname_hold_temp," `i' ") &!strpos(class_hold_temp," `i' ") & strpos(class_hold_temp,"n/a")
+}
+drop wdct
+*/
 
 *Final
 cd "$root_dta"
 saveold Holdings_Data_Issue_temp.dta, replace
 use Holdings_Data_Issue_temp.dta, clear
 *Class_hold
+
+cd "D:\Dropbox\Bond Rating\Code and Data\Analysis"
 
 /*
 drop if industry=="Government"

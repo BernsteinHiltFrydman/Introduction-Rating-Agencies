@@ -2968,3 +2968,47 @@ label var class_type "General security information created from class_hold varia
 label define tagclass 0 "Not essential or mis-entered" 1 "General security type info." 2 "Issuer location" 3 "Railway info." 4 "Unsure" 6 "Collateral related" 7 "Status related" 36 "Railway or collateral" 13 "General security type info. & railway" 14 "General security type info. & unsure" 46 "Collateral related unsure" 47 "Status related unsure unsure" 16 "General security type info. & collateral" 17 "General security type info. & status", modify
 destring tag_class, replace
 label value tag_class tagclass
+
+foreach i in "class_hold_temp" "class_type" "collateral_temp" "issuer_loc_temp"{
+replace `i'=subinstr(`i',"1st","first",.)
+replace `i'=subinstr(`i',"2nd","second",.)
+replace `i'=subinword(`i',"p c","pc",.)
+replace `i'=subinword(`i',"erieand","erie and",.)
+replace `i'=subinword(`i',"marshfleld","marshfield",.)
+replace `i'=subinword(`i',"pacificextension","pacific extension",.)
+replace `i'=subinword(`i',"pittsburg","pittsburgh",.)
+replace `i'=subinword(`i',"potts creek","ports creek",.)
+replace `i'=subinword(`i',"term","terminal",.)
+replace `i'=subinword(`i',"collatera","collateral",.)
+replace `i'=subinword(`i',"genaral","general",.)
+replace `i'=subinword(`i',"bond","bonds",.)
+replace `i'=subinword(`i',"certificate","certificates",.)
+replace `i'=subinword(`i',"class2","class 2",.)
+replace `i'=subinword(`i',"class3","class 3",.)
+replace `i'=subinword(`i',"classes","class",.)
+replace `i'=subinword(`i',"debenture","debentures",.)
+replace `i'=subinword(`i',"del","delaware",.)
+replace `i'=subinword(`i',"equip","equipment",.)
+replace `i'=subinstr(`i',","," ",.)
+replace `i'=subinword(`i',"equipments","equipment",.)
+replace `i'=subinword(`i',"incomes","income",.)
+replace `i'=subinword(`i',"independence","independent",.)
+replace `i'=subinword(`i',"islands","island",.)
+replace `i'=subinword(`i',"lines","line",.)
+replace `i'=subinword(`i',"newnan","newman",.)
+replace `i'=subinword(`i',"northen","northern",.)
+replace `i'=subinword(`i',"ore","oregon",.)
+replace `i'=subinword(`i',"pittsfleld","pittsfield",.)
+replace `i'=subinword(`i',"script","scrip",.)
+replace `i'=subinword(`i',"tltusrille","tltusville",.)
+replace `i'=subinword(`i',"pittsfleld","pittsfield",.)
+replace `i'=subinword(`i',"pittsfleld","pittsfield",.)
+replace `i'=subinword(`i',"pittsfleld","pittsfield",.)
+replace `i'=strtrim(`i')
+replace `i'=stritrim(`i')
+ }
+
+replace class_hold_temp="n/a" if class_hold_temp=="" 
+replace issuer_loc_temp="n/a" if issuer_loc_temp==""
+replace collateral_temp="n/a" if collateral_temp==""
+replace class_type="n/a" if class_type==""
