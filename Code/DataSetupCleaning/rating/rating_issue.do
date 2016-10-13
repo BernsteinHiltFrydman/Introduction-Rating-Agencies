@@ -1,11 +1,12 @@
-/*
 clear
 set more off
+*BF runing this program, revise root_dta to the directory you store dta files including "Holdings_Data_Dummy.dta", "rating_merge_stk.dta", and "rating_merge_temp.dta"
 global root_dta="D:\Dropbox\Bond Rating\Code and Data\dta"
+*BF runing this program, revise root_dta to the directory you store do file: "rating_class.do"
 global root_do "D:\Dropbox\Bond Rating\Code and Data\rating"
 cd "$root_dta"
 
-use "D:\Dropbox\Bond Rating\Code and Data\dta\Holdings_Data_Dummy.dta", clear
+use Holdings_Data_Dummy.dta, clear
 //keep if book_year_hold==1908
 //drop if industry=="Government" & cname_hold_temp!="aroostook county"
 replace class_hold_temp=strtrim(class_hold_temp)
@@ -15,6 +16,7 @@ gen cname_division=cname_hold_temp
 replace cname_division=cname_division+" "+class_hold_temp if tag_class==3
 gen id_hold=_n
 
+*mini-do file to standardize class
 cd "$root_do"
 global x="class_hold_temp"
 do rating_class.do
@@ -62,9 +64,80 @@ replace `i'="leased line stock" if cname_hold_temp=="minneapolis st paul and sau
 }
 
 cd "$root_dta"
+/*
 save temp.dta, replace
 
+/*****************************************************************************
+Merge with stock_ratings
+*****************************************************************************/
+use temp, clear
+*/
+joinby cname_hold_temp using rating_merge_stk.dta, unm(master)
+gen class_hold_use=class_hold_temp if class_hold_temp!="n/a"
+replace class_hold_use=class_hold_use+" "+stock_type_temp if stock_type_temp!="n/a"
+replace class_hold_use=subinword(class_hold_use,"stock","",.)
+replace class_hold_use=subinword(class_hold_use,"securities","",.)
+replace class_hold_use=subinword(class_hold_use,"various","",.)
+*replace class_hold_use=subinword(class_hold_use,"transcontinental short line","",.)
+replace class_hold_use=subinword(class_hold_use,"hampshire","",.)
+*replace class_hold_use=subinword(class_hold_use,"leased line stock","",.)
+replace class_hold_use=subinword(class_hold_use,"serial","",.)
+replace class_hold_use=regexr(class_hold_use,"\(.+\)","")
+replace class_hold_use=strtrim(class_hold_use)
+replace class_hold_use=stritrim(class_hold_use)
+replace class_hold_use="n/a" if class_hold_use==""
 
+gen tag_class_match=cond(strpos(class_hold_use,class_temp_rate),1,0)
+replace tag_class_match=1 if strpos(class_temp_rate,class_hold_use)
+
+bysort id_hold: egen max_d2=max(tag_class_match)
+replace tag_class_match=1 if class_hold_use=="n/a" & class_temp_rate=="n/a" & is_stock!=0 
+replace tag_class_match=1 if class_temp_rate=="n/a" & max_d2==0 & is_stock!=0
+replace tag_class_match=1 if class_hold_use=="n/a" & max_d2==0 & is_stock!=0
+replace tag_class_match=0 if _merge!=3
+
+gen tag_total=tag_class_match
+replace tag_total=0 if _merge!=3
+replace tag_total=0 if is_stock==0
+bysort id_hold: egen count_match=total(tag_total)
+bysort id_hold: egen cotv=nvals(rating_rate)
+replace cotv=0 if cotv==.
+gen dup=0
+replace dup=1 if count_match>1 & cotv>1
+replace tag_total=0 if is_bond!=0
+replace rating_rate="" if tag_total==0
+
+cap drop max
+bysort id_rate_stk: egen max=max(count_match)
+codebook id_rate_stk if _merge==3 & max<1 & is_stock!=0
+
+cap drop keep arrr
+gen keep=0
+replace keep=1 if tag_total>0
+replace keep=1 if _merge!=3
+bysort id_hold: gen arrr=_n
+replace keep=2 if count_match==0 & arr==1
+
+keep if keep>0
+
+cap drop arrr
+bysort id_hold: gen id_hold_dup=_n
+replace id_hold_dup=cond(id_hold_dup==1,0,1)
+
+drop issuer_id_rate max_d2 cotv max com keep tag_class_match
+
+foreach i in "issuer_name_rate" "class_rate" "class_hold_use" "tag_total" "count_match" "rating_rate" "class_temp_rate" "_merge" {
+	rename `i' `i'_stk
+}
+
+label var id_hold_dup "equals 1 if multiple matches in rating & holding"
+
+tempfile tempstk
+save "`tempstk'"
+*save temp_stk.dta, replace
+
+/*
+use temp_stk.dta,clear
 use rating_merge.dta, clear
 replace issuer_temp=issuer_temp+" "
 
@@ -113,10 +186,10 @@ replace coupon_temp=subinstr(coupon_temp," ","",.)
 
 cap drop co co2
 cap gen mst=_n
+/*
 save rating_merge_temp.dta, replace
-
-
 use rating_merge_temp.dta,clear
+*/
 replace cname_hold_temp="chartiers" if issuer_name=="Chartiers Ry."
 replace cname_hold_temp="erie railway" if issuer_name=="Erie Railway Buffalo Br."
 replace cname_hold_temp="new york lake erie and western" if issuer_name=="N. Y. L. E. & W. Coal & Imp."
@@ -170,9 +243,10 @@ sort cname_hold_temp coupon maturity
 
 *rename coupon coupon_hold_temp
 rename maturity maturity_hold_temp
+/*
 save temp_ri.dta,replace
-
 use temp_ri.dta,clear
+*/
 *reclink 
 reclink2 cname_division cname_hold_temp using temp.dta, idm(mst) idu(id_hold) gen(rec_scr) //required(maturity_hold_temp)
 
@@ -324,13 +398,13 @@ keep tag_merge security salability rating parent_use parent other mst mis_cname 
 *rename cname_hold_temp cname_2
 cap drop cname_hold_temp
 rename Ucname_hold_temp cname_hold_temp
-
+/*
 //cap drop _merge
 //merge 1:1 mst using temp_ri.dta
 save temp1.dta,replace
-
 cd "$root_dta"
 use temp1.dta,clear
+*/
 ******************************************************************
 *Clean class & lien & division
 ******************************************************************
@@ -555,12 +629,14 @@ rename cname_hold_temp_rate cname_hold_temp
 cap drop mis_cname tag_merge 
 replace class_temp_rate=subinstr(class_temp_rate,"second","",.) if strpos(class_temp_rate,"first") & strpos(class_temp_rate,"second") & strpos(lien_rate,"2")
 replace class_temp_rate=subinstr(class_temp_rate,"first","",.) if strpos(class_temp_rate,"first") & strpos(class_temp_rate,"second") & strpos(lien_rate,"1")
+/*
 cd "$root_dta"
 save rating_merge.dta,replace
 cd "$root_dta"
 use rating_merge.dta,clear
+*/
 /**************************************************************
-Merge with holdings data using issuer_id
+Assign issuer_id in holdings data to ratings data
 **************************************************************/
 sort cname_hold_temp
 tempfile y
@@ -568,7 +644,9 @@ save "`y'"
 keep cname_hold_temp
 duplicates drop
 cap drop _merge
-merge 1:m cname_hold_temp using temp.dta
+cd "$root_dta"
+merge 1:m cname_hold_temp using "`tempstk'"
+*merge 1:m cname_hold_temp using temp_stk.dta
 keep if _merge==3
 keep cname_hold_temp id_issuer_nl
 duplicates drop
@@ -579,28 +657,13 @@ cap drop _merge
 
 tempfile x
 save "`x'"
-use temp_stk.dta,clear
+use "`tempstk'", clear
+*use temp_stk.dta,clear
 drop _merge
 joinby cname_hold_temp using "`x'", unmatched(master)
-save join_result2.dta,replace
-*/
-/**************************************************************
-Merge with holdings data using only cname
-**************************************************************
-tempfile x
-save "`x'"
-use temp_stk.dta,clear
-cap drop _merge
-joinby cname_hold_temp using "`x'", unmatched(master)
-save join_result.dta,replace
-*/
-/**************************************************************
-Match coupon, maturity, division & class
-**************************************************************/
-use join_result2.dta,clear
-global tir "tag_class_weak"
-*tag_class_strp
-*tag_class_stg
+/****************************************************************
+Match coupon/maturity/division/class
+****************************************************************/
 set more off
 rename mst_rate id_rate
 *rename use id_hold
@@ -610,10 +673,7 @@ gen tag_cop=cond(coupon_max_rate<=coupon_max & coupon_min_rate>=coupon_min,1,0)
 replace tag_cop=1 if coupon_max_rate>=coupon_max & coupon_min_rate<=coupon_min
 gen tag_mat=cond(maturity_max_rate<=maturity_max & maturity_min_rate>=maturity_min,1,0)
 replace tag_mat=1 if maturity_max_rate>=maturity_max & maturity_min_rate<=maturity_min
-/*
-release matching rule to: if |maturity_rate-maturity_hold|<2
-replace tag_mat=1 if abs(maturity_max_rate-maturity_max)<=2 & abs(maturity_min_rate-maturity_min)<=2
-*/
+
 
 *division
 gen tag_division=cond(strpos(cname_hold_temp,division_rate),1,0)
@@ -628,6 +688,16 @@ bysort id_hold: egen max_d=max(tag_division)
 3) if either class_hold or class_rate is missing & no other matches exist for this issue
 4)
 */
+/*****************************************************************************************
+Match class using multiple methods (weak/stg(strong)/strp(include))
+	weak: match if both include at least one keyword or both not 
+	strong: match if have the same including/non-including result for all keywords
+	include: match if one class is included in the other class after some basic cleaning
+******************************************************************************************/
+global tir "tag_class_weak"
+*tag_class_strp
+*tag_class_stg
+
 replace class_temp_rate="n/a" if class_temp_rate==""
 replace class_type="n/a" if class_type==""
 gen class_hold_use=class_type if class_type!="n/a"
@@ -668,6 +738,7 @@ gen tag_class_weak=0
 gen tag_class_stg=1
 gen thold=0
 gen trate=0
+*keywords in weak/strong method:
 foreach i in "first" "cons" "second" "general" "debenture" "refund" "collateral" "sink fund" "guaranteed" "certificate" "exten" "debenture" "joint" "line" "gold" "equipment" "trust" "loan"{
 	gen hold$m=cond(strpos(class_hold_use,"`i'"),1,0)
 	gen rate$m=cond(strpos(class_temp_rate,"`i'"),1,0)
@@ -694,6 +765,7 @@ replace tag_class_strp=1 if strpos(class_temp_rate,class_hold_temp)
 replace tag_class_strp=1 if strpos(class_temp_rate,class_type)
 replace tag_class_strp=1 if strpos(class_temp_rate,stock_type_temp)
 */
+
 cap drop tag_class_match
 rename $tir tag_class_match
 replace tag_class_match=1 if class_hold_use=="n/a" & class_temp_rate=="n/a"
@@ -707,12 +779,10 @@ replace tag_class_match=1 if thold==0 & trate==0
 cap drop thold trate 
 cap drop max_d2
 
-
+/*
 save temp_tag.dta,replace
 //strdist class_type class_temp_rate, gen(distance_class)
-
 *overall matching score
-/*
 use temp_tag.dta,clear
 */
 cap drop tag_total
@@ -754,9 +824,10 @@ bysort id_hold: egen count_match=total(tag_total)
 
 cap drop dup
 gen dup=0
-*foreach i in "salability_rate" "security_rate" "factor_of_safety_rate" "interest_per_mile_rate" "income_rate" "miles_rate" "interest_rate" "rating_rate" "miles_rate"{
+*foreach i in "salability_rate" "security_rate" "factor_of_safety_rate" "interest_per_mile_rate" "income_rate" "miles_rate" "interest_rate" "rating_rate"{
+foreach i in "salability_rate" "security_rate" "factor_of_safety_rate" "rating_rate"{
 *foreach i in "salability_rate" "security_rate" "factor_of_safety_rate" "interest_rate" "rating_rate" "miles_rate"{
-foreach i in "rating_rate" {
+*foreach i in "rating_rate" {
 cap drop countv_`i'
 bysort id_hold: egen countv_`i'=nvals(`i') if tag_total==1 
 replace countv_`i'=0 if countv_`i'==.
@@ -764,8 +835,14 @@ replace dup=1 if count_match>1 & countv_`i'>1
 cap drop countv_`i' 
 }
 
-
 /*
+cap drop max_t
+bysort id_rate: egen max_t=max(tag_total)
+bysort id_rate: egen max_c=max(tag_cop)
+bysort id_rate: egen max_m=max(tag_mat)
+codebook id_rate if (max_c!=1 | max_m!=1) & _merge==3 & max_t==0
+browse id_rate coupon_hold_temp coupon_temp_rate maturity_hold_temp maturity_temp_rate class_hold_temp class_temp_rate tag_class_match if (max_c!=1 | max_m!=1) & _merge==3 & max_t==0 & industry!="Government"
+
 codebook id_issue_std if dup==1 & count_match>1
 tab count_match if industry_temp=="Railway Railroad"
 codebook id_issue_std if count_match>1
@@ -776,6 +853,7 @@ replace keep=1 if tag_total>0
 replace keep=1 if _merge!=3
 bysort id_hold: gen arrr=_n
 replace keep=2 if count_match==0 & arr==1
+
 keep if keep>0
 
 sort id_hold
@@ -793,9 +871,44 @@ cap drop id_hold_drop
 bysort id_hold: gen tag_dup=_N
 replace tag_dup=cond(tag_dup>1,1,0)
 
-foreach i in "id_mtr" "count_str" "cuse2" "investor_type" "min_mat_year_hold" "max_mat_year_hold" "min_coupon_hold" "max_coupon_hold" "id_coupon_temp" "id_issue_d" "cname_division" "coupon_max" "coupon_min" "maturity_max" "maturity_min" "dummy_investor_state_use" "dummy_investor_city_use" "cname_division_rate" "maturity_min_rate" "maturity_max_rate" "coupon_min_rate" "coupon_max_rate" "co" "" "max_d" "tag_class_stg" "tag_class_strp" "max_d2" "arrr" "keep" "tag_dup" "tag_class_strp" "tag_class_stg" "tag_class_match" "max_d" "tag_mat" "tag_cop" "co" "cname_division_rate" "_merge" "keep" "arrr" {
+foreach i in "id_mtr" "count_str" "cuse2" "investor_type" "min_mat_year_hold" "max_mat_year_hold" "min_coupon_hold" "max_coupon_hold" "id_coupon_temp" "id_issue_d" "cname_division" "coupon_max" "coupon_min" "maturity_max" "maturity_min" "dummy_investor_state_use" "dummy_investor_city_use" "cname_division_rate" "maturity_min_rate" "maturity_max_rate" "coupon_min_rate" "coupon_max_rate" "co" "" "max_d" "tag_class_stg" "tag_class_strp" "max_d2" "arrr" "keep" "tag_dup" "tag_class_strp" "tag_class_stg" "tag_class_match" "max_d" "tag_mat" "tag_cop" "co" "cname_division_rate" "keep" "arrr" {
 cap drop `i'
 }
+
+replace rating_rate=subinstr(rating_rate," ","",.)
+replace rating_rate_stk=subinstr(rating_rate_stk," ","",.)
+
+label var maturity_temp_rate "Cleaned maturity of 1909 bond ratings data"
+label var id_rate "id of each obs. 1909 bond ratings data"
+label var coupon_temp_rate "Cleaned coupon of 1909 bond ratings data"
+label var lien_temp_rate "Cleaned railway lien of 1909 bond ratings data"
+label var class_temp_rate "Cleaned class of 1909 bond ratings data"
+label var tag_division "Cleaned railroad division of 1909 bond ratings data (from issuer name)"
+label var tag_total "=1 if 1909 rating matches holding data"
+label var count_match "# of bond rating entries matches to 1 entry in hld data"
+label var dup "=1 if more than 1 rate matches to 1 entry in hld data"
+label var id_issue_std "Group id for security based on some matching strategy"
+label var investor_type_temp "Revised investor type"
+label var tag_value "Value type of par_value_temp based on some guessing strategy"
+label var industry_temp "Same as industry but combine RR&RY"
+label var investor_city_use "Domestic investor city"
+label var investor_state_use "Domestic investor state"
+label var id_hold "id of each obs. Poor's hld data"
+label var issuer_name_rate_stk "Cleaned issuer name (bf fuzzy match) in 1909 stk ratings data"
+label var id_rate_stk "id of each obs. 1909 stk ratings data"
+label var class_rate_stk "Original class 1909 stk ratings data"
+label var count_match_stk "# of stk rating entries matches to 1 entry in hld data"
+label var MoodysName_rate "Original issuer name in 1909 stk ratings data"
+
+foreach i in "MoodysName_rate" "StockDividendRate1909_rate" "StockOutstanding1909_rate" "StockPriority1909_rate" "StockPar1909_rate" "StockRatingNotes_1909_rate" "BondObs_rate" "NewFirm_rate"{
+
+rename `i' `i'_stk
+}
+
+rename StockDividendPaidDates_1909_rate DividendPaidDate1909_rate_stk
+
+
+cap drop class_hold_use max_temp ct_m class_hold_use_stk Companyname_rate PoorsCompanyName_rate 
 
 
 cd "$root_dta"
@@ -803,6 +916,26 @@ saveold Holding_Rating_Merged.dta,replace
 
 /*
 use Holding_Rating_Merged.dta,clear
+duplicates drop cname_hold_temp,force
+browse cname_hold_temp if _merge==1 & industry_temp=="Railway Railroad" & book_year_hold==1908
+
+
+preserve
+duplicates drop id_issue_std id_rate_stk,force
+tab rating_rate_stk
+*tab rating_rate
+restore
+
+//use temp_stk.dta,clear
+drop if rating_rate==""
+duplicates drop id_issue id_rate,force
+bysort id_rate:egen co=nvals(id_issue)
+sort id_rate
+tab co
+codebook id_rate if co>1
+codebook id_rate
+
+browse cname_hold_temp coupon_hold_temp maturity_hold_temp rating_rate_stk issuer_name_rate_stk if co>1
 
 *check for not-merged rating entries
 
@@ -823,70 +956,7 @@ bysort id_rate: egen max_stk=nvals(is_stock)
 
 
 
-/*****************************************************************************
-Merge with stock_ratings
-*****************************************************************************/
-use temp, clear
-joinby cname_hold_temp using rating_merge_stk.dta, unm(master)
-gen class_hold_use=class_hold_temp if class_hold_temp!="n/a"
-replace class_hold_use=class_hold_use+" "+stock_type_temp if stock_type_temp!="n/a"
-replace class_hold_use=subinword(class_hold_use,"stock","",.)
-replace class_hold_use=subinword(class_hold_use,"securities","",.)
-replace class_hold_use=subinword(class_hold_use,"various","",.)
-*replace class_hold_use=subinword(class_hold_use,"transcontinental short line","",.)
-replace class_hold_use=subinword(class_hold_use,"hampshire","",.)
-*replace class_hold_use=subinword(class_hold_use,"leased line stock","",.)
-replace class_hold_use=subinword(class_hold_use,"serial","",.)
-replace class_hold_use=regexr(class_hold_use,"\(.+\)","")
-replace class_hold_use=strtrim(class_hold_use)
-replace class_hold_use=stritrim(class_hold_use)
-replace class_hold_use="n/a" if class_hold_use==""
 
-gen tag_class_match=cond(strpos(class_hold_use,class_temp_rate),1,0)
-replace tag_class_match=1 if strpos(class_temp_rate,class_hold_use)
-
-bysort id_hold: egen max_d2=max(tag_class_match)
-replace tag_class_match=1 if class_hold_use=="n/a" & class_temp_rate=="n/a" & is_stock!=0 
-replace tag_class_match=1 if class_temp_rate=="n/a" & max_d2==0 & is_stock!=0
-replace tag_class_match=1 if class_hold_use=="n/a" & max_d2==0 & is_stock!=0
-replace tag_class_match=0 if _merge!=3
-
-gen tag_total=tag_class_match
-replace tag_total=0 if _merge!=3
-replace tag_total=0 if is_stock==0
-bysort id_hold: egen count_match=total(tag_total)
-bysort id_hold: egen cotv=nvals(rating_rate)
-replace cotv=0 if cotv==.
-gen dup=0
-replace dup=1 if count_match>1 & cotv>1
-replace rating_rate="" if tag_total==0
-
-cap drop max
-bysort id_rate_stk: egen max=max(count_match)
-codebook id_rate_stk if _merge==3 & max<1 & is_stock!=0
-
-cap drop keep arrr
-gen keep=0
-replace keep=1 if tag_total>0
-replace keep=1 if _merge!=3
-bysort id_hold: gen arrr=_n
-replace keep=2 if count_match==0 & arr==1
-
-keep if keep>0
-
-cap drop arrr
-bysort id_hold: gen id_hold_dup=_n
-replace id_hold_dup=cond(id_hold_dup==1,0,1)
-
-drop issuer_id_rate max_d2 cotv max com keep tag_class_match
-
-foreach i in "issuer_name_rate" "class_rate" "class_hold_use" "tag_total" "count_match" "rating_rate" "class_temp_rate" "_merge" {
-	rename `i' `i'_stk
-}
-
-label var id_hold_dup "equals 1 if multiple matches in rating & holding"
-
-save temp_stk.dta, replace
 *browse class_hold_use class_temp_rate is_bond is_stock max_d2 id_hold tag_class_match  _merge if _merge==3 & tag_total!=1 & is_bond==0 & max_d2==0
 
 *foreach i in "certificates" "common" "first" "preferred" "guaranteed"
